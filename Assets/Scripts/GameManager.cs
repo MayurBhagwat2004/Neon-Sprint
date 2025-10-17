@@ -16,6 +16,16 @@ public class GameManager : MonoBehaviour
     {
 
     }
+    public bool CanStartGame()
+    {
+#if UNITY_EDITOR || UNITY_STANDALONE
+        if (Input.GetMouseButtonDown(0))
+            playerTouchedScreen = true;
+#else
+        
+        #endif
+        return playerTouchedScreen;
+    }
     
     public void PlayGame()
     {
@@ -28,7 +38,8 @@ public class GameManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #else
 Application.Quit();
-        #endif
+#endif
 
     }
+    
 }
