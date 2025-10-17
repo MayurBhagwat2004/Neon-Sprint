@@ -57,9 +57,13 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.clip = Array.Find(soundClips, s => s.name == "HomeMusic"); //Finding if there is any clip name HomeMusic to load in musicSource
         }
-        AudioClip audioClip = Array.Find(soundClips, clip => clip.name == "ClickSfx"); //Finding if there is any clip name ClickSfc to laod in sfxSource        
-
+        else if (sceneName == "LevelScene")
+        {
+            musicSource.clip = Array.Find(soundClips, s => s.name == "LevelMusic");
+        }
         musicSource.Play();
+        AudioClip audioClip = Array.Find(soundClips, clip => clip.name == "ClickSfx"); //Finding if there is any clip name ClickSfc to laod in sfxSource        
+        sfxSource.clip = audioClip;
     }
 
     public void PlayMusic()

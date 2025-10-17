@@ -1334,7 +1334,7 @@ MonoBehaviour:
   soundClips:
   - {fileID: 8300000, guid: 14fd3cf5e65f841429ba4c5112195a5b, type: 3}
   - {fileID: 8300000, guid: 3a7e29412b47d5448ba864535c086273, type: 3}
-  - {fileID: 8300000, guid: 0e537d318e320d040a708da3ac3b4dd8, type: 3}
+  - {fileID: 8300000, guid: 28cae7adc1e33f546b3914f5ac691a2d, type: 3}
   isMusicOn: 0
 --- !u!1 &1070711285
 GameObject:
