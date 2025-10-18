@@ -1,12 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     private bool playerTouchedScreen;
-    
+    public PlayerInput touchInput;
+
+    void Awake()
+    {
+        if (Instance != this && Instance != null) Destroy(gameObject);
+        else Instance = this;
+    }
+
     void Start()
     {
         
@@ -22,11 +28,12 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
             playerTouchedScreen = true;
 #else
-        
-        #endif
+        if(Touchscreen.current!=null && Touchscreen.current.primaryTouch.press.isPressed)
+            playerTouchedScreen = true;
+#endif
         return playerTouchedScreen;
     }
-    
+
     public void PlayGame()
     {
         SceneManager.LoadScene("LevelScene");

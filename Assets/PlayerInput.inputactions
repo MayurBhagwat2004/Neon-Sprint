@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "PlayerInput",
+    "maps": [
+        {
+            "name": "TouchDetection",
+            "id": "0f0f4fc4-261b-4cab-9d40-db3ac1acff11",
+            "actions": [
+                {
+                    "name": "Touch",
+                    "type": "Value",
+                    "id": "f8183c1d-00d9-4493-abfa-60ef6bb2f642",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c3552ad5-ce84-48e2-bee7-182f6830e056",
+                    "path": "<Touchscreen>/touch2/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Touch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
