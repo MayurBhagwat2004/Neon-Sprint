@@ -20,16 +20,23 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
+        if (!playerTouchedScreen) return;   
     }
     public bool CanStartGame()
     {
 #if UNITY_EDITOR || UNITY_STANDALONE
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !playerTouchedScreen)
+        {
             playerTouchedScreen = true;
+            GameObject.Find("TouchScreenParent").SetActive(false);
+
+        }
 #else
-        if(Touchscreen.current!=null && Touchscreen.current.primaryTouch.press.isPressed)
+        if(Touchscreen.current!=null && Touchscreen.current.primaryTouch.press.isPressed && !playerTouchedScreen){
             playerTouchedScreen = true;
+            GameObject.Find("TouchScreenParent").SetActive(false);
+            
+        }
 #endif
         return playerTouchedScreen;
     }
