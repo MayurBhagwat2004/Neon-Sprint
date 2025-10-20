@@ -4,9 +4,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public Player player;
     private bool playerTouchedScreen;
     public PlayerInput touchInput;
-
+    public bool canPlayGame;
     void Awake()
     {
         if (Instance != this && Instance != null) Destroy(gameObject);
@@ -28,13 +29,16 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !playerTouchedScreen)
         {
             playerTouchedScreen = true;
+            canPlayGame = playerTouchedScreen;
             GameObject.Find("TouchScreenParent").SetActive(false);
-
+            player.canJumpAgain = true;
         }
 #else
         if(Touchscreen.current!=null && Touchscreen.current.primaryTouch.press.isPressed && !playerTouchedScreen){
             playerTouchedScreen = true;
+            canPlayGame = playerTouchedScreen;
             GameObject.Find("TouchScreenParent").SetActive(false);
+            player.canJumpAgain = true;
             
         }
 #endif
