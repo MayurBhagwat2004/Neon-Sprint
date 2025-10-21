@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpikeBall : MonoBehaviour
+public class Saw : MonoBehaviour
 {
     public float rotationSpeed = 360f;
     public float movementSpeed = 6f;
