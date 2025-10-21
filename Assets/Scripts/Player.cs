@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
         if (!GameManager.Instance.CanStartGame()) return;
 
         if (GameManager.Instance.CanStartGame())
-            rb.gravityScale = 1;
 
         DetectInput();
 
@@ -28,43 +27,53 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
-        rb.AddForce(Vector2.up * jumpForce);
-        
-
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
     public void DetectInput()
     {
         if (!GameManager.Instance.canPlayGame) return;
 
+        if (onGround)
+            rb.gravityScale = 1f;
+        else
+            rb.gravityScale = 9.8f;
+
+
 #if UNITY_EDITOR || UNITY_STANDALONE
         if (Input.GetMouseButtonDown(0) && canJumpAgain)
-        {
             Jump();
-            onGround = false;
-            canJumpAgain = false;
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            
-            canJumpAgain = true;
-        }
+
 
 #else
     if(Touchscreen.current!=null)
     {
         var touch = Touchscreen.current.primaryTouch;
-        if(touch.press.wasPressedThisFrame && canJumpAgain){
+        if(touch.press.wasPressedThisFrame && canJumpAgain)
             Jump();
-            onGround = false;   
-            canJumpAgain = false;
-        }
-        if (touch.press.wasReleasedThisFrame)
-            canJumpAgain = true;
+      
     }
-
 
 #endif
 
     }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            onGround = true;
+            canJumpAgain = true;
+        }
+    }
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            onGround = false;
+            canJumpAgain = false;
+        }
+    }
+
+
 }
