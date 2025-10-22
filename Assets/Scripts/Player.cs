@@ -9,9 +9,12 @@ public class Player : MonoBehaviour
     public float jumpForce = 10f;
     [SerializeField] private bool onGround;
     public bool canJumpAgain;
+
+    public Animator animator;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         rb.gravityScale = 0;
     }
 
@@ -63,6 +66,9 @@ public class Player : MonoBehaviour
         {
             onGround = true;
             canJumpAgain = true;
+            animator.SetBool("Run", true);
+            animator.SetBool("Jump",false);
+
         }
     }
 
@@ -72,6 +78,8 @@ public class Player : MonoBehaviour
         {
             onGround = false;
             canJumpAgain = false;
+            animator.SetBool("Jump",true);
+            animator.SetBool("Run", false);
         }
     }
 
