@@ -59,5 +59,9 @@ Application.Quit();
 #endif
 
     }
+    public void SendBackHome()
+    {
+        SceneManager.LoadScene("HomeScene");
+    }
     
 }
