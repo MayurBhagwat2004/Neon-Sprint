@@ -17,16 +17,16 @@ public class ObjectsSpawner : MonoBehaviour
         while (true)
         {
             GameObject obstacle = ObjectPool.SharedInstance.GetPooledObject();
-            obstacle.SetActive(true);
-            obstacle.transform.position = transform.position;
-
+            if (obstacle != null)
+            {
+                obstacle.transform.position = transform.position;
+                obstacle.SetActive(true);
+                StartCoroutine(ObjectPool.SharedInstance.DisablePooledObjects(obstacle));
+            }
             yield return new WaitForSeconds(coolDownTime);
-            DisablePooledObjects(obstacle);
+
         }
     }
 
-    private void DisablePooledObjects(GameObject pooledObject)
-    {
-        pooledObject.SetActive(false);
-    }
+    
 }

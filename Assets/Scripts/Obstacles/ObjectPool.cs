@@ -8,23 +8,25 @@ public class ObjectPool : MonoBehaviour
     public List<GameObject> pooledObjects;
     public List<GameObject> objectToPool;
     public int amountToPool;
-
+    private int currentReturnedObjectIndex;
     private void Awake()
     {
         SharedInstance = this;
-    }
-
-    void Start()
-    {
-        pooledObjects = new List<GameObject>();
+    
+    pooledObjects = new List<GameObject>();
         GameObject tmp;
         for (int i = 0; i < amountToPool; i++)
         {
-            int random = Random.Range(0,1);
+            int random = Random.Range(0,objectToPool.Count);
             tmp = Instantiate(objectToPool[random]);
             tmp.SetActive(false);
             pooledObjects.Add(tmp); //Adding the newly created gameobjects to the list
         }
+    }
+
+    void Start()
+    {
+        
     }
 
     void Update()
@@ -34,12 +36,28 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject GetPooledObject()
     {
-        for (int i = 0; i < amountToPool; i++)
-        {
-            if (!pooledObjects[i].activeInHierarchy)
-                return pooledObjects[i];
-        }
+
+        int randomObj = Random.Range(0, pooledObjects.Count);
+        if (!pooledObjects[randomObj].activeInHierarchy)
+            return pooledObjects[randomObj];
+        // for (int i = currentReturnedObjectIndex; i < pooledObjects.Count; i++)
+        // {
+        //     if (!pooledObjects[i].activeInHierarchy)
+        //     {
+        //         currentReturnedObjectIndex = i;
+        //         return pooledObjects[i];
+        //     }
+        //     else
+        //         pooledObjects[i].SetActive(false);
+
+        // }
         return null;
+    }
+    
+    public IEnumerator DisablePooledObjects(GameObject pooledObject)
+    {
+        yield return new WaitForSeconds(2);
+        pooledObject.SetActive(false);
     }
     
 }
