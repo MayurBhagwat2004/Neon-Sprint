@@ -300,6 +300,7 @@ GameObject:
   m_Component:
   - component: {fileID: 544866802}
   - component: {fileID: 544866803}
+  - component: {fileID: 544866804}
   m_Layer: 0
   m_Name: ObjectsSpawner
   m_TagString: Untagged
@@ -335,13 +336,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14bf6039a7eabed4c85ab72c4d85f0fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclePrefabs:
+  coolDownTime: 2
+--- !u!114 &544866804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544866801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e936289b5d63ac408195a22a9e37719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects: []
+  objectToPool:
   - {fileID: 1015936354191917144, guid: 4db7934b1bd20974dbe5bc6b5b7941c4, type: 3}
   - {fileID: 6997164931212221958, guid: d33fbb7fb5f74a24883cfbe245724ce4, type: 3}
-  poolSize: 10
-  spawnInterval: 2
-  spawnPoint: {fileID: 308590876}
-  timer: 0
+  amountToPool: 20
 --- !u!114 &612901487 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3676570029093360072, guid: 52d2bb15356ea5c40962c79a8e0787af, type: 3}
