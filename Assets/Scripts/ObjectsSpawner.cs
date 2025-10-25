@@ -1,16 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 public class ObjectsSpawner : MonoBehaviour
 {
     public int coolDownTime =2;
-
-
+    public bool started;
     void Start()
     {
-        StartCoroutine(CreateObstacles());
+    }
+
+    private void Update() {
+        if (GameManager.Instance.canPlayGame && !started)
+        {
+            started = true;
+            StartCoroutine(CreateObstacles());
+        }
     }
     IEnumerator CreateObstacles()
     {

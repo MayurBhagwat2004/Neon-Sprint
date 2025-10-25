@@ -1,6 +1,7 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -8,6 +9,8 @@ public class GameManager : MonoBehaviour
     private bool playerTouchedScreen;
     public PlayerInput touchInput;
     public bool canPlayGame;
+    public int score;
+    [SerializeField]private TextMeshProUGUI scoreText;
     void Awake()
     {
         if (Instance != this && Instance != null) Destroy(gameObject);
@@ -16,7 +19,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        if (scoreText != null)
+            scoreText.text = "0";
     }
 
     void Update()
@@ -45,10 +49,16 @@ public class GameManager : MonoBehaviour
         return playerTouchedScreen;
     }
 
+    public void IncreaseScore()
+    {
+        score++;
+        scoreText.text = score.ToString();
+    }
     public void PlayGame()
     {
         SceneManager.LoadScene("LevelScene");
     }
+
 
     public void QuitGame()
     {

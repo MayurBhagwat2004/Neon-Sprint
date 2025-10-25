@@ -694,6 +694,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 411647896}
     - target: {fileID: 3676570029093360072, guid: 52d2bb15356ea5c40962c79a8e0787af, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 1732648079}
+    - target: {fileID: 3676570029093360072, guid: 52d2bb15356ea5c40962c79a8e0787af, type: 3}
       propertyPath: canPlayGame
       value: 0
       objectReference: {fileID: 0}
@@ -3038,12 +3042,12 @@ GameObject:
   - component: {fileID: 2105682469}
   - component: {fileID: 2105682468}
   m_Layer: 0
-  m_Name: DestroyWall
-  m_TagString: DestroyWall
+  m_Name: ScoreWall
+  m_TagString: ScoreWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &2105682468
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3073,10 +3077,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 2.844263}
+  m_Offset: {x: 0, y: 0.6130693}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -3087,7 +3091,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 6.688526}
+  m_Size: {x: 1, y: 2.226138}
   m_EdgeRadius: 0
 --- !u!4 &2105682469
 Transform:
@@ -3098,7 +3102,7 @@ Transform:
   m_GameObject: {fileID: 2105682467}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.565149, y: -2.618153, z: -0.028672498}
+  m_LocalPosition: {x: 0.02, y: -2.618153, z: -0.028672498}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

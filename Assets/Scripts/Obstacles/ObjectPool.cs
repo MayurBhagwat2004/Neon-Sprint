@@ -31,7 +31,7 @@ public class ObjectPool : MonoBehaviour
 
     void Update()
     {
-
+        
     }
 
     public GameObject GetPooledObject()
