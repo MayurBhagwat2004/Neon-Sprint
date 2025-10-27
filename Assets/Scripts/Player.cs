@@ -5,12 +5,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
+    public static Player Instance;
     public Rigidbody2D rb;
     public float jumpForce = 10f;
     [SerializeField] private bool onGround;
     public bool canJumpAgain;
 
-    public Animator animator;
+    public Animator animator;   
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -67,9 +68,10 @@ public class Player : MonoBehaviour
             onGround = true;
             canJumpAgain = true;
             animator.SetBool("Run", true);
-            animator.SetBool("Jump",false);
+            animator.SetBool("Jump", false);
 
         }
+        
     }
 
     public void OnCollisionExit2D(Collision2D collision)
@@ -83,5 +85,5 @@ public class Player : MonoBehaviour
         }
     }
 
-
+    
 }

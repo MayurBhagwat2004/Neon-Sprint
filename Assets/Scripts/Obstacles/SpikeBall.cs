@@ -38,5 +38,7 @@ public class SpikeBall : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("ScoreWall"))
             GameManager.Instance.IncreaseScore();
+        else if (collision.gameObject.CompareTag("Player") && GameManager.Instance.isPlayerAlive)
+            GameManager.Instance.PlayerDied();
     }
 }

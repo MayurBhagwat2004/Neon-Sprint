@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public Player player;
+    public bool isPlayerAlive;
     private bool playerTouchedScreen;
     public PlayerInput touchInput;
     public bool canPlayGame;
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != this && Instance != null) Destroy(gameObject);
         else Instance = this;
+
+        isPlayerAlive = true;
     }
 
     void Start()
@@ -25,7 +28,15 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (!playerTouchedScreen) return;   
+        if (!playerTouchedScreen) return;
+    }
+
+    public void PlayerDied()
+    {
+        if (!isPlayerAlive)
+        {
+            Time.timeScale = 0;
+        }
     }
     public bool CanStartGame()
     {

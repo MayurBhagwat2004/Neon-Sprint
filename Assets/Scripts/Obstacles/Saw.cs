@@ -36,7 +36,9 @@ public class Saw : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("ScoreWall"))
+        if (collision.gameObject.CompareTag("Player") && GameManager.Instance.isPlayerAlive)
+            GameManager.Instance.PlayerDied();
+        if (collision.gameObject.CompareTag("ScoreWall") && GameManager.Instance.isPlayerAlive)
             GameManager.Instance.IncreaseScore();
 
     }
