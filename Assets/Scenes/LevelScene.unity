@@ -337,6 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coolDownTime: 1
+  started: 0
 --- !u!114 &544866804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -697,10 +698,6 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1732648079}
-    - target: {fileID: 3676570029093360072, guid: 52d2bb15356ea5c40962c79a8e0787af, type: 3}
-      propertyPath: canPlayGame
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6823618058207835780, guid: 52d2bb15356ea5c40962c79a8e0787af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3159,10 +3156,6 @@ PrefabInstance:
     - target: {fileID: 8035738220550537711, guid: eebb161a76deac7438637e17d035b7e2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8644166632903767760, guid: eebb161a76deac7438637e17d035b7e2, type: 3}
-      propertyPath: jumpForce
-      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

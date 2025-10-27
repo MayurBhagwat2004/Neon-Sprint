@@ -18,6 +18,12 @@ public class SpikeBall : MonoBehaviour
 
     }
 
+    void OnEnable()
+{
+    SpinAndMove();
+}
+
+
     void FixedUpdate()
     {
     }

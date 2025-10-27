@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class ObjectPool : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class ObjectPool : MonoBehaviour
     {
         SharedInstance = this;
     
-    pooledObjects = new List<GameObject>();
+        pooledObjects = new List<GameObject>();
         GameObject tmp;
         for (int i = 0; i < amountToPool; i++)
         {
@@ -38,19 +39,11 @@ public class ObjectPool : MonoBehaviour
     {
 
         int randomObj = Random.Range(0, pooledObjects.Count);
-        if (!pooledObjects[randomObj].activeInHierarchy)
+            if (!pooledObjects[randomObj].activeInHierarchy)
             return pooledObjects[randomObj];
-        // for (int i = currentReturnedObjectIndex; i < pooledObjects.Count; i++)
-        // {
-        //     if (!pooledObjects[i].activeInHierarchy)
-        //     {
-        //         currentReturnedObjectIndex = i;
-        //         return pooledObjects[i];
-        //     }
-        //     else
-        //         pooledObjects[i].SetActive(false);
-
-        // }
+        else
+            pooledObjects[randomObj].SetActive(false);
+        
         return null;
     }
     

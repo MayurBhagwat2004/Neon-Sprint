@@ -18,6 +18,12 @@ public class Saw : MonoBehaviour
 
     }
 
+    void OnEnable()
+    {
+        SpinAndMove();
+    }
+
+
     void FixedUpdate()
     {
     }

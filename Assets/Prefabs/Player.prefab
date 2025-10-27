@@ -163,9 +163,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  jumpForce: 18.19
+  jumpForce: 20
   onGround: 0
   canJumpAgain: 0
+  animator: {fileID: 0}
 --- !u!95 &129675778169869284
 Animator:
   serializedVersion: 5
