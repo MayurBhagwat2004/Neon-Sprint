@@ -11,7 +11,11 @@ public class GameManager : MonoBehaviour
     public PlayerInput touchInput;
     public bool canPlayGame;
     public int score;
-    [SerializeField]private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    public GameObject gameOverObj;
+    public GameObject upperUiObj;
+
+    [SerializeField] private TextMeshProUGUI latestScoreText;
     void Awake()
     {
         if (Instance != this && Instance != null) Destroy(gameObject);
@@ -35,6 +39,15 @@ public class GameManager : MonoBehaviour
     {
         isPlayerAlive = false;
         canPlayGame = false;
+        PlayerPrefs.SetInt("Score", score);
+        latestScoreText.text = PlayerPrefs.GetInt("Score").ToString();
+        ShowGameOverUI();
+    }
+
+    public void ShowGameOverUI()
+    {
+        gameOverObj.SetActive(true);
+        upperUiObj.SetActive(false);
     }
     public bool CanStartGame()
     {
@@ -58,6 +71,10 @@ public class GameManager : MonoBehaviour
         return playerTouchedScreen;
     }
 
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     public void IncreaseScore()
     {
         score++;
