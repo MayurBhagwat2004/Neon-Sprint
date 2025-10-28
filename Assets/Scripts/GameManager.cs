@@ -33,10 +33,8 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDied()
     {
-        if (!isPlayerAlive)
-        {
-            Time.timeScale = 0;
-        }
+        isPlayerAlive = false;
+        canPlayGame = false;
     }
     public bool CanStartGame()
     {

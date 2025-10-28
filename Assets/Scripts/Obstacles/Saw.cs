@@ -38,6 +38,8 @@ public class Saw : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && GameManager.Instance.isPlayerAlive)
             GameManager.Instance.PlayerDied();
+
+        
         if (collision.gameObject.CompareTag("ScoreWall") && GameManager.Instance.isPlayerAlive)
             GameManager.Instance.IncreaseScore();
 

@@ -21,7 +21,7 @@ public class ObjectsSpawner : MonoBehaviour
     }
     IEnumerator CreateObstacles()
     {
-        while (true)
+        while (true && GameManager.Instance.canPlayGame)
         {
             GameObject obstacle = ObjectPool.SharedInstance.GetPooledObject();
             if (obstacle != null)
