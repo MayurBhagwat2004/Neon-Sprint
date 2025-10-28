@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
         musicSource = transform.GetChild(0).GetComponent<AudioSource>(); //Getting the AudioSource component from first child
         sfxSource = transform.GetChild(1).GetComponent<AudioSource>(); // Getting the AudioSource component from second child
 
-        isMusicOn = PlayerPrefs.GetInt("MusicEnabled", 1) == 1; //Setting the MusicEnabled playerpref variable to 1 by default to play music
+        PlayerPrefs.SetInt("MusicEnabled", 1); //Setting the MusicEnabled playerpref variable to 1 by default to play music
 
     }
 
@@ -31,7 +31,7 @@ public class AudioManager : MonoBehaviour
         SceneManager.sceneLoaded += ChangeMusic;
     }
 
-    private void Osable()
+    private void OnDisable()
     {
         SceneManager.sceneLoaded -= ChangeMusic;       
     }
@@ -49,15 +49,14 @@ public class AudioManager : MonoBehaviour
     // Music controlling functions
     public void ChangeMusic(Scene scene, LoadSceneMode loadSceneMode)
     {
-        if (!isMusicOn) return; //Checking if the isMusicOn is 1 or else return
 
         string sceneName = scene.name;
 
-        if (sceneName == "Home")
+        if (sceneName == "HomeScene" && PlayerPrefs.GetInt("MusicEnabled")==1)
         {
             musicSource.clip = Array.Find(soundClips, s => s.name == "HomeMusic"); //Finding if there is any clip name HomeMusic to load in musicSource
         }
-        else if (sceneName == "LevelScene")
+        else if (sceneName == "LevelScene" && PlayerPrefs.GetInt("MusicEnabled")==1)
         {
             musicSource.clip = Array.Find(soundClips, s => s.name == "LevelMusic");
         }
@@ -74,7 +73,7 @@ public class AudioManager : MonoBehaviour
     }
     public void PauseMusic()
     {
-        PlayerPrefs.SetInt("MusicEnabled",0);
+        PlayerPrefs.SetInt("MusicEnabled", 0);
         if (musicSource != null)
             musicSource.Pause();
     }
