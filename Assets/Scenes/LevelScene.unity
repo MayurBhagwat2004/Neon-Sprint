@@ -4715,10 +4715,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5649493097299171386, guid: 25aab03704ec0b74a9b01107272271c4, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 3a7e29412b47d5448ba864535c086273, type: 3}
     - target: {fileID: 6335010362158748144, guid: 25aab03704ec0b74a9b01107272271c4, type: 3}
       propertyPath: m_Name
       value: AudioManager
@@ -4764,13 +4760,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9142971079793098546, guid: 25aab03704ec0b74a9b01107272271c4, type: 3}
-      propertyPath: soundClips.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9142971079793098546, guid: 25aab03704ec0b74a9b01107272271c4, type: 3}
-      propertyPath: soundClips.Array.data[0]
+      propertyPath: soundButton
       value: 
-      objectReference: {fileID: 8300000, guid: 3a7e29412b47d5448ba864535c086273, type: 3}
+      objectReference: {fileID: 1664503366}
+    - target: {fileID: 9142971079793098546, guid: 25aab03704ec0b74a9b01107272271c4, type: 3}
+      propertyPath: soundButtonsrcImages.Array.data[0]
+      value: 
+      objectReference: {fileID: -663011761, guid: 156ec492e516ccb4099add479601d65e, type: 3}
+    - target: {fileID: 9142971079793098546, guid: 25aab03704ec0b74a9b01107272271c4, type: 3}
+      propertyPath: soundButtonsrcImages.Array.data[1]
+      value: 
+      objectReference: {fileID: 53940023, guid: 156ec492e516ccb4099add479601d65e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
