@@ -10,12 +10,13 @@ public class Player : MonoBehaviour
     public float jumpForce = 10f;
     [SerializeField] private bool onGround;
     public bool canJumpAgain;
-
+    private AudioSource audioSource;
     public Animator animator;   
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         rb.gravityScale = 0;
     }
 
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
+        audioSource.Play();
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 

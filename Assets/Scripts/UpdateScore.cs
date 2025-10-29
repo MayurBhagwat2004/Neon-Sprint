@@ -5,13 +5,17 @@ using UnityEngine;
 
 public class UpdateScore : MonoBehaviour
 {
-    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI highScoreText;
     void Start()
     {
-        if (scoreText != null)
-            scoreText.text = PlayerPrefs.GetInt("Score").ToString() ;
+        if (highScoreText != null)
+            highScoreText.text = PlayerPrefs.GetInt("Score").ToString();
     }
 
+    public void UpdateHighScore(int score)
+    {
+        highScoreText.text = score.ToString();
+    }
     void Update()
     {
         

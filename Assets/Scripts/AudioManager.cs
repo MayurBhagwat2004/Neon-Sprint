@@ -10,7 +10,6 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance { get; private set; }
     [Header("AudioSources")]
     public AudioSource musicSource;
-    public AudioSource sfxSource;
     public AudioClip[] soundClips;
     public bool isMusicOn;
     public Sprite[] soundButtonsrcImages;
@@ -21,7 +20,6 @@ public class AudioManager : MonoBehaviour
         else Instance = this;
 
         musicSource = transform.GetChild(0).GetComponent<AudioSource>(); //Getting the AudioSource component from first child
-        sfxSource = transform.GetChild(1).GetComponent<AudioSource>(); // Getting the AudioSource component from second child
 
         PlayMusic();
     }
@@ -49,6 +47,12 @@ public class AudioManager : MonoBehaviour
             musicSource.Pause();
             soundButton.image.sprite = soundButtonsrcImages[1];
         }
+    }
+
+    public void PlayGameOverMusic()
+    {
+        musicSource.clip = Array.Find(soundClips, clip => clip.name == "GameOverMusic");
+        musicSource.Play();
     }
 
 

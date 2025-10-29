@@ -13,17 +13,22 @@ public class GameManager : MonoBehaviour
     public PlayerInput touchInput;
     public bool canPlayGame;
     public int score;
-    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI scoreText,gameoverScoreText;
     public GameObject gameOverObj;
     public GameObject upperUiObj;
+    public UpdateScore updateScoreInstance;
 
-    [SerializeField] private TextMeshProUGUI latestScoreText;
     void Awake()
     {
         if (Instance != this && Instance != null) Destroy(gameObject);
         else Instance = this;
 
         isPlayerAlive = true;
+        gameOverObj.SetActive(false);
+
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
+        
     }
 
     void Start()
@@ -38,19 +43,25 @@ public class GameManager : MonoBehaviour
     }
 
     public bool IsPointerOverUI() => EventSystem.current.IsPointerOverGameObject();
-    
+
 
     public void PlayerDied()
     {
         isPlayerAlive = false;
         canPlayGame = false;
-        PlayerPrefs.SetInt("Score", score);
-        latestScoreText.text = PlayerPrefs.GetInt("Score").ToString();
+        if (score > PlayerPrefs.GetInt("Score"))
+        {
+            PlayerPrefs.SetInt("Score", score);
+            updateScoreInstance.UpdateHighScore(PlayerPrefs.GetInt("Score"));
+
+        }
         ShowGameOverUI();
+        AudioManager.Instance.PlayGameOverMusic();
     }
 
     public void ShowGameOverUI()
     {
+        gameoverScoreText.text = score.ToString();
         gameOverObj.SetActive(true);
         upperUiObj.SetActive(false);
     }
