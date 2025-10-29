@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
 
     public void DetectInput()
     {
-        if (!GameManager.Instance.canPlayGame) return;
+        if (!GameManager.Instance.canPlayGame || GameManager.Instance.IsPointerOverUI()) return;
 
         if (onGround)
             rb.gravityScale = 1f;

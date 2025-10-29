@@ -1,7 +1,9 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 using TMPro;
+using UnityEngine.EventSystems;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -35,6 +37,9 @@ public class GameManager : MonoBehaviour
         if (!playerTouchedScreen) return;
     }
 
+    public bool IsPointerOverUI() => EventSystem.current.IsPointerOverGameObject();
+    
+
     public void PlayerDied()
     {
         isPlayerAlive = false;
@@ -52,7 +57,7 @@ public class GameManager : MonoBehaviour
     public bool CanStartGame()
     {
 #if UNITY_EDITOR || UNITY_STANDALONE
-        if (Input.GetMouseButtonDown(0) && !playerTouchedScreen)
+        if (Input.GetMouseButtonDown(0) && !playerTouchedScreen && !IsPointerOverUI())
         {
             playerTouchedScreen = true;
             canPlayGame = playerTouchedScreen;
@@ -60,7 +65,7 @@ public class GameManager : MonoBehaviour
             player.canJumpAgain = true;
         }
 #else
-        if(Touchscreen.current!=null && Touchscreen.current.primaryTouch.press.isPressed && !playerTouchedScreen){
+        if(Touchscreen.current!=null && Touchscreen.current.primaryTouch.press.isPressed && !playerTouchedScreen && !IsPointerOverUI()){
             playerTouchedScreen = true;
             canPlayGame = playerTouchedScreen;
             GameObject.Find("TouchScreenParent").SetActive(false);

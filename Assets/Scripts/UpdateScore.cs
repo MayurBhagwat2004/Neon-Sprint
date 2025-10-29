@@ -9,7 +9,7 @@ public class UpdateScore : MonoBehaviour
     void Start()
     {
         if (scoreText != null)
-            scoreText.text = PlayerPrefs.GetInt("Score").ToString();
+            scoreText.text = PlayerPrefs.GetInt("Score").ToString() ;
     }
 
     void Update()
