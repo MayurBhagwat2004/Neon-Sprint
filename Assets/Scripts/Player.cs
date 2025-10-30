@@ -32,7 +32,8 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
-        audioSource.Play();
+        if(PlayerPrefs.GetInt("MusicEnabled") == 1)
+            audioSource.Play();
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
