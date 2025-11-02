@@ -748,7 +748,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 695760674}
   camPos: {fileID: 695760675}
-  parallaxSpeed: 1
+  parallaxSpeed: 0.57
 --- !u!114 &411647896 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8644166632903767760, guid: eebb161a76deac7438637e17d035b7e2, type: 3}

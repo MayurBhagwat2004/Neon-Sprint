@@ -62,10 +62,14 @@ public class ParallaxController : MonoBehaviour
 
     void LateUpdate()
     {
-        for (int i = 0; i < backgroundCounts; i++)
+        if (GameManager.Instance.canPlayGame)
         {
-            float speed = backgroundSpeed[i] * parallaxSpeed;
-            backgroundMaterials[i].SetTextureOffset("_MainTex", new Vector2(parallaxSpeed, 0) * Time.time);
+            for (int i = 0; i < backgroundCounts; i++)
+            {
+                float speed = backgroundSpeed[i] * parallaxSpeed;
+                backgroundMaterials[i].SetTextureOffset("_MainTex", new Vector2(parallaxSpeed, 0) * Time.time);
+            }
+            
         }
     }
 }
