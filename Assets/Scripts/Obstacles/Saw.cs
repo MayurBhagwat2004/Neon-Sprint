@@ -5,7 +5,7 @@ using UnityEngine;
 public class Saw : MonoBehaviour
 {
     public float rotationSpeed = 360f;
-    public float movementSpeed = 6f;
+    public float movementSpeed = 16f;
     public Rigidbody2D rb;
 
     void Awake()

@@ -162,5 +162,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 360
-  movementSpeed: 6
+  movementSpeed: 15
   rb: {fileID: 0}
