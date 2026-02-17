@@ -11,13 +11,15 @@ public class Player : MonoBehaviour
     [SerializeField] private bool onGround;
     public bool canJumpAgain;
     private AudioSource audioSource;
-    public Animator animator;   
+    public Animator animator;
+    private ParticleSystem playerHitparticleSystem;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         rb.gravityScale = 0;
+        playerHitparticleSystem = GetComponent<ParticleSystem>();
     }
 
     void Update()
@@ -91,6 +93,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.CompareTag("Obstacle"))
         {
+            playerHitparticleSystem.Play(); //Playing the player hit particle system once the obstacle hits the player
             animator.SetBool("Hit",true);
             animator.SetBool("Run",false);
             animator.SetBool("Jump",false);

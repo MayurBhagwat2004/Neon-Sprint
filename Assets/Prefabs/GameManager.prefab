@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  isPlayerAlive: 0
   canPlayGame: 0
   score: 0
   scoreText: {fileID: 0}
+  gameoverScoreText: {fileID: 0}
+  gameOverObj: {fileID: 0}
+  upperUiObj: {fileID: 0}
+  updateScoreInstance: {fileID: 0}

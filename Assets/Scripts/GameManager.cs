@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using System;
 using TMPro;
 using UnityEngine.EventSystems;
+using System.Collections;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverObj;
     public GameObject upperUiObj;
     public UpdateScore updateScoreInstance;
+
 
     void Awake()
     {
@@ -61,6 +63,11 @@ public class GameManager : MonoBehaviour
 
     public void ShowGameOverUI()
     {
+        StartCoroutine(ShowGameOverUIRoutine());
+    }
+    private IEnumerator ShowGameOverUIRoutine()
+    {
+        yield return new WaitForSeconds(1.3f);
         gameoverScoreText.text = score.ToString();
         gameOverObj.SetActive(true);
         upperUiObj.SetActive(false);
