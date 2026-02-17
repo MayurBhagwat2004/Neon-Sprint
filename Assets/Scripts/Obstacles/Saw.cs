@@ -7,7 +7,16 @@ public class Saw : MonoBehaviour
     public float rotationSpeed = 360f;
     public float movementSpeed = 16f;
     public Rigidbody2D rb;
+    void OnEnable()
+    {
+        GameEvents.OnSpeedIncreased += IncreaseSpeed;
+    }
 
+    void OnDisable()
+    {
+        GameEvents.OnSpeedIncreased -= IncreaseSpeed;
+
+    }
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -18,16 +27,13 @@ public class Saw : MonoBehaviour
 
     }
 
-    void OnEnable()
-    {
-        SpinAndMove();
-    }
-
-
     void FixedUpdate()
     {
     }
-
+    private void IncreaseSpeed()
+    {
+        movementSpeed += 0.2f;
+    }
     public void SpinAndMove()
     {
         rb.angularVelocity = rotationSpeed;
@@ -39,7 +45,7 @@ public class Saw : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && GameManager.Instance.isPlayerAlive)
             GameManager.Instance.PlayerDied();
 
-        
+
         if (collision.gameObject.CompareTag("ScoreWall") && GameManager.Instance.isPlayerAlive)
             GameManager.Instance.IncreaseScore();
 

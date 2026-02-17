@@ -15,17 +15,24 @@ public class SpikeBall : MonoBehaviour
     void Start()
     {
         SpinAndMove();
-
     }
 
     void OnEnable()
-{
-    SpinAndMove();
-}
-
-
-    void FixedUpdate()
     {
+        SpinAndMove();
+        GameEvents.OnSpeedIncreased += IncreaseSpeed;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnSpeedIncreased -= IncreaseSpeed;
+        
+    }
+
+
+    private void IncreaseSpeed()
+    {
+        movementSpeed += 0.5f;
     }
 
     public void SpinAndMove()

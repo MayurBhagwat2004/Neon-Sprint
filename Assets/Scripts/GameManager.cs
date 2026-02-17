@@ -1,7 +1,6 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System;
 using TMPro;
 using UnityEngine.EventSystems;
 using System.Collections;
@@ -19,6 +18,8 @@ public class GameManager : MonoBehaviour
     public GameObject upperUiObj;
     public UpdateScore updateScoreInstance;
 
+    [SerializeField] private int randomSpeedIncreasingNum;
+    [SerializeField] private int randomSpeedIncreasingFactor;
 
     void Awake()
     {
@@ -28,8 +29,10 @@ public class GameManager : MonoBehaviour
         isPlayerAlive = true;
         gameOverObj.SetActive(false);
 
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 60;
+        // QualitySettings.vSyncCount = 0;
+        // Application.targetFrameRate = 60;
+
+        randomSpeedIncreasingNum += Random.Range(score,score + randomSpeedIncreasingFactor);
         
     }
 
@@ -100,8 +103,23 @@ public class GameManager : MonoBehaviour
     }
     public void IncreaseScore()
     {
+        IncreaseSpeed();
         score++;
         scoreText.text = score.ToString();
+
+    }
+
+    private void IncreaseSpeed()
+    {
+        if(score == randomSpeedIncreasingNum)
+        {
+            Debug.Log("Increasing the speed");
+            GameEvents.OnSpeedIncreased?.Invoke();
+
+            randomSpeedIncreasingNum += Random.Range(score,score + randomSpeedIncreasingFactor);
+
+        }
+        
     }
     public void PlayGame()
     {
@@ -117,10 +135,6 @@ public class GameManager : MonoBehaviour
 Application.Quit();
 #endif
 
-    }
-    public void SendBackHome()
-    {
-        SceneManager.LoadScene("HomeScene");
     }
     
 }
