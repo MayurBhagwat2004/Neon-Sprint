@@ -21,19 +21,44 @@ public class AudioManager : MonoBehaviour
 
         musicSource = transform.GetChild(0).GetComponent<AudioSource>(); //Getting the AudioSource component from first child
 
-        PlayMusic();
+        int musicStatue = PlayerPrefs.GetInt("MusicEnabled", 1);
+        isMusicOn = musicStatue == 1;
+
+        UpdateMusicState();
+
+
     }
 
-    public void HandleMusic()
+    private void UpdateMusicState()
     {
-        if (PlayerPrefs.GetInt("MusicEnabled") == 1) PauseMusic();
-        else PlayMusic();
+        if (isMusicOn)
+        {
+            PlayerPrefs.SetInt("MusicEnabled", 1);
+            musicSource.UnPause();
+            if (!musicSource.isPlaying) musicSource.Play();
+
+            soundButton.image.sprite = soundButtonsrcImages[0]; //Sound On Sprite
+        }
+        else
+        {
+            PlayerPrefs.SetInt("MusicEnabled", 0);
+            musicSource.Pause();
+
+            soundButton.image.sprite = soundButtonsrcImages[1]; //Sound Off Sprite
+        }
+    }
+
+    public void ToggleMusic()
+    {
+        isMusicOn = !isMusicOn; // Switch the state
+        UpdateMusicState();
     }
     private void PlayMusic()
     {
         PlayerPrefs.SetInt("MusicEnabled", 1);
         if (musicSource != null)
         {
+            isMusicOn = true;
             musicSource.Play();
             soundButton.image.sprite = soundButtonsrcImages[0];
 
@@ -44,6 +69,7 @@ public class AudioManager : MonoBehaviour
         PlayerPrefs.SetInt("MusicEnabled", 0);
         if (musicSource != null)
         {
+            isMusicOn = false;
             musicSource.Pause();
             soundButton.image.sprite = soundButtonsrcImages[1];
         }
@@ -55,7 +81,10 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
     }
 
+    private void PlaySpeedIncreaseSfx()
+    {
 
-    
+    }
+
 
 }

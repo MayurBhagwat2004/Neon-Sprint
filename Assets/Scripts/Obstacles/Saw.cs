@@ -9,7 +9,9 @@ public class Saw : MonoBehaviour
     public Rigidbody2D rb;
     void OnEnable()
     {
+        SpinAndMove();
         GameEvents.OnSpeedIncreased += IncreaseSpeed;
+
     }
 
     void OnDisable()
@@ -21,15 +23,7 @@ public class Saw : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    void Start()
-    {
-        SpinAndMove();
-
-    }
-
-    void FixedUpdate()
-    {
-    }
+   
     private void IncreaseSpeed()
     {
         movementSpeed += 0.2f;

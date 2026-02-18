@@ -12,10 +12,6 @@ public class SpikeBall : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    void Start()
-    {
-        SpinAndMove();
-    }
 
     void OnEnable()
     {
@@ -32,7 +28,7 @@ public class SpikeBall : MonoBehaviour
 
     private void IncreaseSpeed()
     {
-        movementSpeed += 0.5f;
+        movementSpeed += 1.5f;
     }
 
     public void SpinAndMove()

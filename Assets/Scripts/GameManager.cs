@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText,gameoverScoreText;
     public GameObject gameOverObj;
     public GameObject upperUiObj;
+    public GameObject touchScreenUiObj;
+    public GameObject speedIncreasedUiObj;
     public UpdateScore updateScoreInstance;
 
     [SerializeField] private int randomSpeedIncreasingNum;
@@ -27,7 +29,10 @@ public class GameManager : MonoBehaviour
         else Instance = this;
 
         isPlayerAlive = true;
+        
+        touchScreenUiObj.SetActive(true);
         gameOverObj.SetActive(false);
+        speedIncreasedUiObj.SetActive(false);
 
         // QualitySettings.vSyncCount = 0;
         // Application.targetFrameRate = 60;
@@ -113,6 +118,7 @@ public class GameManager : MonoBehaviour
     {
         if(score == randomSpeedIncreasingNum)
         {
+            StartCoroutine(ShowSpeedIncreasedUI());
             Debug.Log("Increasing the speed");
             GameEvents.OnSpeedIncreased?.Invoke();
 
@@ -120,6 +126,13 @@ public class GameManager : MonoBehaviour
 
         }
         
+    }
+
+    private IEnumerator ShowSpeedIncreasedUI()
+    {
+        speedIncreasedUiObj.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        speedIncreasedUiObj.SetActive(false);
     }
     public void PlayGame()
     {

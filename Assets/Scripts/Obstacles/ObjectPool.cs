@@ -9,46 +9,39 @@ public class ObjectPool : MonoBehaviour
     [SerializeField] private List<GameObject> prefabsToPool;
     [SerializeField] private int amountToPool = 20;
 
-    private List<GameObject> pooledObjects;
+    private Queue<GameObject> poolQueue;
     private void Awake()
     {
         SharedInstance = this;
-        pooledObjects = new List<GameObject>();
+        poolQueue = new Queue<GameObject>();
 
         if (prefabsToPool == null || prefabsToPool.Count == 0) return;
 
+        List<GameObject> tempLoader = new List<GameObject>();
         for (int i = 0; i < amountToPool; i++)
         {
             GameObject obj = Instantiate(prefabsToPool[Random.Range(0, prefabsToPool.Count)]);
             obj.SetActive(false);
-            pooledObjects.Add(obj); //Adding the newly created gameobjects to the list
+            tempLoader.Add(obj); //Adding the newly created gameobjects to the list
+        }
+
+        foreach (GameObject obj in tempLoader)
+        {
+            poolQueue.Enqueue(obj);
         }
     }
 
 
     public GameObject GetPooledObject()
     {
-        int startIndex = Random.Range(0, pooledObjects.Count);
+        GameObject obj = poolQueue.Dequeue();
+        
+        poolQueue.Enqueue(obj);
 
-        // 2. Loop through the list once, starting from that random index
-        for (int i = 0; i < pooledObjects.Count; i++)
-        {
-            // Use modulo (%) to wrap around to the start of the list if we hit the end
-            int index = (startIndex + i) % pooledObjects.Count;
-
-            if (!pooledObjects[index].activeInHierarchy)
-            {
-                return pooledObjects[index];
-            }
-        }
-
+        if(!obj.activeInHierarchy) return obj;
         return null;
     }
 
-    public IEnumerator DisablePooledObjects(GameObject pooledObject)
-    {
-        yield return new WaitForSeconds(2);
-        pooledObject.SetActive(false);
-    }
+  
 
 }
