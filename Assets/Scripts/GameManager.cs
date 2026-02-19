@@ -119,7 +119,6 @@ public class GameManager : MonoBehaviour
         if(score == randomSpeedIncreasingNum)
         {
             StartCoroutine(ShowSpeedIncreasedUI());
-            Debug.Log("Increasing the speed");
             GameEvents.OnSpeedIncreased?.Invoke();
 
             randomSpeedIncreasingNum += Random.Range(score,score + randomSpeedIncreasingFactor);
@@ -138,7 +137,6 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("LevelScene");
     }
-
 
     public void QuitGame()
     {
