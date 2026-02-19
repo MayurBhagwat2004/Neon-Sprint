@@ -10,20 +10,32 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance { get; private set; }
     [Header("AudioSources")]
     public AudioSource musicSource;
+    public AudioSource sfxSource;
     public AudioClip[] soundClips;
     public bool isMusicOn;
     public Sprite[] soundButtonsrcImages;
     public Button soundButton;
+
+    void OnEnable()
+    {
+        GameEvents.OnSpeedIncreased += PlaySpeedIncreaseSfx;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnSpeedIncreased -= PlaySpeedIncreaseSfx;
+    }
     void Awake()
     {
         if (Instance != this && Instance != null) Destroy(gameObject);
         else Instance = this;
 
         musicSource = transform.GetChild(0).GetComponent<AudioSource>(); //Getting the AudioSource component from first child
-
-        int musicStatue = PlayerPrefs.GetInt("MusicEnabled", 1);
+        sfxSource = transform.GetChild(1).GetComponent<AudioSource>(); //Getting the AudioSource component from second child
+        
+        int musicStatue = PlayerPrefs.GetInt("MusicEnabled");
         isMusicOn = musicStatue == 1;
-
+        
         UpdateMusicState();
 
 
@@ -53,27 +65,7 @@ public class AudioManager : MonoBehaviour
         isMusicOn = !isMusicOn; // Switch the state
         UpdateMusicState();
     }
-    private void PlayMusic()
-    {
-        PlayerPrefs.SetInt("MusicEnabled", 1);
-        if (musicSource != null)
-        {
-            isMusicOn = true;
-            musicSource.Play();
-            soundButton.image.sprite = soundButtonsrcImages[0];
-
-        }
-    }
-    private void PauseMusic()
-    {
-        PlayerPrefs.SetInt("MusicEnabled", 0);
-        if (musicSource != null)
-        {
-            isMusicOn = false;
-            musicSource.Pause();
-            soundButton.image.sprite = soundButtonsrcImages[1];
-        }
-    }
+    
 
     public void PlayGameOverMusic()
     {
@@ -83,7 +75,8 @@ public class AudioManager : MonoBehaviour
 
     private void PlaySpeedIncreaseSfx()
     {
-
+        sfxSource.clip = Array.Find(soundClips,clip => clip.name == "SpeedIncreaseSfx");        
+        sfxSource.Play();
     }
 
 

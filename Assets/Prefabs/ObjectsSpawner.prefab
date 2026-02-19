@@ -45,7 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14bf6039a7eabed4c85ab72c4d85f0fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDownTime: 1
+  initialCoolDown: 2
+  minCoolDown: 0.5
+  coolDownReduceAmount: 0.1
+  canIncreaseSpeed: 0
   started: 0
 --- !u!114 &4113451719047982293
 MonoBehaviour:
@@ -59,8 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e936289b5d63ac408195a22a9e37719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pooledObjects: []
-  objectToPool:
-  - {fileID: 1015936354191917144, guid: 4db7934b1bd20974dbe5bc6b5b7941c4, type: 3}
+  prefabsToPool:
   - {fileID: 6997164931212221958, guid: d33fbb7fb5f74a24883cfbe245724ce4, type: 3}
+  - {fileID: 1015936354191917144, guid: 4db7934b1bd20974dbe5bc6b5b7941c4, type: 3}
   amountToPool: 20

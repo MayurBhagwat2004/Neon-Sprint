@@ -52,4 +52,8 @@ MonoBehaviour:
   gameoverScoreText: {fileID: 0}
   gameOverObj: {fileID: 0}
   upperUiObj: {fileID: 0}
+  touchScreenUiObj: {fileID: 0}
+  speedIncreasedUiObj: {fileID: 0}
   updateScoreInstance: {fileID: 0}
+  randomSpeedIncreasingNum: 0
+  randomSpeedIncreasingFactor: 12

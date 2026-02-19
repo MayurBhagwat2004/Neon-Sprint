@@ -44,7 +44,6 @@ public class ObjectsSpawner : MonoBehaviour
     private void HandleSpeedIncrease()
     {
         currentCoolDown = Mathf.Max(minCoolDown,currentCoolDown - coolDownReduceAmount);
-        Debug.Log("New CoolDown: "+ currentCoolDown);
     }
 
     IEnumerator SpawnRoutine()

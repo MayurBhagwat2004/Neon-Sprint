@@ -1547,10 +1547,6 @@ PrefabInstance:
       propertyPath: updateScoreInstance
       value: 
       objectReference: {fileID: 1148292577}
-    - target: {fileID: 3676570029093360072, guid: 52d2bb15356ea5c40962c79a8e0787af, type: 3}
-      propertyPath: randomSpeedIncreasingFactor
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 6823618058207835780, guid: 52d2bb15356ea5c40962c79a8e0787af, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5702,41 +5698,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 773032515285984655, guid: eebb161a76deac7438637e17d035b7e2, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1752021503935868454, guid: eebb161a76deac7438637e17d035b7e2, type: 3}
-      propertyPath: m_SortingLayer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1752021503935868454, guid: eebb161a76deac7438637e17d035b7e2, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1752021503935868454, guid: eebb161a76deac7438637e17d035b7e2, type: 3}
-      propertyPath: m_MotionVectors
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1752021503935868454, guid: eebb161a76deac7438637e17d035b7e2, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 1142052875
-      objectReference: {fileID: 0}
     - target: {fileID: 5556061690871102353, guid: eebb161a76deac7438637e17d035b7e2, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7971021161796607026, guid: eebb161a76deac7438637e17d035b7e2, type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7971021161796607026, guid: eebb161a76deac7438637e17d035b7e2, type: 3}
-      propertyPath: InitialModule.size3D
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7971021161796607026, guid: eebb161a76deac7438637e17d035b7e2, type: 3}
-      propertyPath: InitialModule.startSizeZ.scalar
-      value: 4.47
       objectReference: {fileID: 0}
     - target: {fileID: 8035738220550537711, guid: eebb161a76deac7438637e17d035b7e2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5839,14 +5803,6 @@ PrefabInstance:
       propertyPath: soundButton
       value: 
       objectReference: {fileID: 1664503366}
-    - target: {fileID: 9142971079793098546, guid: 25aab03704ec0b74a9b01107272271c4, type: 3}
-      propertyPath: soundClips.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9142971079793098546, guid: 25aab03704ec0b74a9b01107272271c4, type: 3}
-      propertyPath: soundClips.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: 3a514b5000d74794b8d59aedcbdbfbe2, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5904,18 +5860,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ObjectsSpawner
       objectReference: {fileID: 0}
-    - target: {fileID: 4113451719047982293, guid: 4978a9fbc337e1f4eabeb2270de59f59, type: 3}
-      propertyPath: prefabsToPool.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4113451719047982293, guid: 4978a9fbc337e1f4eabeb2270de59f59, type: 3}
-      propertyPath: prefabsToPool.Array.data[0]
-      value: 
-      objectReference: {fileID: 6997164931212221958, guid: d33fbb7fb5f74a24883cfbe245724ce4, type: 3}
-    - target: {fileID: 4113451719047982293, guid: 4978a9fbc337e1f4eabeb2270de59f59, type: 3}
-      propertyPath: prefabsToPool.Array.data[1]
-      value: 
-      objectReference: {fileID: 1015936354191917144, guid: 4db7934b1bd20974dbe5bc6b5b7941c4, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
