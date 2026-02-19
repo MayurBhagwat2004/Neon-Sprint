@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int randomSpeedIncreasingNum;
     [SerializeField] private int randomSpeedIncreasingFactor;
+    public float currentGlobalSpeed = 16f;
 
     void Awake()
     {
@@ -108,20 +109,24 @@ public class GameManager : MonoBehaviour
     }
     public void IncreaseScore()
     {
-        IncreaseSpeed();
         score++;
         scoreText.text = score.ToString();
 
+        CheckSpeedBoost();
+
     }
 
-    private void IncreaseSpeed()
+
+
+    private void CheckSpeedBoost()
     {
-        if(score == randomSpeedIncreasingNum)
+        if(score >= randomSpeedIncreasingNum)
         {
             StartCoroutine(ShowSpeedIncreasedUI());
+            currentGlobalSpeed += 0.2f;
             GameEvents.OnSpeedIncreased?.Invoke();
-
-            randomSpeedIncreasingNum += Random.Range(score,score + randomSpeedIncreasingFactor);
+            
+            randomSpeedIncreasingNum = score + Random.Range(5,randomSpeedIncreasingFactor);
 
         }
         

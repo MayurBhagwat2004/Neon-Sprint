@@ -9,25 +9,37 @@ public class Saw : MonoBehaviour
     public Rigidbody2D rb;
     void OnEnable()
     {
-        SpinAndMove();
-        GameEvents.OnSpeedIncreased += IncreaseSpeed;
 
+        if (GameManager.Instance != null)
+        {
+            movementSpeed = GameManager.Instance.currentGlobalSpeed;
+        }
+
+        SpinAndMove();
+
+        GameEvents.OnSpeedIncreased += UpdateSpeed;
     }
 
     void OnDisable()
     {
-        GameEvents.OnSpeedIncreased -= IncreaseSpeed;
+        GameEvents.OnSpeedIncreased -= UpdateSpeed;
 
     }
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
-   
-    private void IncreaseSpeed()
+
+
+
+    private void UpdateSpeed()
     {
-        movementSpeed += 0.2f;
+        movementSpeed = GameManager.Instance.currentGlobalSpeed;
+        rb.velocity = Vector2.left * movementSpeed;
+
     }
+
+    
     public void SpinAndMove()
     {
         rb.angularVelocity = rotationSpeed;

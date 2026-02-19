@@ -15,20 +15,28 @@ public class SpikeBall : MonoBehaviour
 
     void OnEnable()
     {
+
+        if (GameManager.Instance != null)
+        {
+            movementSpeed = GameManager.Instance.currentGlobalSpeed;
+        }
+
         SpinAndMove();
-        GameEvents.OnSpeedIncreased += IncreaseSpeed;
+
+        GameEvents.OnSpeedIncreased += UpdateSpeed;
     }
 
     void OnDisable()
     {
-        GameEvents.OnSpeedIncreased -= IncreaseSpeed;
+        GameEvents.OnSpeedIncreased -= UpdateSpeed;
         
     }
 
 
-    private void IncreaseSpeed()
+    private void UpdateSpeed()
     {
-        movementSpeed += 1.5f;
+        movementSpeed = GameManager.Instance.currentGlobalSpeed;
+        rb.velocity = Vector2.left * movementSpeed;
     }
 
     public void SpinAndMove()
