@@ -1549,7 +1549,7 @@ PrefabInstance:
       objectReference: {fileID: 1148292577}
     - target: {fileID: 3676570029093360072, guid: 52d2bb15356ea5c40962c79a8e0787af, type: 3}
       propertyPath: randomSpeedIncreasingFactor
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6823618058207835780, guid: 52d2bb15356ea5c40962c79a8e0787af, type: 3}
       propertyPath: m_LocalPosition.x
