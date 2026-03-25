@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     private bool playerTouchedScreen;
     public PlayerInput touchInput;
     public bool canPlayGame;
-    public int score;
     [SerializeField] private TextMeshProUGUI scoreText,gameoverScoreText;
     public GameObject gameOverObj;
     public GameObject upperUiObj;
@@ -20,8 +19,10 @@ public class GameManager : MonoBehaviour
     public GameObject speedIncreasedUiObj;
     public UpdateScore updateScoreInstance;
 
-    [SerializeField] private int randomSpeedIncreasingNum;
-    [SerializeField] private int randomSpeedIncreasingFactor;
+    private int score;
+    public int GetScore => score;
+    [SerializeField] private int randomScoreIncreasingNum;
+    [SerializeField] private int randomScoreIncreasingFactor;
     public float currentGlobalSpeed = 16f;
 
     void Awake()
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
         // QualitySettings.vSyncCount = 0;
         // Application.targetFrameRate = 60;
 
-        randomSpeedIncreasingNum += Random.Range(score,score + randomSpeedIncreasingFactor);
+        randomScoreIncreasingNum += Random.Range(score,score + randomScoreIncreasingFactor);
         
     }
 
@@ -120,13 +121,13 @@ public class GameManager : MonoBehaviour
 
     private void CheckSpeedBoost()
     {
-        if(score >= randomSpeedIncreasingNum)
+        if(score >= randomScoreIncreasingNum)
         {
             StartCoroutine(ShowSpeedIncreasedUI());
             currentGlobalSpeed += 0.2f;
             GameEvents.OnSpeedIncreased?.Invoke();
             
-            randomSpeedIncreasingNum = score + Random.Range(5,randomSpeedIncreasingFactor);
+            randomScoreIncreasingNum = score + Random.Range(5,randomScoreIncreasingFactor);
 
         }
         

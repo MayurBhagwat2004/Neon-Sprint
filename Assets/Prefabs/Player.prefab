@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   jumpForce: 20
-  onGround: 0
+  isOnGround: 0
   canJumpAgain: 0
   animator: {fileID: 0}
 --- !u!82 &5094335254419928722

@@ -47,7 +47,6 @@ MonoBehaviour:
   player: {fileID: 0}
   isPlayerAlive: 0
   canPlayGame: 0
-  score: 0
   scoreText: {fileID: 0}
   gameoverScoreText: {fileID: 0}
   gameOverObj: {fileID: 0}
@@ -55,5 +54,7 @@ MonoBehaviour:
   touchScreenUiObj: {fileID: 0}
   speedIncreasedUiObj: {fileID: 0}
   updateScoreInstance: {fileID: 0}
-  randomSpeedIncreasingNum: 0
-  randomSpeedIncreasingFactor: 12
+  score: 0
+  randomScoreIncreasingNum: 0
+  randomScoreIncreasingFactor: 0
+  currentGlobalSpeed: 16

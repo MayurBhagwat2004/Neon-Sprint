@@ -10,7 +10,7 @@ public class ObjectsSpawner : MonoBehaviour
 
     [Header("Spawn Settings")]
     [SerializeField] private float initialCoolDown = 2f;
-    [SerializeField] private float minCoolDown = 0.5f;
+    [SerializeField] private float minCoolDown = 1f;
     [SerializeField] private float coolDownReduceAmount = 0.1f;
 
     private float currentCoolDown;
@@ -43,11 +43,14 @@ public class ObjectsSpawner : MonoBehaviour
 
     private void HandleSpeedIncrease()
     {
-        currentCoolDown = Mathf.Max(minCoolDown,currentCoolDown - coolDownReduceAmount);
+        currentCoolDown -= coolDownReduceAmount;
+        currentCoolDown = Mathf.Clamp(currentCoolDown,minCoolDown,initialCoolDown);
     }
 
     IEnumerator SpawnRoutine()
     {
+        yield return new WaitForSeconds(currentCoolDown);
+
         while (GameManager.Instance.isPlayerAlive)
         {
             GameObject obstacle = ObjectPool.SharedInstance.GetPooledObject();
