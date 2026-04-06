@@ -69,4 +69,12 @@ public class MenuManager : MonoBehaviour
     }
 
     #endregion
+
+    public void ChangeGraphics(int graphicIndex)
+    {
+        QualitySettings.SetQualityLevel(graphicIndex,true); 
+        Debug.Log("Current graphics at: "+ QualitySettings.names[graphicIndex]);
+    }
+
+
 }
