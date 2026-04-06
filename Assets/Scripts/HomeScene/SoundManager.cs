@@ -4,6 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
+    private enum SfxClips
+    {
+        ClickSfx,JumpSfx
+    };
     public static SoundManager Instance;
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
@@ -70,11 +74,22 @@ public class SoundManager : MonoBehaviour
         else return;
     }
 
+    public void PlayClickSound()
+    {
+        if(PlayerPrefs.GetInt("SoundStatus") == 1)
+        {
+            AudioClip clip = sfxClips.Find(c => c.name == SfxClips.ClickSfx.ToString());
+            if(clip != null)
+            {
+                sfxSource.PlayOneShot(clip);
+            }
+        }
+    }
     public void PlayJumpSfx()
     {
         if(PlayerPrefs.GetInt("SoundStatus") == 1)
         {
-            AudioClip clip = sfxClips.Find(c => c.name == "Jump");
+            AudioClip clip = sfxClips.Find(c => c.name == SfxClips.JumpSfx.ToString());
             if(clip != null)
             {
                 sfxSource.PlayOneShot(clip);
