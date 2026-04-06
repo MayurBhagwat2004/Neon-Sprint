@@ -21,8 +21,8 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
             return;
-        }
 
+        }
         if (PlayerPrefs.HasKey("SoundStatus"))
         {
             PlayerPrefs.SetInt("SoundStatus",1);
