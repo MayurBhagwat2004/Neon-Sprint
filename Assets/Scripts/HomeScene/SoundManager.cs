@@ -14,6 +14,10 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private List<AudioClip> musicClips;
     [SerializeField] private List<AudioClip> sfxClips;
 
+    private const string SOUND_KEY = "SoundStatus";
+    private int soundStatus; //Variable to keep track of the music
+
+
     void Awake()
     {
         if(Instance == null)
@@ -31,6 +35,15 @@ public class SoundManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("SoundStatus",1);
         }
+    }
+
+    void Start()
+    {
+        soundStatus = PlayerPrefs.GetInt(SOUND_KEY,1);
+    
+        if(soundStatus == 0) StopPlayingMusic(); //Stop playing the sound if the music status is 0
+        else StartPlayingMusic(); //Start playing the sound if the music status is 1
+    
     }
     void OnEnable(){ SceneManager.sceneLoaded += OnSceneLoaded; }
     void OnDisable(){ SceneManager.sceneLoaded -= OnSceneLoaded; }
