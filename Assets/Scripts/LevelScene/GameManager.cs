@@ -9,12 +9,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CanvasGroup gameUpperPanel; //GameObject for the upper ui in the level
     public float transitionTime = 0.4f;
 
+    public bool isGamePaused; //Boolean for checking the status of the game
     private enum SceneNames
     {
         Home,Level,Store
     }
 
-    private bool isGamePaused; //Boolean for checking the status of the game
     void Awake()
     {
         if(Instance != null && Instance !=this) Destroy(this);
@@ -22,7 +22,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        pausePanel.gameObject.SetActive(false); //Disabling the pause panel initially
+        if(gameUpperPanel!=null) gameUpperPanel.gameObject.SetActive(true);
+        if(pausePanel!=null) pausePanel.gameObject.SetActive(false);
     }
 
     void Update()
@@ -35,9 +36,9 @@ public class GameManager : MonoBehaviour
         if(!isGamePaused) return; // Return if the game is already resumed
 
         Time.timeScale = 1f; //Resume the game
-        isGamePaused = false;
 
         OpenGameUpperPanel(); //Start the fade-in animation for the upper panel
+        isGamePaused = false;
     
     }
 
@@ -46,9 +47,10 @@ public class GameManager : MonoBehaviour
         if(isGamePaused) return; //Return if the game is already paused
 
         Time.timeScale = 0f; //Pause the game
-        isGamePaused = true;
 
         OpenPausePanel(); //Start the fade-in animation for the pause panel
+        isGamePaused = true;
+
     }
     public void GoToScene(string sceneName)
     {
