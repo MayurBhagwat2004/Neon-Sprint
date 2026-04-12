@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
                 else isDragging = true;
             }
 
-            if(Pointer.current.press.wasReleasedThisFrame) isDragging = false;
+            if(Pointer.current.press.wasReleasedThisFrame) isDragging = false; //Checking if the player discontinued touching the screen
 
             if(Pointer.current.press.isPressed && isDragging)
             {
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
 
                 Vector3 worldPosition = mainCamera.ScreenToWorldPoint(touchPos);
                 worldPosition.z = transform.position.z;
-                worldPosition.y = Mathf.Clamp(worldPosition.y,minY,maxY);
+                worldPosition.y = Mathf.Clamp(worldPosition.y,minY,maxY); //Limiting the movement of the ball in +y and -y axis
 
                 transform.position = Vector3.Lerp(transform.position,worldPosition,moveSpeed * Time.deltaTime);
             }
