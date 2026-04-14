@@ -1,20 +1,29 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.InputSystem;
+using TMPro;
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-    [SerializeField] private CanvasGroup pausePanel; //GameObject for the pause panel
-    [SerializeField] private CanvasGroup gameUpperPanel; //GameObject for the upper ui in the level
-    public float transitionTime = 0.4f;
-
-    public bool isGamePaused; //Boolean for checking the status of the game
     private enum SceneNames
     {
         Home,Level,Store
     }
+    public static GameManager Instance;
+    [SerializeField] private CanvasGroup pausePanel; //GameObject for the pause panel
+    [SerializeField] private CanvasGroup gameUpperPanel; //GameObject for the upper ui in the level
+    private bool gameStarted;
+    public bool isGamePaused;
+    [SerializeField] private float transitionTime = 0.5f;
 
+    [Header("Distance Covered Variables")]
+    [SerializeField] private TextMeshProUGUI distanceCoveredText; //Text for distance covered
+    [SerializeField] private float distanceCoveringSpeed = 5f;
+
+    void OnEnable()
+    {
+        LevelEvents.OnGameStarted += HandleGameStarted;
+    }
     void Awake()
     {
         if(Instance != null && Instance !=this) Destroy(this);
@@ -28,7 +37,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+        if(gameStarted) return;
+        StartTheGame();
     }
 
     public void ResumeGame()
@@ -104,4 +114,38 @@ public class GameManager : MonoBehaviour
 
         group.interactable = true; //Make the buttons available for clicking
     }
-}
+
+    private void StartTheGame()
+    {
+        //For mobile and pc input
+        if(Pointer.current != null)
+        {
+            if (Pointer.current.press.wasPressedThisFrame && !gameStarted)
+            {
+                Debug.Log("Starting the game");
+                LevelEvents.StartTheGame();
+                gameStarted = true;
+            }
+        }
+    }
+
+    public void HandleGameStarted()
+    {
+        StartCoroutine(StartCalculatingDistanceRoutine());
+    }
+    private IEnumerator StartCalculatingDistanceRoutine()
+    {
+        float currentDistance = 0f;
+        while (true)
+        {
+            if (!isGamePaused)
+            {
+                currentDistance += distanceCoveringSpeed * Time.deltaTime;
+                distanceCoveredText.text = currentDistance.ToString("N0") + "m";
+            }
+            yield return null;
+                
+            }
+        }
+    }
+

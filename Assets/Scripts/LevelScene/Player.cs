@@ -20,8 +20,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        if(GameManager.Instance!=null && GameManager.Instance.isGamePaused != true)
-        superSonicAbilityEnabled = false;
+        if(GameManager.Instance!=null && GameManager.Instance.isGamePaused != true) superSonicAbilityEnabled = false;
 
     }
 
@@ -31,7 +30,12 @@ public class Player : MonoBehaviour
 
         if(!canMove) return;
 
+        TakePlayerInput();
+            
+    }
 
+    public void TakePlayerInput()
+    {
         if(Pointer.current!=null)
         {
             if (Pointer.current.press.wasPressedThisFrame)
@@ -52,6 +56,6 @@ public class Player : MonoBehaviour
 
                 transform.position = Vector3.Lerp(transform.position,worldPosition,moveSpeed * Time.deltaTime);
             }
-        }    
+        }
     }
 }
