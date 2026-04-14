@@ -33,12 +33,13 @@ public class Obstacle : MonoBehaviour
     public void CallDestroyObstacle()
     {
         StartCoroutine(DestroyObstacle());
+        StartCoroutine(SlowlyFadeObstacle());
     }
     private IEnumerator DestroyObstacle()
     {
         if(obstacleParticleSys != null) obstacleParticleSys.Play();
 
-        yield return StartCoroutine(SlowlyFadeObstacle());
+        yield return null;
 
     }
 
