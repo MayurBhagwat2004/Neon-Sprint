@@ -5,7 +5,7 @@ using System;
 public class Player : MonoBehaviour
 {
     public bool canMove;
-    private bool superSonicAbilityEnabled;
+    // private bool superSonicAbilityEnabled;
     private Camera mainCamera;
     //Touch inputs variables
     public Vector2 touchPos;
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        if(GameManager.Instance!=null && GameManager.Instance.isGamePaused != true) superSonicAbilityEnabled = false;
+        // if(GameManager.Instance!=null && GameManager.Instance.isGamePaused != true) superSonicAbilityEnabled = false;
 
     }
 
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
         if(!canMove) return;
 
-        TakePlayerInput();
+        TakePlayerInput(); //Take the input provided by the user via mobile,pc.
             
     }
 

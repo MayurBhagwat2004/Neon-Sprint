@@ -122,7 +122,6 @@ public class GameManager : MonoBehaviour
         {
             if (Pointer.current.press.wasPressedThisFrame && !gameStarted)
             {
-                Debug.Log("Starting the game");
                 LevelEvents.StartTheGame();
                 gameStarted = true;
             }
@@ -146,6 +145,6 @@ public class GameManager : MonoBehaviour
             yield return null;
                 
             }
-        }
+    }
     }
 
