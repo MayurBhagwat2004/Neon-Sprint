@@ -12,13 +12,18 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     [SerializeField] private CanvasGroup pausePanel; //GameObject for the pause panel
     [SerializeField] private CanvasGroup gameUpperPanel; //GameObject for the upper ui in the level
+    [Header("Game Started Variables")]
+    public TextMeshProUGUI touchScreenText;
+    [SerializeField] private float fadingSpeed = 1.5f;
     private bool gameStarted;
     public bool isGamePaused;
     [SerializeField] private float transitionTime = 0.5f;
 
     [Header("Distance Covered Variables")]
     [SerializeField] private TextMeshProUGUI distanceCoveredText; //Text for distance covered
-    [SerializeField] private float distanceCoveringSpeed = 5f;
+    [Range(1f,10f)]
+    [SerializeField] private float distanceCoveringSpeed = 5f; //Speed for calculating the distance
+
 
     void OnEnable()
     {
@@ -31,6 +36,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        ShowFadingEffectText(touchScreenText); //Start showing the fade-in/out effect
+
         if(gameUpperPanel!=null) gameUpperPanel.gameObject.SetActive(true);
         if(pausePanel!=null) pausePanel.gameObject.SetActive(false);
     }
@@ -39,6 +46,8 @@ public class GameManager : MonoBehaviour
     {
         if(gameStarted) return;
         StartTheGame();
+
+        
     }
 
     public void ResumeGame()
@@ -145,6 +154,28 @@ public class GameManager : MonoBehaviour
             yield return null;
                 
             }
+    }
+
+    private void ShowFadingEffectText(TextMeshProUGUI touchScreenText)
+    {
+        StartCoroutine(ShowFadingEffectRoutine(touchScreenText));
+    }
+    private IEnumerator ShowFadingEffectRoutine(TextMeshProUGUI textToAddEffect)
+    {
+        Color currentCol = textToAddEffect.color;
+        
+        while (!gameStarted)
+        {
+            currentCol.a = Mathf.PingPong(Time.time * fadingSpeed, 1f);
+
+            textToAddEffect.color = currentCol;
+
+            yield return null;
+        }
+
+        currentCol.a = 1f;
+        textToAddEffect.color = currentCol;
+        textToAddEffect.gameObject.SetActive(false);
     }
     }
 
