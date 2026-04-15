@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     [Header("Game Started Variables")]
     public TextMeshProUGUI touchScreenText;
     [SerializeField] private float fadingSpeed = 1.5f;
-    private bool gameStarted;
+    [SerializeField]private bool gameStarted;
+    [SerializeField]private bool gameEnded;
     public bool isGamePaused;
     [SerializeField] private float transitionTime = 0.5f;
 
@@ -45,10 +46,17 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if(gameEnded) GameEnded();
         if(gameStarted) return;
         StartTheGame();
 
-        
+    }
+
+    public void GameEnded()
+    {
+        gameEnded = true;
+        gameStarted = false;
+        LevelEvents.InvokeGameOver();
     }
 
     public void ResumeGame()

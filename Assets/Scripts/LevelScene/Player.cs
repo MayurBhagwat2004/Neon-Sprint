@@ -56,6 +56,11 @@ public class Player : MonoBehaviour
 
                 transform.position = Vector3.Lerp(transform.position,worldPosition,moveSpeed * Time.deltaTime);
             }
+
+            if(Pointer.current.press.wasReleasedThisFrame && isDragging)
+            {
+                GameManager.Instance.GameEnded();
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ public class LevelEvents : MonoBehaviour
 {
     public static event Action OnGameStarted;
     public static event Action OnSpeedIncreased;
+    public static event Action OnGameOver;
 
     public static void StartTheGame()
     {
@@ -13,6 +14,11 @@ public class LevelEvents : MonoBehaviour
     public static void InvokeTheSpeedModifier()
     {
         OnSpeedIncreased?.Invoke();
+    }
+
+    public static void InvokeGameOver()
+    {
+        OnGameOver?.Invoke();
     }
 
 }
