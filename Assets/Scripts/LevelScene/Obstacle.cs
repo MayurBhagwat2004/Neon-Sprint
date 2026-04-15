@@ -45,8 +45,9 @@ public class Obstacle : MonoBehaviour
         {
             CallDestroyObstacle();
         }
-        else if (collision.CompareTag("Wall"))
+        if (collision.CompareTag("Wall"))
         {
+            Debug.Log("Hitted Wall!!!");
             DisableObstacle();
         }
     }
@@ -90,6 +91,7 @@ public class Obstacle : MonoBehaviour
         }
 
         gameObject.SetActive(false);
+        obstacleSprite.color = defaultColor;
         
         
     }

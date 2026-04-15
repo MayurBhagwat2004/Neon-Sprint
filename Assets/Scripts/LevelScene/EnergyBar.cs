@@ -44,8 +44,9 @@ public class EnergyBar : MonoBehaviour
         {
             CallDestroyObstacle();
         }
-        else if (collision.CompareTag("Wall"))
+        if (collision.CompareTag("Wall"))
         {
+            Debug.Log("Hitted Wall!!!");
             DisableEnergy();
         }
     }
@@ -89,6 +90,8 @@ public class EnergyBar : MonoBehaviour
         }
 
         gameObject.SetActive(false);
+        obstacleSprite.color = defaultColor;
+
 
         
         
