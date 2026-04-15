@@ -3,8 +3,8 @@ using UnityEngine;
 public class BallManager : MonoBehaviour
 {
     [SerializeField] private ParticleSystem trailParticleSystem;
-    [SerializeField] private float minSpeed = 10f;
-    [SerializeField] private float maxSpeed = 15f;
+    [SerializeField] private float minSpeed = 5f;
+    [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float speedModifier = 5f;
     public bool shouldIncreaseSpeed = false;
 

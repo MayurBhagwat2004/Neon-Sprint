@@ -136,8 +136,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleParticleSys: {fileID: 0}
-  particleEffectDuration: 1
-  particleDimSpeed: 12
+  particleEffectDuration: 0.8
+  particleDimSpeed: 25
+  moveSpeed: 5
 --- !u!198 &4715916325083742671
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -146,14 +147,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 153180244469723380}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 0.8
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -274,8 +275,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 12
-      minScalar: 5
+      scalar: 20
+      minScalar: 12
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -392,8 +393,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.5
+      scalar: 2
+      minScalar: 1.5
       maxCurve:
         serializedVersion: 2
         m_Curve:

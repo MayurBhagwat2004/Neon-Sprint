@@ -7,7 +7,13 @@ public class EnergyBar : MonoBehaviour
     public ParticleSystem obstacleParticleSys;
     public float particleEffectDuration = 0.5f;
     public float particleDimSpeed = 5f;
+    public float moveSpeed = 5f;
+    private Vector3 moveDirection = Vector3.left;
+    Color defaultColor = Color.white;
 
+    void OnDisable()
+    {
+    }
     void Start()
     {
         if(transform.GetComponent<ParticleSystem>() != null)
@@ -17,21 +23,49 @@ public class EnergyBar : MonoBehaviour
 
         obstacleSprite = transform.GetComponent<SpriteRenderer>();
     }
+
+    void Update()
+    {
+        StartMoving();
+    }
+
+    private void StartMoving()
+    {
+        if(GameManager.Instance.isGamePaused) return;
+
+        float currentSpeed = GameManager.Instance.DistanceCoveringSpeed * moveSpeed;
+
+        transform.Translate(moveDirection * currentSpeed * Time.deltaTime,Space.World);
+
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
             CallDestroyObstacle();
         }
+        else if (collision.CompareTag("Wall"))
+        {
+            DisableEnergy();
+        }
+    }
+
+    private void DisableEnergy()
+    {
+        gameObject.SetActive(false);
+        obstacleSprite.color = defaultColor;
+
     }
     public void CallDestroyObstacle()
     {
         StartCoroutine(DestroyObstacle());
+
         StartCoroutine(SlowlyFadeObstacle());
     }
     private IEnumerator DestroyObstacle()
     {
         if(obstacleParticleSys != null) obstacleParticleSys.Play();
+
 
         yield return null;
 
@@ -54,7 +88,8 @@ public class EnergyBar : MonoBehaviour
             yield return null;
         }
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+
         
         
     }

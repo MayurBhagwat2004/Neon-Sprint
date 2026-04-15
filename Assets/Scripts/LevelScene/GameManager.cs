@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI distanceCoveredText; //Text for distance covered
     [Range(1f,10f)]
     [SerializeField] private float distanceCoveringSpeed = 5f; //Speed for calculating the distance
+    public float DistanceCoveringSpeed => distanceCoveringSpeed;
 
 
     void OnEnable()

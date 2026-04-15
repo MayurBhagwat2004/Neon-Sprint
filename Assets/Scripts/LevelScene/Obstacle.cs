@@ -7,6 +7,14 @@ public class Obstacle : MonoBehaviour
     public ParticleSystem obstacleParticleSys;
     public float particleEffectDuration = 0.5f;
     public float particleDimSpeed = 5f;
+    public float moveSpeed = 5f;
+    private Vector3 moveDirection = Vector3.left;
+    Color defaultColor = Color.white;
+
+
+    void OnDisable()
+    {
+    }
     void Start()
     {
         if(transform.GetComponent<ParticleSystem>() != null)
@@ -15,11 +23,20 @@ public class Obstacle : MonoBehaviour
         }
 
         obstacleSprite = transform.GetComponent<SpriteRenderer>();
+    
     }
-
     void Update()
     {
-        
+        StartMoving();
+    }
+    private void StartMoving()
+    {
+        if(GameManager.Instance.isGamePaused) return;
+
+        float currentSpeed = GameManager.Instance.DistanceCoveringSpeed * moveSpeed;
+
+        transform.Translate(moveDirection * currentSpeed * Time.deltaTime,Space.World);
+
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -27,6 +44,10 @@ public class Obstacle : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             CallDestroyObstacle();
+        }
+        else if (collision.CompareTag("Wall"))
+        {
+            DisableObstacle();
         }
     }
 
@@ -40,6 +61,13 @@ public class Obstacle : MonoBehaviour
         if(obstacleParticleSys != null) obstacleParticleSys.Play();
 
         yield return null;
+
+    }
+
+    private void DisableObstacle()
+    {
+        gameObject.SetActive(false);
+        obstacleSprite.color = defaultColor;
 
     }
 
@@ -61,7 +89,7 @@ public class Obstacle : MonoBehaviour
             yield return null;
         }
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
         
         
     }
