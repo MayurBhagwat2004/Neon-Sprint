@@ -60,6 +60,7 @@ Assets/Scripts/HomeScene/
  UiManager.cs
 Assets/Scripts/LevelScene/
  BallManager.cs
+ CameraEffects.cs
  EnergyBar.cs
  Events/LevelEvents.cs
  GameManager.cs

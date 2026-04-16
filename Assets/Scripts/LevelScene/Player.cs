@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
             if(!GameManager.Instance.gameEnded && Pointer.current.press.wasPressedThisFrame)
             {
                 GameManager.Instance.PlayerLiftedFinger = false;
-                GameManager.Instance.StopShowingTimer();
+                GameManager.Instance.StopShowingTimer(); //Stop the timer when player touches the screen again
             }
         }
     }

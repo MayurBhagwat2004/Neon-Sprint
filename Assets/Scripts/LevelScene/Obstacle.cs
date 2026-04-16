@@ -43,6 +43,7 @@ public class Obstacle : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
+            LevelEvents.OnObstacleHitted();
             CallDestroyObstacle();
         }
         if (collision.CompareTag("Wall"))

@@ -7,34 +7,41 @@ public class GameManager : MonoBehaviour
 {
     private enum SceneNames
     {
-        Home,Level,Store
+        Home, Level, Store
     }
     public static GameManager Instance;
+    #region Panels
     [SerializeField] private CanvasGroup pausePanel; //GameObject for the pause panel
     [SerializeField] private CanvasGroup gameUpperPanel; //GameObject for the upper ui in the level
+    #endregion
+    #region Game Started Variables
     [Header("Game Started Variables")]
     public TextMeshProUGUI touchScreenText;
     public float fadingSpeed = 1.5f;
-    [SerializeField]private bool gameStarted;
+    [SerializeField] private bool gameStarted;
     public bool GameStarted => gameStarted;
     public bool gameEnded;
     public bool isGamePaused;
-    [SerializeField] private float transitionTime = 0.5f;
+    #endregion
 
+    #region Distance Covered Variables
     [Header("Distance Covered Variables")]
     [SerializeField] private TextMeshProUGUI distanceCoveredText; //Text for distance covered
-    [Range(1f,10f)]
+    [Range(1f, 10f)]
     [SerializeField] private float distanceCoveringSpeed = 5f; //Speed for calculating the distance
     public float DistanceCoveringSpeed => distanceCoveringSpeed;
+    #endregion
 
+    #region  Warning Timer Variables
     [Header("Warning Timer Variables")]
     public TextMeshProUGUI timerText;
     [SerializeField] private float waitTime = 5f;
     private bool playerLiftedFinger;
     public bool PlayerLiftedFinger
     {
-        set { playerLiftedFinger = value;}
+        set { playerLiftedFinger = value; }
     }
+    #endregion
 
     void OnEnable()
     {
@@ -46,25 +53,29 @@ public class GameManager : MonoBehaviour
     }
     void Awake()
     {
-        if(Instance != null && Instance !=this) Destroy(this);
+        if (Instance != null && Instance != this) Destroy(this);
         else Instance = this;
     }
     void Start()
     {
-        // ShowFadingEffectText(touchScreenText); //Start showing the fade-in/out effect
+        Time.timeScale = 1f; //UnFreeze the game
 
-        if(gameUpperPanel!=null) gameUpperPanel.gameObject.SetActive(true);
-        if(pausePanel!=null) pausePanel.gameObject.SetActive(false);
-        if(timerText != null) timerText.gameObject.SetActive(false);
+
+        if (gameUpperPanel != null) gameUpperPanel.gameObject.SetActive(true); //Activate the upper panel
+
+        if (pausePanel != null) pausePanel.gameObject.SetActive(false); //Disable the pause menu panel
+        
+        if (timerText != null) timerText.gameObject.SetActive(false);// Disable the timer text when game starts
     }
 
     void Update()
     {
-        if(gameEnded) GameEnded();
-        if(gameStarted) return;
         
+        if (gameStarted) return;
+
         StartTheGame();
 
+        if (gameEnded) GameEnded();
     }
 
     public void GameEnded()
@@ -74,7 +85,7 @@ public class GameManager : MonoBehaviour
     }
     public void StartShowingTimer()
     {
-        if(!playerLiftedFinger) return; //If player again touches the screen then do not show timer
+        if (!playerLiftedFinger) return; //If player again touches the screen then do not show timer
 
         StartCoroutine(StartShowingTimerRoutine());
     }
@@ -90,15 +101,15 @@ public class GameManager : MonoBehaviour
         float remainingTime = waitTime;
         while (remainingTime >= 0)
         {
-            if(!playerLiftedFinger) break;
+            if (!playerLiftedFinger) break;
 
-            timerText.text = "Touch The Screen Before: "+remainingTime.ToString()+" s";
-            
+            timerText.text = "Touch The Screen Before: " + remainingTime.ToString() + " s";
+
             yield return new WaitForSeconds(1f);
-            
-            remainingTime --;
 
-            if(remainingTime == 0 && playerLiftedFinger)
+            remainingTime--;
+
+            if (remainingTime == 0 && playerLiftedFinger)
             {
                 timerText.gameObject.SetActive(false); //Disable the timer text
                 GameEnded();
@@ -107,24 +118,24 @@ public class GameManager : MonoBehaviour
 
         }
 
-        
+
     }
 
     public void ResumeGame()
     {
-        if(!isGamePaused) return; // Return if the game is already resumed
+        if (!isGamePaused) return; // Return if the game is already resumed
 
         Time.timeScale = 1f; //Resume the game
 
         UiManager.Instance.OpenGameUpperPanel(); //Start the fade-in animation for the upper panel
         // OpenGameUpperPanel(); 
         isGamePaused = false;
-    
+
     }
 
     public void PauseGame()
     {
-        if(isGamePaused) return; //Return if the game is already paused
+        if (isGamePaused) return; //Return if the game is already paused
 
         Time.timeScale = 0f; //Pause the game
 
@@ -148,11 +159,11 @@ public class GameManager : MonoBehaviour
 
         }
     }
-    
+
     private void StartTheGame()
     {
         //For mobile and pc input
-        if(Pointer.current != null)
+        if (Pointer.current != null)
         {
             if (Pointer.current.press.wasPressedThisFrame && !gameStarted)
             {
@@ -177,11 +188,11 @@ public class GameManager : MonoBehaviour
                 distanceCoveredText.text = currentDistance.ToString("N0") + "m";
             }
             yield return null;
-                
-            }
+
+        }
     }
 
 
-    
-    }
+
+}
 

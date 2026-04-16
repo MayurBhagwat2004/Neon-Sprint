@@ -9,7 +9,7 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] private CanvasGroup pausePanel; //GameObject for the pause panel
     [SerializeField] private CanvasGroup gameUpperPanel; //GameObject for the upper ui in the level
-    
+
     [Header("UI Groups")]
     [SerializeField] private CanvasGroup homeGroup;
     [SerializeField] private CanvasGroup settingsGroup;
@@ -57,6 +57,7 @@ public class UiManager : MonoBehaviour
             ShowFadingEffectText(touchScreenText);
         }
     }
+
     public void OpenSettings()
     {
         StartCoroutine(OpenPanelRoutine(homeGroup, 1, 0));

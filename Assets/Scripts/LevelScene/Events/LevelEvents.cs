@@ -5,7 +5,7 @@ public class LevelEvents : MonoBehaviour
     public static event Action OnGameStarted;
     public static event Action OnSpeedIncreased;
     public static event Action OnGameOver;
-
+    public static event Action OnObstacleHit;
     public static void StartTheGame()
     {
         OnGameStarted?.Invoke(); //Fires the event indicating to start the game
@@ -21,4 +21,8 @@ public class LevelEvents : MonoBehaviour
         OnGameOver?.Invoke();
     }
 
+    public static void OnObstacleHitted()
+    {
+        OnObstacleHit?.Invoke();
+    }
 }
