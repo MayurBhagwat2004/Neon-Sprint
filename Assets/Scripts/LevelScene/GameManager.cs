@@ -14,8 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CanvasGroup gameUpperPanel; //GameObject for the upper ui in the level
     [Header("Game Started Variables")]
     public TextMeshProUGUI touchScreenText;
-    [SerializeField] private float fadingSpeed = 1.5f;
+    public float fadingSpeed = 1.5f;
     [SerializeField]private bool gameStarted;
+    public bool GameStarted => gameStarted;
     public bool gameEnded;
     public bool isGamePaused;
     [SerializeField] private float transitionTime = 0.5f;
@@ -26,6 +27,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float distanceCoveringSpeed = 5f; //Speed for calculating the distance
     public float DistanceCoveringSpeed => distanceCoveringSpeed;
 
+    [Header("Warning Timer Variables")]
+    public TextMeshProUGUI timerText;
+    [SerializeField] private float waitTime = 5f;
+    private bool playerLiftedFinger;
+    public bool PlayerLiftedFinger
+    {
+        set { playerLiftedFinger = value;}
+    }
 
     void OnEnable()
     {
@@ -42,16 +51,18 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        ShowFadingEffectText(touchScreenText); //Start showing the fade-in/out effect
+        // ShowFadingEffectText(touchScreenText); //Start showing the fade-in/out effect
 
         if(gameUpperPanel!=null) gameUpperPanel.gameObject.SetActive(true);
         if(pausePanel!=null) pausePanel.gameObject.SetActive(false);
+        if(timerText != null) timerText.gameObject.SetActive(false);
     }
 
     void Update()
     {
         if(gameEnded) GameEnded();
         if(gameStarted) return;
+        
         StartTheGame();
 
     }
@@ -61,6 +72,43 @@ public class GameManager : MonoBehaviour
         gameEnded = true;
         LevelEvents.InvokeGameOver();
     }
+    public void StartShowingTimer()
+    {
+        if(!playerLiftedFinger) return; //If player again touches the screen then do not show timer
+
+        StartCoroutine(StartShowingTimerRoutine());
+    }
+
+    public void StopShowingTimer()
+    {
+        timerText.gameObject.SetActive(false);
+    }
+    private IEnumerator StartShowingTimerRoutine()
+    {
+        timerText.gameObject.SetActive(true);
+
+        float remainingTime = waitTime;
+        while (remainingTime >= 0)
+        {
+            if(!playerLiftedFinger) break;
+
+            timerText.text = "Touch The Screen Before: "+remainingTime.ToString()+" s";
+            
+            yield return new WaitForSeconds(1f);
+            
+            remainingTime --;
+
+            if(remainingTime == 0 && playerLiftedFinger)
+            {
+                timerText.gameObject.SetActive(false); //Disable the timer text
+                GameEnded();
+            }
+
+
+        }
+
+        
+    }
 
     public void ResumeGame()
     {
@@ -68,7 +116,8 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1f; //Resume the game
 
-        OpenGameUpperPanel(); //Start the fade-in animation for the upper panel
+        UiManager.Instance.OpenGameUpperPanel(); //Start the fade-in animation for the upper panel
+        // OpenGameUpperPanel(); 
         isGamePaused = false;
     
     }
@@ -79,7 +128,7 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 0f; //Pause the game
 
-        OpenPausePanel(); //Start the fade-in animation for the pause panel
+        UiManager.Instance.OpenPausePanel(); //Start the fade-in animation for the pause panel
         isGamePaused = true;
 
     }
@@ -99,43 +148,7 @@ public class GameManager : MonoBehaviour
 
         }
     }
-    public void OpenPausePanel()
-    {
-        pausePanel.gameObject.SetActive(true);
-        pausePanel.blocksRaycasts = true; // Detect the clicks from the user
-
-        StartCoroutine(OpenPanelRoutine(pausePanel,0f,1f)); //Open the pause menu panel
-        StartCoroutine(OpenPanelRoutine(gameUpperPanel,1f,0f)); //Close the game upper panel
-
-    }
-
-    public void OpenGameUpperPanel()
-    {
-        gameUpperPanel.gameObject.SetActive(true);
-        gameUpperPanel.blocksRaycasts = true; //Detect the clicks from the user
-
-        StartCoroutine(OpenPanelRoutine(gameUpperPanel,0f,1f)); //Open the game upper panel
-        StartCoroutine(OpenPanelRoutine(pausePanel,1f,0f)); //Close the pause menu panel
-    }
-
-    private IEnumerator OpenPanelRoutine(CanvasGroup group,float initialValue,float targetValue)
-    {
-        float elapsedTime = 0f;
-        group.alpha = initialValue;
-
-        while (elapsedTime < transitionTime)
-        {
-            float t = elapsedTime / transitionTime;
-            group.alpha = Mathf.Lerp(initialValue,targetValue,t); //Incrementing the alpha value gradually
-
-            elapsedTime += Time.unscaledDeltaTime;
-            yield return null;
-        }
-        group.alpha = targetValue;
-
-        group.interactable = true; //Make the buttons available for clicking
-    }
-
+    
     private void StartTheGame()
     {
         //For mobile and pc input
@@ -169,26 +182,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void ShowFadingEffectText(TextMeshProUGUI touchScreenText)
-    {
-        StartCoroutine(ShowFadingEffectRoutine(touchScreenText));
-    }
-    private IEnumerator ShowFadingEffectRoutine(TextMeshProUGUI textToAddEffect)
-    {
-        Color currentCol = textToAddEffect.color;
-        
-        while (!gameStarted)
-        {
-            currentCol.a = Mathf.PingPong(Time.time * fadingSpeed, 1f);
-
-            textToAddEffect.color = currentCol;
-
-            yield return null;
-        }
-
-        currentCol.a = 1f;
-        textToAddEffect.color = currentCol;
-        textToAddEffect.gameObject.SetActive(false);
-    }
+    
     }
 

@@ -62,10 +62,16 @@ public class Player : MonoBehaviour
 
             if(Pointer.current.press.wasReleasedThisFrame)
             {
-                isDragging = false;
-                Debug.Log("Finger lifted");
-                GameManager.Instance.GameEnded();
+                GameManager.Instance.PlayerLiftedFinger = true;
+                GameManager.Instance.StartShowingTimer(); //Tell game manager to show the timer count
+            }
+
+            if(!GameManager.Instance.gameEnded && Pointer.current.press.wasPressedThisFrame)
+            {
+                GameManager.Instance.PlayerLiftedFinger = false;
+                GameManager.Instance.StopShowingTimer();
             }
         }
     }
+
 }
