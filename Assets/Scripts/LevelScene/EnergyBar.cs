@@ -46,7 +46,6 @@ public class EnergyBar : MonoBehaviour
         }
         if (collision.CompareTag("Wall"))
         {
-            Debug.Log("Hitted Wall!!!");
             DisableEnergy();
         }
     }

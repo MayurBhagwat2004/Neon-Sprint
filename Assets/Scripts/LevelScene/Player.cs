@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if(GameManager.Instance.gameEnded) return;
+
         canMove = !GameManager.Instance.isGamePaused;
 
         if(!canMove) return;
@@ -36,6 +38,7 @@ public class Player : MonoBehaviour
 
     public void TakePlayerInput()
     {
+
         if(Pointer.current!=null)
         {
             if (Pointer.current.press.wasPressedThisFrame)
@@ -54,11 +57,13 @@ public class Player : MonoBehaviour
                 worldPosition.z = transform.position.z;
                 worldPosition.y = Mathf.Clamp(worldPosition.y,minY,maxY); //Limiting the movement of the ball in +y and -y axis
 
-                transform.position = Vector3.Lerp(transform.position,worldPosition,moveSpeed * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position,worldPosition,moveSpeed * Time.deltaTime); //Move the ball to the location player is dragging
             }
 
-            if(Pointer.current.press.wasReleasedThisFrame && isDragging)
+            if(Pointer.current.press.wasReleasedThisFrame)
             {
+                isDragging = false;
+                Debug.Log("Finger lifted");
                 GameManager.Instance.GameEnded();
             }
         }

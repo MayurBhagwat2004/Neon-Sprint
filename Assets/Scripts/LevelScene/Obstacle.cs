@@ -47,7 +47,6 @@ public class Obstacle : MonoBehaviour
         }
         if (collision.CompareTag("Wall"))
         {
-            Debug.Log("Hitted Wall!!!");
             DisableObstacle();
         }
     }

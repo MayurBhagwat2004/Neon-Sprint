@@ -14,51 +14,47 @@ public class UiManager : MonoBehaviour
 
     void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneChanged;
+        if(SceneManager.GetActiveScene().name == "Level") LevelEvents.OnGameOver += OpenGameOverPanel; //Subscribe to the game over event to show gameover panel
     }
+
 
     void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneChanged;
+        if(SceneManager.GetActiveScene().name == "Level") LevelEvents.OnGameOver -= OpenGameOverPanel; //Un-Subscribe to the game over event to show gameover panel
         
     }
-    private void OnSceneChanged(Scene scene,LoadSceneMode loadSceneMode)
+
+    private void Awake()
     {
-        if(SceneManager.GetActiveScene().name == "Level")
-        {
-            LevelEvents.OnGameOver += OpenGameOverPanel;
-        }
-    }
-    private void Awake() 
-    {
-        if(Instance != this && Instance !=null) Destroy(this);
+        if (Instance != this && Instance != null) Destroy(this);
         else Instance = this;
     }
 
     void Start()
     {
-        if(gameOverGroup!=null)
+        if (gameOverGroup != null)
         {
             gameOverGroup.gameObject.SetActive(false); //Disable the panel at the beginning of the game
         }
     }
     public void OpenSettings()
     {
-        StartCoroutine(OpenPanelRoutine(homeGroup,1,0));
-        StartCoroutine(OpenPanelRoutine(settingsGroup,0,1));
+        StartCoroutine(OpenPanelRoutine(homeGroup, 1, 0));
+        StartCoroutine(OpenPanelRoutine(settingsGroup, 0, 1));
     }
 
     public void CloseSettings()
     {
-        StartCoroutine(OpenPanelRoutine(settingsGroup,1,0));
-        StartCoroutine(OpenPanelRoutine(homeGroup,0,1));
+        StartCoroutine(OpenPanelRoutine(settingsGroup, 1, 0));
+        StartCoroutine(OpenPanelRoutine(homeGroup, 0, 1));
     }
 
     public void OpenGameOverPanel()
     {
-        StartCoroutine(OpenPanelRoutine(gameOverGroup,0,1));
+        gameOverGroup.gameObject.SetActive(true);
+        StartCoroutine(OpenPanelRoutine(gameOverGroup, 0, 1));
     }
-    private IEnumerator OpenPanelRoutine(CanvasGroup group,float initialValue,float targetValue)
+    private IEnumerator OpenPanelRoutine(CanvasGroup group, float initialValue, float targetValue)
     {
         float elapsedTime = 0f;
         group.alpha = initialValue;
@@ -66,15 +62,19 @@ public class UiManager : MonoBehaviour
         while (elapsedTime < transitionTime)
         {
             float t = elapsedTime / transitionTime;
-            group.alpha = Mathf.Lerp(initialValue,targetValue,t); //Incrementing the alpha value gradually
+            group.alpha = Mathf.Lerp(initialValue, targetValue, t); //Incrementing the alpha value gradually
 
             elapsedTime += Time.unscaledDeltaTime;
             yield return null;
         }
         group.alpha = targetValue;
 
-        group.interactable = true; //Make the buttons available for clicking
-        group.blocksRaycasts = true;//Detect the clicks on the button
+        if (targetValue == 1)
+        {
+            group.interactable = true; //Make the buttons available for clicking
+            group.blocksRaycasts = true;//Detect the clicks on the button
+
+        }
     }
-    
+
 }

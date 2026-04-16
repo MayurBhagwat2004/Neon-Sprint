@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI touchScreenText;
     [SerializeField] private float fadingSpeed = 1.5f;
     [SerializeField]private bool gameStarted;
-    [SerializeField]private bool gameEnded;
+    public bool gameEnded;
     public bool isGamePaused;
     [SerializeField] private float transitionTime = 0.5f;
 
@@ -30,6 +30,10 @@ public class GameManager : MonoBehaviour
     void OnEnable()
     {
         LevelEvents.OnGameStarted += HandleGameStarted;
+    }
+    void OnDisable()
+    {
+        LevelEvents.OnGameStarted -= HandleGameStarted;
     }
     void Awake()
     {
@@ -55,7 +59,6 @@ public class GameManager : MonoBehaviour
     public void GameEnded()
     {
         gameEnded = true;
-        gameStarted = false;
         LevelEvents.InvokeGameOver();
     }
 
@@ -153,7 +156,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartCalculatingDistanceRoutine()
     {
         float currentDistance = 0f;
-        while (true)
+        while (!gameEnded)
         {
             if (!isGamePaused)
             {
@@ -164,6 +167,7 @@ public class GameManager : MonoBehaviour
                 
             }
     }
+
 
     private void ShowFadingEffectText(TextMeshProUGUI touchScreenText)
     {

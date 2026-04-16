@@ -6,14 +6,18 @@ public class ObjectsSpawner : MonoBehaviour
     [Header("Spawning Settings")]
     public float spawnInterval = 2f;    
     public Transform[] spawnPoints;
+    private Coroutine currentSpawnRoutine;
     void OnEnable()
     {
         LevelEvents.OnGameStarted += StartSpawning;
+        LevelEvents.OnGameOver += StopSpawningRoutine;
     }
 
     void OnDisable()
     {
         LevelEvents.OnGameStarted -= StartSpawning;
+        LevelEvents.OnGameOver -= StopSpawningRoutine;
+
         
     }
 
@@ -24,8 +28,9 @@ public class ObjectsSpawner : MonoBehaviour
 
     public void StartSpawning()
     {
-        StartCoroutine(StartSpawningRoutine());
+        currentSpawnRoutine = StartCoroutine(StartSpawningRoutine());
     }
+
 
     private IEnumerator StartSpawningRoutine()
     {
@@ -38,10 +43,17 @@ public class ObjectsSpawner : MonoBehaviour
                 string objectTag = Random.value > 0.5f ? "Obstacle" : "Energy";
                 ObjectPooler.Instance.SpawnFromPool(objectTag,randomSpawnPoint.position,randomSpawnPoint.rotation);
             }
-
-
-
             yield return new WaitForSeconds(spawnInterval);
+        
+        }
+    }
+
+    private void StopSpawningRoutine()
+    {
+        if(currentSpawnRoutine != null)
+        {
+            StopCoroutine(currentSpawnRoutine);
+            currentSpawnRoutine = null;
         }
     }
 }
