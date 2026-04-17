@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     private Camera mainCamera;
     //Touch inputs variables
     public Vector2 touchPos;
-    private bool isDragging;
+    [SerializeField] private bool isDragging;
     private float moveSpeed = 15f;
     [SerializeField]private float maxY = 3.5f;
     [SerializeField] private float minY = -4.5f;
@@ -68,8 +68,11 @@ public class Player : MonoBehaviour
 
             if(!GameManager.Instance.gameEnded && Pointer.current.press.wasPressedThisFrame)
             {
-                GameManager.Instance.PlayerLiftedFinger = false;
-                GameManager.Instance.StopShowingTimer(); //Stop the timer when player touches the screen again
+                if (isDragging)
+                {
+                    GameManager.Instance.PlayerLiftedFinger = false;
+                    GameManager.Instance.StopShowingTimer(); //Stop the timer when player touches the screen again
+                }
             }
         }
     }

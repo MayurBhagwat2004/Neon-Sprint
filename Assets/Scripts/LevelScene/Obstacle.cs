@@ -11,9 +11,11 @@ public class Obstacle : MonoBehaviour
     private Vector3 moveDirection = Vector3.left;
     Color defaultColor = Color.white;
 
+    private bool playerHitted; //Flag for checking if the player hitted
 
-    void OnDisable()
+    void OnEnable()
     {
+        playerHitted = false;
     }
     void Start()
     {
@@ -41,10 +43,11 @@ public class Obstacle : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if(collision.CompareTag("Player") && !playerHitted)
         {
+            playerHitted = true;
             LevelEvents.OnObstacleHitted();
-            CallDestroyObstacle();
+            CallPlayObstacleParticleEffect();
         }
         if (collision.CompareTag("Wall"))
         {
@@ -52,12 +55,12 @@ public class Obstacle : MonoBehaviour
         }
     }
 
-    public void CallDestroyObstacle()
+    public void CallPlayObstacleParticleEffect()
     {
-        StartCoroutine(DestroyObstacle());
+        StartCoroutine(PlayObstacleParticleEffectRoutine());
         StartCoroutine(SlowlyFadeObstacle());
     }
-    private IEnumerator DestroyObstacle()
+    private IEnumerator PlayObstacleParticleEffectRoutine()
     {
         if(obstacleParticleSys != null) obstacleParticleSys.Play();
 

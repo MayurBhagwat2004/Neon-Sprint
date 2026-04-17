@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
+using System;
 public class GameManager : MonoBehaviour
 {
     private enum SceneNames
@@ -47,7 +49,6 @@ public class GameManager : MonoBehaviour
         set { playerLiftedFinger = value; }
     }
     #endregion
-
     void OnEnable()
     {
         LevelEvents.OnGameStarted += HandleGameStarted;
@@ -198,7 +199,7 @@ public class GameManager : MonoBehaviour
         float currentDistance = 0f;
         while (!gameEnded)
         {
-            if (!isGamePaused)
+            if (!isGamePaused && !playerLiftedFinger)
             {
                 currentDistance += distanceCoveringSpeed * Time.deltaTime;
                 
@@ -210,8 +211,6 @@ public class GameManager : MonoBehaviour
 
         }
     }
-
-
 
 }
 

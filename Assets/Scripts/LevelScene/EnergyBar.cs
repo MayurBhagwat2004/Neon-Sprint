@@ -11,6 +11,7 @@ public class EnergyBar : MonoBehaviour
     private Vector3 moveDirection = Vector3.left;
     Color defaultColor = Color.white;
 
+    private bool playerHitted; //Flag for checking if the player hitted
     void OnDisable()
     {
     }
@@ -40,8 +41,9 @@ public class EnergyBar : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if(collision.CompareTag("Player") && !playerHitted)
         {
+            playerHitted = true;
             CallDestroyObstacle();
         }
         if (collision.CompareTag("Wall"))

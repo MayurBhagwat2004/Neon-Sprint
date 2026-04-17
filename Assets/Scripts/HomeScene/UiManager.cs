@@ -58,7 +58,7 @@ public class UiManager : MonoBehaviour
             ShowFadingEffectText(touchScreenText);
         }
     }
-
+#region UnUsed Code
     // public void OpenSettings()
     // {
     //     StartCoroutine(OpenClosePanelRoutine(homeGroup, 1, 0));
@@ -70,7 +70,7 @@ public class UiManager : MonoBehaviour
     //     StartCoroutine(OpenClosePanelRoutine(settingsGroup, 1, 0));
     //     StartCoroutine(OpenClosePanelRoutine(homeGroup, 0, 1));
     // }
-
+#endregion
     private void UpdateScore()
     {
         distanceCoveredText.text = GameManager.Instance.distanceCovered.ToString("N0")+"m"; //Show the current distance travelled text when the game is over
