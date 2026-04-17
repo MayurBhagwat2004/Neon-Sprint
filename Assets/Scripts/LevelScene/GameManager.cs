@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private enum SceneNames
@@ -26,10 +27,14 @@ public class GameManager : MonoBehaviour
 
     #region Distance Covered Variables
     [Header("Distance Covered Variables")]
+    public float distanceCovered;
     [SerializeField] private TextMeshProUGUI distanceCoveredText; //Text for distance covered
     [Range(1f, 10f)]
     [SerializeField] private float distanceCoveringSpeed = 5f; //Speed for calculating the distance
     public float DistanceCoveringSpeed => distanceCoveringSpeed;
+
+    [SerializeField] private GameObject energyBarSliderObj;
+    private Slider energyBarSlider;
     #endregion
 
     #region  Warning Timer Variables
@@ -66,6 +71,8 @@ public class GameManager : MonoBehaviour
         if (pausePanel != null) pausePanel.gameObject.SetActive(false); //Disable the pause menu panel
         
         if (timerText != null) timerText.gameObject.SetActive(false);// Disable the timer text when game starts
+
+        if(energyBarSliderObj != null) energyBarSlider = energyBarSliderObj.GetComponent<Slider>(); //Get the slider
     }
 
     void Update()
@@ -81,7 +88,16 @@ public class GameManager : MonoBehaviour
     public void GameEnded()
     {
         gameEnded = true;
+
+        DisableObjects(gameUpperPanel.gameObject); //Disable the upper panel
+        DisableObjects(energyBarSliderObj); //Disable the slider
+
         LevelEvents.InvokeGameOver();
+    }
+
+    private void DisableObjects(GameObject objToDisable)
+    {
+        objToDisable.SetActive(false);
     }
     public void StartShowingTimer()
     {
@@ -185,6 +201,9 @@ public class GameManager : MonoBehaviour
             if (!isGamePaused)
             {
                 currentDistance += distanceCoveringSpeed * Time.deltaTime;
+                
+                distanceCovered = currentDistance; //Storing the current score
+
                 distanceCoveredText.text = currentDistance.ToString("N0") + "m";
             }
             yield return null;

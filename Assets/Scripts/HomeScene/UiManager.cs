@@ -17,6 +17,7 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] private float transitionTime = 0.4f;
     [SerializeField] private TextMeshProUGUI touchScreenText;
+    [SerializeField] private TextMeshProUGUI distanceCoveredText;
 
     private bool isLevelScene; //Flag variable to check if the current scene is level
     private void Awake()
@@ -29,10 +30,10 @@ public class UiManager : MonoBehaviour
     }
     void OnEnable()
     {
-        if(isLevelScene)
+        if (isLevelScene)
         {
             LevelEvents.OnGameOver += OpenGameOverPanel; //Subscribe to the game over event to show gameover panel  
-        } 
+        }
     }
 
 
@@ -52,37 +53,44 @@ public class UiManager : MonoBehaviour
             gameOverGroup.gameObject.SetActive(false); //Disable the panel at the beginning of the game
         }
 
-        if(isLevelScene && touchScreenText!=null)
+        if (isLevelScene && touchScreenText != null)
         {
             ShowFadingEffectText(touchScreenText);
         }
     }
 
-    public void OpenSettings()
-    {
-        StartCoroutine(OpenPanelRoutine(homeGroup, 1, 0));
-        StartCoroutine(OpenPanelRoutine(settingsGroup, 0, 1));
-    }
+    // public void OpenSettings()
+    // {
+    //     StartCoroutine(OpenClosePanelRoutine(homeGroup, 1, 0));
+    //     StartCoroutine(OpenClosePanelRoutine(settingsGroup, 0, 1));
+    // }
 
-    public void CloseSettings()
+    // public void CloseSettings()
+    // {
+    //     StartCoroutine(OpenClosePanelRoutine(settingsGroup, 1, 0));
+    //     StartCoroutine(OpenClosePanelRoutine(homeGroup, 0, 1));
+    // }
+
+    private void UpdateScore()
     {
-        StartCoroutine(OpenPanelRoutine(settingsGroup, 1, 0));
-        StartCoroutine(OpenPanelRoutine(homeGroup, 0, 1));
+        distanceCoveredText.text = GameManager.Instance.distanceCovered.ToString("N0")+"m"; //Show the current distance travelled text when the game is over
     }
 
     public void OpenGameOverPanel()
     {
         gameOverGroup.gameObject.SetActive(true);
-        StartCoroutine(OpenPanelRoutine(gameOverGroup, 0, 1));
+        StartCoroutine(OpenClosePanelRoutine(gameOverGroup, 0, 1));
+        UpdateScore();
     }
+
 
     public void OpenPausePanel()
     {
         pausePanel.gameObject.SetActive(true);
         pausePanel.blocksRaycasts = true; // Detect the clicks from the user
 
-        StartCoroutine(OpenPanelRoutine(pausePanel,0f,1f)); //Open the pause menu panel
-        StartCoroutine(OpenPanelRoutine(gameUpperPanel,1f,0f)); //Close the game upper panel
+        StartCoroutine(OpenClosePanelRoutine(pausePanel, 0f, 1f)); //Open the pause menu panel
+        StartCoroutine(OpenClosePanelRoutine(gameUpperPanel, 1f, 0f)); //Close the game upper panel
 
     }
 
@@ -91,10 +99,11 @@ public class UiManager : MonoBehaviour
         gameUpperPanel.gameObject.SetActive(true);
         gameUpperPanel.blocksRaycasts = true; //Detect the clicks from the user
 
-        StartCoroutine(OpenPanelRoutine(gameUpperPanel,0f,1f)); //Open the game upper panel
-        StartCoroutine(OpenPanelRoutine(pausePanel,1f,0f)); //Close the pause menu panel
+        StartCoroutine(OpenClosePanelRoutine(gameUpperPanel, 0f, 1f)); //Open the game upper panel
+        StartCoroutine(OpenClosePanelRoutine(pausePanel, 1f, 0f)); //Close the pause menu panel
     }
-    private IEnumerator OpenPanelRoutine(CanvasGroup group, float initialValue, float targetValue)
+    
+    private IEnumerator OpenClosePanelRoutine(CanvasGroup group, float initialValue, float targetValue)
     {
         float elapsedTime = 0f;
         group.alpha = initialValue;
@@ -132,6 +141,7 @@ public class UiManager : MonoBehaviour
 
         while (!GameManager.Instance.GameStarted)
         {
+
             currentCol.a = Mathf.PingPong(Time.time * fadingSpeed, 1f);
 
             textToAddEffect.color = currentCol;
@@ -143,4 +153,5 @@ public class UiManager : MonoBehaviour
         textToAddEffect.color = currentCol;
         textToAddEffect.gameObject.SetActive(false);
     }
+
 }
