@@ -53,21 +53,24 @@ TemporaryDependencyNodeTargetIdentifier=netstandard2.1
 /warnaserror+:NU1605
 
 [sourceFiles]
-Assets/Scripts/HomeScene/
- ButtonSFX.cs
- MenuManager.cs
- SoundManager.cs
- UiManager.cs
-Assets/Scripts/LevelScene/
- BallManager.cs
- CameraEffects.cs
- EnergyBar.cs
- Events/LevelEvents.cs
- GameManager.cs
- Object Pooler.cs
- ObjectsSpawner.cs
- Obstacle.cs
- Player.cs
+Assets/Scripts/
+ CameraSlomo.cs
+ HomeScene/
+  ButtonSFX.cs
+  MenuManager.cs
+  SoundManager.cs
+  UiManager.cs
+ LevelScene/
+  BallManager.cs
+  CameraEffects.cs
+  EnergyBar.cs
+  Events/LevelEvents.cs
+  GameManager.cs
+  Object Pooler.cs
+  ObjectsSpawner.cs
+  Obstacle.cs
+  Player.cs
+ PlayerTouchInput.cs
 Temp/obj/Debug/Assembly-CSharp/.NETStandard,Version=v2.1.AssemblyAttributes.cs
 
 [metadataReferences]
