@@ -51,10 +51,13 @@ public class GameManager : MonoBehaviour
     void OnEnable()
     {
         LevelEvents.OnGameStarted += HandleGameStarted;
+        LevelEvents.OnGameOver += GameEnded;
     }
     void OnDisable()
     {
         LevelEvents.OnGameStarted -= HandleGameStarted;
+        LevelEvents.OnGameOver -= GameEnded;
+    
     }
     void Awake()
     {
@@ -82,17 +85,16 @@ public class GameManager : MonoBehaviour
 
         StartTheGame();
 
-        if (gameEnded) GameEnded();
     }
 
     public void GameEnded()
     {
+        if(gameEnded) return;
         gameEnded = true;
 
         DisableObjects(gameUpperPanel.gameObject); //Disable the upper panel
         DisableObjects(energyBarSliderObj); //Disable the slider
 
-        LevelEvents.InvokeGameOver();
     }
 
     private void DisableObjects(GameObject objToDisable)

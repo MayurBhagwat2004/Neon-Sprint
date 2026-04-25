@@ -37,7 +37,7 @@ public class EnergyBarManager : MonoBehaviour
 
     void Update()
     {
-        if(energyBar.value == 0)
+        if(energyBar.value == 0 && !GameManager.Instance.gameEnded)
         {
             LevelEvents.GameOver();
             return;

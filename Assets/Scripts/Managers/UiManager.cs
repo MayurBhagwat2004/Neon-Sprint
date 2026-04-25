@@ -32,7 +32,7 @@ public class UiManager : MonoBehaviour
     {
         if (isLevelScene)
         {
-            LevelEvents.OnGameOver += OpenGameOverPanel; //Subscribe to the game over event to show gameover panel  
+            LevelEvents.OnGameOver += OpenGameOverPanel; //Subscribe to the game over event to show gameover panel
         }
     }
 
