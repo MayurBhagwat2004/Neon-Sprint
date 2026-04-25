@@ -12,7 +12,10 @@ public class MenuManager : MonoBehaviour
 
 
     #region Menu button functions
-    
+    public void GoToHome()
+    {
+        SceneManager.LoadScene(GameScenes.Home.ToString());
+    }
     public void GoToLevel()
     {
         SceneManager.LoadScene(GameScenes.Level.ToString()); //Load the level scene

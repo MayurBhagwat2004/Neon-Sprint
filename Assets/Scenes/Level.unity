@@ -6111,8 +6111,8 @@ MonoBehaviour:
   energyBar: {fileID: 1908577109}
   duration: 0.4
   energyBarDecreasingSpeed: 0.02
-  incrementValue: 0.3
-  decrementValue: 0.7
+  incrementValue: 0.2
+  decrementValue: 0.3
 --- !u!1 &684607291
 GameObject:
   m_ObjectHideFlags: 0
