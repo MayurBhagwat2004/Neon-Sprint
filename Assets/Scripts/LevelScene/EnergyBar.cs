@@ -12,9 +12,12 @@ public class EnergyBar : MonoBehaviour
     Color defaultColor = Color.white;
 
     private bool playerHitted; //Flag for checking if the player hitted
-    void OnDisable()
+
+    void OnEnable()
     {
+        playerHitted = false;
     }
+    
     void Start()
     {
         if(transform.GetComponent<ParticleSystem>() != null)
@@ -43,7 +46,10 @@ public class EnergyBar : MonoBehaviour
     {
         if(collision.CompareTag("Player") && !playerHitted)
         {
+            LevelEvents.OnEnergyBarDetected();
             playerHitted = true;
+
+
             CallDestroyObstacle();
         }
         if (collision.CompareTag("Wall"))
