@@ -9,19 +9,21 @@ public class EnergyBarManager : MonoBehaviour
     private readonly float maximumBarValue = 1f;
     private readonly float minimumBarValue = 0f;
     [SerializeField] private float duration = .2f;
-
+    public float energyBarDecreasingSpeed = 0.02f;
     public float incrementValue = 0.5f; //Value to fill the energy bar
     public float decrementValue = 0.5f; //Value to decrement the energy bar
     void OnEnable()
     {
         LevelEvents.OnEnergyBarAcquired += IncreaseEnergyBar;
         LevelEvents.OnObstacleHit += DecreaseEnergyBar;
+        LevelEvents.OnGameStarted += SlowlyDecreaseEnergyBar;
     }
 
     void OnDisable()
     {
         LevelEvents.OnEnergyBarAcquired -= IncreaseEnergyBar;
         LevelEvents.OnObstacleHit -= DecreaseEnergyBar;
+        LevelEvents.OnGameStarted -= SlowlyDecreaseEnergyBar;
         
     }
 
@@ -35,15 +37,7 @@ public class EnergyBarManager : MonoBehaviour
         SetInitialBarValue();
     }
 
-    void Update()
-    {
-        if(energyBar.value == 0 && !GameManager.Instance.gameEnded)
-        {
-            LevelEvents.GameOver();
-            return;
-        }
-
-    }
+    
 
     private void SetInitialBarValue()
     {
@@ -62,6 +56,12 @@ public class EnergyBarManager : MonoBehaviour
     {
         StartCoroutine(ChangeEnergyBarRoutine(-decrementValue));
     }
+
+    public void SlowlyDecreaseEnergyBar()
+    {
+        StartCoroutine(SlowlyDecreaseEnergyBarRoutine());
+    }
+
     private IEnumerator ChangeEnergyBarRoutine(float amountToChange)
     {
         float elapsedTime = 0f;
@@ -83,7 +83,19 @@ public class EnergyBarManager : MonoBehaviour
 
     }
 
+    private IEnumerator SlowlyDecreaseEnergyBarRoutine()
+    {
+        Debug.Log("energyBarDecreasingSpeed: "+energyBarDecreasingSpeed);
+        while (energyBar.value > 0)
+        {
+            energyBar.value -= energyBarDecreasingSpeed * Time.deltaTime;
+            yield return null;            
+        }
 
+        energyBar.value = 0f;
+
+        LevelEvents.GameOver(); //Trigger the game over event
+    }
 
 }
 

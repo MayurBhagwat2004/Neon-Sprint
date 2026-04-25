@@ -6110,6 +6110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energyBar: {fileID: 1908577109}
   duration: 0.4
+  energyBarDecreasingSpeed: 0.02
   incrementValue: 0.3
   decrementValue: 0.7
 --- !u!1 &684607291
@@ -9324,7 +9325,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.398
+  m_Value: 0.503
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -9337,7 +9338,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1935592918}
-  - component: {fileID: 1935592919}
   m_Layer: 5
   m_Name: EnergyBar
   m_TagString: Untagged
@@ -9365,22 +9365,6 @@ RectTransform:
   m_AnchoredPosition: {x: 25.720947, y: -51.406982}
   m_SizeDelta: {x: 208.727, y: -382.699}
   m_Pivot: {x: 0, y: 0.5}
---- !u!114 &1935592919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1935592917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dbf6a26349476c4f9fa6f69de924c5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  energyBar: {fileID: 1908577109}
-  duration: 0.2
-  incrementValue: 0
-  decrementValue: 0
 --- !u!1 &1954455833
 GameObject:
   m_ObjectHideFlags: 0
