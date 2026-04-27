@@ -94,6 +94,15 @@ public class UiManager : MonoBehaviour
 
     }
 
+    public void OpenSettingsPanel()
+    {
+        settingsGroup.gameObject.SetActive(true);
+        homeGroup.gameObject.SetActive(false);
+
+        settingsGroup.blocksRaycasts = true;
+        StartCoroutine(OpenClosePanelRoutine(settingsGroup, 0f, 1f));
+        StartCoroutine(OpenClosePanelRoutine(homeGroup, 1f, 0f));
+    }
     public void OpenGameUpperPanel()
     {
         gameUpperPanel.gameObject.SetActive(true);
@@ -101,6 +110,16 @@ public class UiManager : MonoBehaviour
 
         StartCoroutine(OpenClosePanelRoutine(gameUpperPanel, 0f, 1f)); //Open the game upper panel
         StartCoroutine(OpenClosePanelRoutine(pausePanel, 1f, 0f)); //Close the pause menu panel
+    }
+
+    public void OpenMenuButtonsPanel()
+    {
+        homeGroup.gameObject.SetActive(true);
+        settingsGroup.gameObject.SetActive(false);
+
+        homeGroup.blocksRaycasts = true;
+        StartCoroutine(OpenClosePanelRoutine(homeGroup,0f,1f));
+        StartCoroutine(OpenClosePanelRoutine(settingsGroup,1f,0f));
     }
     
     private IEnumerator OpenClosePanelRoutine(CanvasGroup group, float initialValue, float targetValue)

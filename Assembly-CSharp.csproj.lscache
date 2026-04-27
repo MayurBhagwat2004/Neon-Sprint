@@ -53,7 +53,9 @@ TemporaryDependencyNodeTargetIdentifier=netstandard2.1
 [sourceFiles]
 Assets/Scripts/
  CameraSlomo.cs
- HomeScene/ButtonSFX.cs
+ HomeScene/
+  ButtonFuncAssigner.cs
+  ButtonSFX.cs
  LevelScene/
   BallManager.cs
   CameraEffects.cs
@@ -67,9 +69,11 @@ Assets/Scripts/
   EnergyBarManager.cs
   GameManager.cs
   MenuManager.cs
+  SceneController.cs
   SoundManager.cs
   UiManager.cs
  PlayerTouchInput.cs
+ SaveGameObject.cs
 Temp/obj/Debug/Assembly-CSharp/.NETStandard,Version=v2.1.AssemblyAttributes.cs
 
 [metadataReferences]
