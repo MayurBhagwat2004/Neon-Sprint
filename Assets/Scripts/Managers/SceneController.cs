@@ -19,7 +19,6 @@ public class SceneController : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Debug.Log("I am a duplicate! The original is on: " + Instance.gameObject.name);
             Destroy(gameObject);
             return;
         }

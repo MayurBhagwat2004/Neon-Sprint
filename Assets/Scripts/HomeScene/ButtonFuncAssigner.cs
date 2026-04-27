@@ -34,7 +34,7 @@ public class ButtonFuncAssigner : MonoBehaviour
                     break;
 
                 case ButtonType.Quit:
-                    SceneController.Instance.QuitGame();
+                    currentButton.onClick.AddListener(QuitGameFunc);
                     break;
 
                 default:
@@ -57,6 +57,11 @@ public class ButtonFuncAssigner : MonoBehaviour
     private void GoToStoreFunc()
     {
         SceneController.Instance.StartLoadingScene(SceneController.GameScenes.Store);
+    }
+
+    private void QuitGameFunc()
+    {
+        SceneController.Instance.QuitGame();
     }
 
     
