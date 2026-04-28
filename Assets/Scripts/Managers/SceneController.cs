@@ -29,6 +29,7 @@ public class SceneController : MonoBehaviour
         }
 
         QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value;
     }
     void Start()
     {

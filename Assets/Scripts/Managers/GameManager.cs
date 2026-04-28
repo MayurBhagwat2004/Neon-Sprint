@@ -130,6 +130,7 @@ public class GameManager : MonoBehaviour
             if (remainingTime == 0 && playerLiftedFinger)
             {
                 timerText.gameObject.SetActive(false); //Disable the timer text
+                LevelEvents.GameOver();
                 GameEnded();
             }
 

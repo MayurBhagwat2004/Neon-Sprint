@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using System;
+using Unity.Burst.Intrinsics;
 public class Player : MonoBehaviour
 {
     public bool canMove;
@@ -13,6 +14,12 @@ public class Player : MonoBehaviour
     private float moveSpeed = 15f;
     [SerializeField]private float maxY = 3.5f;
     [SerializeField] private float minY = -4.5f;
+
+    [Header("Player Finger Movement")]
+    [SerializeField]private float startPos;
+    [SerializeField]private float endPos;
+    [SerializeField] private float fingerThreshold = 2f;
+
     void Awake()
     {
         mainCamera = Camera.main;
@@ -33,6 +40,8 @@ public class Player : MonoBehaviour
         if(!canMove) return;
 
         TakePlayerInput(); //Take the input provided by the user via mobile,pc.
+
+        TrackPlayerFingerMovement();
             
     }
 
@@ -75,6 +84,21 @@ public class Player : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void TrackPlayerFingerMovement()
+    {
+        if(Pointer.current != null)
+        {
+            if (Pointer.current.press.wasPressedThisFrame)
+            {
+                startPos = Pointer.current.position.y.magnitude;
+            }
+            if (!Pointer.current.press.wasReleasedThisFrame)
+            {
+                endPos = Pointer.current.position.y.magnitude;
+            }
+        }        
     }
 
 }

@@ -22,7 +22,6 @@ public class BallManager : MonoBehaviour
     {
         if (shouldIncreaseSpeed)
         {
-            Debug.Log("Increasing the trail speed");
             LevelEvents.InvokeTheSpeedModifier();
             shouldIncreaseSpeed = false;
         }

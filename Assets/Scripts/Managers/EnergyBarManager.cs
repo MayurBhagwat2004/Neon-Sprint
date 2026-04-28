@@ -88,6 +88,8 @@ public class EnergyBarManager : MonoBehaviour
         Debug.Log("energyBarDecreasingSpeed: "+energyBarDecreasingSpeed);
         while (energyBar.value > 0)
         {
+            if(GameManager.Instance.gameEnded) break; //Stop decreasing the energy bar when the game is ended
+
             energyBar.value -= energyBarDecreasingSpeed * Time.deltaTime;
             yield return null;            
         }
@@ -95,6 +97,7 @@ public class EnergyBarManager : MonoBehaviour
         energyBar.value = 0f;
 
         LevelEvents.GameOver(); //Trigger the game over event
+
     }
 
 }
