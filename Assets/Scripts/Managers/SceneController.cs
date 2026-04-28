@@ -27,6 +27,8 @@ public class SceneController : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
+
+        QualitySettings.vSyncCount = 0;
     }
     void Start()
     {
@@ -59,6 +61,9 @@ public class SceneController : MonoBehaviour
 
     private IEnumerator LoadSceneAsyncRoutine(GameScenes sceneName)
     {
+
+        loadingScreenGroup.gameObject.SetActive(true);
+
         loadingScreenGroup.alpha = 1;
         loadingScreenGroup.blocksRaycasts = true;
         loadingScreenGroup.interactable = true;
@@ -82,13 +87,16 @@ public class SceneController : MonoBehaviour
         loadingScreenGroup.blocksRaycasts = false;
         loadingScreenGroup.interactable = false;
 
+        loadingScreenGroup.gameObject.SetActive(false);
+
+
     }
     public void QuitGame()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false; //Quitting the game in the editor
 #else
-                Application.Quit(); //Quitting the game on android device
+        Application.Quit(); //Quitting the game on android device
 #endif
     }
 }

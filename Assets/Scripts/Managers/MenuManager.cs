@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    public MenuManager Instance;
+    public static MenuManager Instance;
     void Awake()
     {
         if(Instance != this && Instance != null) Destroy(this);
