@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
-using System;
-using Unity.Burst.Intrinsics;
+using System.Drawing;
 public class Player : MonoBehaviour
 {
     public bool canMove;
@@ -15,10 +14,17 @@ public class Player : MonoBehaviour
     [SerializeField]private float maxY = 3.5f;
     [SerializeField] private float minY = -4.5f;
 
-    [Header("Player Finger Movement")]
-    [SerializeField]private float startPos;
-    [SerializeField]private float endPos;
+    [Header("Swipe Settings")]
+    private float startPos;
+    private float endPos;
     [SerializeField] private float fingerThreshold = 2f;
+    private Vector2 targetPosition;
+
+    [Header("Lane Settings")]
+    [SerializeField] private int currentLane = 1;
+    [SerializeField] private float laneDistance = 4f;
+
+
 
     void Awake()
     {
@@ -39,10 +45,12 @@ public class Player : MonoBehaviour
 
         if(!canMove) return;
 
-        TakePlayerInput(); //Take the input provided by the user via mobile,pc.
+        // TakePlayerInput(); //Take the input provided by the user via mobile,pc.
 
         TrackPlayerFingerMovement();
-            
+        
+        transform.position = Vector2.Lerp(transform.position,targetPosition,moveSpeed * Time.deltaTime);
+
     }
 
     public void TakePlayerInput()
@@ -88,17 +96,42 @@ public class Player : MonoBehaviour
 
     public void TrackPlayerFingerMovement()
     {
-        if(Pointer.current != null)
+        if(Pointer.current == null) return;
+
+        if (Pointer.current.press.wasPressedThisFrame)
         {
-            if (Pointer.current.press.wasPressedThisFrame)
+            startPos = Pointer.current.position.y.ReadValue();
+        }
+
+        if (Pointer.current.press.wasReleasedThisFrame)
+        {
+            endPos = Pointer.current.position.y.ReadValue();
+            float rawDeltaY = endPos - startPos;
+
+            float normalizedSwipe = rawDeltaY / fingerThreshold;
+
+            if(normalizedSwipe >= 1)
             {
-                startPos = Pointer.current.position.y.magnitude;
+                if(currentLane < 2) currentLane ++;
             }
-            if (!Pointer.current.press.wasReleasedThisFrame)
+            else if(normalizedSwipe <= -1)
             {
-                endPos = Pointer.current.position.y.magnitude;
+                if(currentLane > 0) currentLane --;
             }
-        }        
+
+            Debug.Log(normalizedSwipe);
+        
+            UpdateTargetPosition();
+        }
+
+
+    }
+
+    private void UpdateTargetPosition()
+    {
+        float targetY = (currentLane -1) * laneDistance;
+        targetPosition = new Vector2(transform.position.x,targetY);
+        // transform.position = Vector2.MoveTowards(ve)
     }
 
 }
