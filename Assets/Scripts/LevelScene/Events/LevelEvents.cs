@@ -8,6 +8,7 @@ public class LevelEvents : MonoBehaviour
     public static event Action OnObstacleHit;
     public static event Action OnPlayerLiftedFinger;
     public static event Action OnEnergyBarAcquired;
+    
     public static void StartTheGame()
     {
         OnGameStarted?.Invoke(); //Fires the event indicating to start the game

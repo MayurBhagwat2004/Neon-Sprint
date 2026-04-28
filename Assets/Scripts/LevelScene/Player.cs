@@ -5,7 +5,6 @@ using System.Drawing;
 public class Player : MonoBehaviour
 {
     public bool canMove;
-    // private bool superSonicAbilityEnabled;
     private Camera mainCamera;
     //Touch inputs variables
     public Vector2 touchPos;
@@ -14,11 +13,13 @@ public class Player : MonoBehaviour
     [SerializeField]private float maxY = 3.5f;
     [SerializeField] private float minY = -4.5f;
 
+    public ParticleSystem damageParticleEffect;
     [Header("Swipe Settings")]
     private float startPos;
     private float endPos;
     [SerializeField] private float fingerThreshold = 2f;
     private Vector2 targetPosition;
+    [SerializeField] private TrailRenderer swipeFeedbackRenderer;
 
     [Header("Lane Settings")]
     [SerializeField] private int currentLane = 1;
@@ -33,8 +34,18 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        // if(GameManager.Instance!=null && GameManager.Instance.isGamePaused != true) superSonicAbilityEnabled = false;
-
+        if(swipeFeedbackRenderer != null)
+        {
+            swipeFeedbackRenderer.emitting = true;
+        }
+        if(damageParticleEffect != null)
+        {
+            var main = damageParticleEffect.main;
+            main.loop = false;
+            damageParticleEffect.Clear();
+            damageParticleEffect.Stop();
+        }
+        
     }
 
     void Update()
@@ -53,6 +64,7 @@ public class Player : MonoBehaviour
 
     }
 
+    #region un-used code
     public void TakePlayerInput()
     {
 
@@ -93,18 +105,21 @@ public class Player : MonoBehaviour
             }
         }
     }
-
+    #endregion
     public void TrackPlayerFingerMovement()
     {
         if(Pointer.current == null) return;
 
         if (Pointer.current.press.wasPressedThisFrame)
         {
+            swipeFeedbackRenderer.Clear(); //Clear previous feedback
+
             startPos = Pointer.current.position.y.ReadValue();
         }
 
         if (Pointer.current.press.wasReleasedThisFrame)
         {
+
             endPos = Pointer.current.position.y.ReadValue();
             float rawDeltaY = endPos - startPos;
 
@@ -119,8 +134,6 @@ public class Player : MonoBehaviour
                 if(currentLane > 0) currentLane --;
             }
 
-            Debug.Log(normalizedSwipe);
-        
             UpdateTargetPosition();
         }
 
@@ -134,4 +147,8 @@ public class Player : MonoBehaviour
         // transform.position = Vector2.MoveTowards(ve)
     }
 
+    public void PlayAffectedEffect()
+    {
+        damageParticleEffect.Play();        
+    }
 }

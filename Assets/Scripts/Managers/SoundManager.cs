@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour
 {
     private enum SfxClips
     {
-        ClickSfx,JumpSfx
+        ClickSfx,JumpSfx,EnergyBarSfx,ObstacleSfx,GameOverSfx
     };
     public static SoundManager Instance;
     [SerializeField] private AudioSource musicSource;
@@ -45,8 +45,22 @@ public class SoundManager : MonoBehaviour
         else StartPlayingMusic(); //Start playing the sound if the music status is 1
     
     }
-    void OnEnable(){ SceneManager.sceneLoaded += OnSceneLoaded; }
-    void OnDisable(){ SceneManager.sceneLoaded -= OnSceneLoaded; }
+    void OnEnable()
+    { 
+        SceneManager.sceneLoaded += OnSceneLoaded; 
+        LevelEvents.OnEnergyBarAcquired += PlayEnergySfx;
+        LevelEvents.OnObstacleHit += PlayObstacleHitSfx;
+        LevelEvents.OnGameOver += PlayGameOverSfx;
+    }
+    void OnDisable()
+    { 
+        SceneManager.sceneLoaded -= OnSceneLoaded; 
+        LevelEvents.OnEnergyBarAcquired -= PlayEnergySfx;
+        LevelEvents.OnObstacleHit -= PlayObstacleHitSfx;
+        LevelEvents.OnGameOver -= PlayGameOverSfx;
+
+
+    }
 
     void OnSceneLoaded(Scene scene,LoadSceneMode loadSceneMode)
     {
@@ -107,6 +121,37 @@ public class SoundManager : MonoBehaviour
             {
                 sfxSource.PlayOneShot(clip);
             }
+        }
+    }
+
+    public void PlayObstacleHitSfx()
+    {
+        if(PlayerPrefs.GetInt("SoundStatus") == 1)
+        {
+            AudioClip clip = sfxClips.Find(c => c.name == SfxClips.ObstacleSfx.ToString());
+            if(clip != null)
+            {
+                sfxSource.PlayOneShot(clip);
+            }
+        }
+    }
+
+    public void PlayEnergySfx()
+    {
+        AudioClip clip = sfxClips.Find(c => c.name == SfxClips.EnergyBarSfx.ToString());
+        if(clip != null)
+        {
+            sfxSource.PlayOneShot(clip);
+        }
+    }
+
+    public void PlayGameOverSfx()
+    {
+        AudioClip clip = sfxClips.Find(c => c.name == SfxClips.GameOverSfx.ToString());
+
+        if(clip != null)
+        {
+            sfxSource.PlayOneShot(clip);
         }
     }
 }

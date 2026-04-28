@@ -85,7 +85,6 @@ public class EnergyBarManager : MonoBehaviour
 
     private IEnumerator SlowlyDecreaseEnergyBarRoutine()
     {
-        Debug.Log("energyBarDecreasingSpeed: "+energyBarDecreasingSpeed);
         while (energyBar.value > 0)
         {
             if(GameManager.Instance.gameEnded) break; //Stop decreasing the energy bar when the game is ended
