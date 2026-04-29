@@ -66,6 +66,7 @@ Assets/Scripts/
   Obstacle.cs
   Player.cs
  Managers/
+  DifficultyManager.cs
   EnergyBarManager.cs
   GameManager.cs
   MenuManager.cs

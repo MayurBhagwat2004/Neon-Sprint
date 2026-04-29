@@ -10,6 +10,8 @@ public class LevelEvents : MonoBehaviour
     public static event Action OnEnergyBarAcquired;
     public static Action<GameStatusTexts> OnCriticalHealth;
     public static Action<GameStatusTexts> OnStatusUpdate;
+
+    public static event Action OnShouldIncreaseSpeed;
     public static void StartTheGame()
     {
         OnGameStarted?.Invoke(); //Fires the event indicating to start the game
@@ -52,5 +54,10 @@ public class LevelEvents : MonoBehaviour
     public static void TriggerStatusUpdate(GameStatusTexts status)
     {
         OnStatusUpdate?.Invoke(status);
+    }
+
+    public static void OnShouldIncreaseSpeedDecision()
+    {
+        OnShouldIncreaseSpeed?.Invoke();
     }
 }

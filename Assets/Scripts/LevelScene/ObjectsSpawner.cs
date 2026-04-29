@@ -1,12 +1,28 @@
 using System.Collections;
+using UnityEditor.SearchService;
 using UnityEngine;
 
 public class ObjectsSpawner : MonoBehaviour
 {
+    public static ObjectsSpawner Instance;
     [Header("Spawning Settings")]
-    public float spawnInterval = 2f;    
+    private float spawnInterval = 2f;
+    public float SpawnInterval
+    {
+        get
+        {
+            return spawnInterval;
+        }
+        set
+        {
+            spawnInterval = value;
+        }
+    }    
     public Transform[] spawnPoints;
     private Coroutine currentSpawnRoutine;
+
+    public float obstacleSpeed = 5f;
+    public float energyBarSpeed = 5f;
     void OnEnable()
     {
         LevelEvents.OnGameStarted += StartSpawning;
@@ -19,6 +35,12 @@ public class ObjectsSpawner : MonoBehaviour
         LevelEvents.OnGameOver -= StopSpawningRoutine;
 
         
+    }
+
+    void Awake()
+    {
+        if(Instance != this && Instance != null) Destroy(gameObject);
+        else Instance = this;
     }
 
     void Update()

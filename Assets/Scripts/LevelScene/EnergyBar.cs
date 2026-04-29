@@ -7,17 +7,25 @@ public class EnergyBar : MonoBehaviour
     public ParticleSystem obstacleParticleSys;
     public float particleEffectDuration = 0.5f;
     public float particleDimSpeed = 5f;
-    public float moveSpeed = 5f;
+    public float moveSpeed;
     private Vector3 moveDirection = Vector3.left;
     Color defaultColor = Color.white;
-
     private bool playerHitted; //Flag for checking if the player hitted
 
     void OnEnable()
     {
         playerHitted = false;
+
+        LevelEvents.OnShouldIncreaseSpeed += UpdateSpeed;
+
     }
-    
+
+    void OnDisable()
+    {
+        LevelEvents.OnShouldIncreaseSpeed -= UpdateSpeed;
+        
+    }
+
     void Start()
     {
         if(transform.GetComponent<ParticleSystem>() != null)
@@ -25,6 +33,7 @@ public class EnergyBar : MonoBehaviour
             obstacleParticleSys = transform.GetComponent<ParticleSystem>();
         }
 
+        moveSpeed = ObjectsSpawner.Instance.energyBarSpeed;
         obstacleSprite = transform.GetComponent<SpriteRenderer>();
     }
 
@@ -37,7 +46,7 @@ public class EnergyBar : MonoBehaviour
     {
         if(GameManager.Instance.isGamePaused) return;
 
-        float currentSpeed = GameManager.Instance.DistanceCoveringSpeed * moveSpeed;
+        float currentSpeed = ObjectsSpawner.Instance.obstacleSpeed;
 
         transform.Translate(moveDirection * currentSpeed * Time.deltaTime,Space.World);
 
@@ -98,9 +107,10 @@ public class EnergyBar : MonoBehaviour
 
         gameObject.SetActive(false);
         obstacleSprite.color = defaultColor;
+    }
 
-
-        
-        
+    public void UpdateSpeed()
+    {
+        moveSpeed = ObjectsSpawner.Instance.energyBarSpeed;
     }
 }

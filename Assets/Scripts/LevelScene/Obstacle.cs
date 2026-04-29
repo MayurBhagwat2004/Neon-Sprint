@@ -6,8 +6,7 @@ public class Obstacle : MonoBehaviour
     private SpriteRenderer obstacleSprite;
     public ParticleSystem obstacleParticleSys;
     public float particleEffectDuration = 0.5f;
-    public float particleDimSpeed = 5f;
-    public float moveSpeed = 5f;
+    public float moveSpeed;
     private Vector3 moveDirection = Vector3.left;
     Color defaultColor = Color.white;
 
@@ -16,6 +15,14 @@ public class Obstacle : MonoBehaviour
     void OnEnable()
     {
         playerHitted = false;
+
+        LevelEvents.OnShouldIncreaseSpeed += UpdateSpeed;
+    }
+
+    void OnDisable()
+    {
+        LevelEvents.OnShouldIncreaseSpeed -= UpdateSpeed;
+        
     }
     void Start()
     {
@@ -25,7 +32,8 @@ public class Obstacle : MonoBehaviour
         }
 
         obstacleSprite = transform.GetComponent<SpriteRenderer>();
-    
+
+        moveSpeed = ObjectsSpawner.Instance.obstacleSpeed;    
     }
     void Update()
     {
@@ -35,8 +43,7 @@ public class Obstacle : MonoBehaviour
     {
         if(GameManager.Instance.isGamePaused) return;
 
-        float currentSpeed = GameManager.Instance.DistanceCoveringSpeed * moveSpeed;
-
+        float currentSpeed = ObjectsSpawner.Instance.obstacleSpeed;
         transform.Translate(moveDirection * currentSpeed * Time.deltaTime,Space.World);
 
     }
@@ -100,6 +107,11 @@ public class Obstacle : MonoBehaviour
         obstacleSprite.color = defaultColor;
         
         
+    }
+
+    public void UpdateSpeed()
+    {
+        moveSpeed = ObjectsSpawner.Instance.obstacleSpeed;
     }
 }
 

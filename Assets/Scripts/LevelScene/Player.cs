@@ -10,6 +10,17 @@ public class Player : MonoBehaviour
     public Vector2 touchPos;
     [SerializeField] private bool isDragging;
     private float moveSpeed = 15f;
+    public float MoveSpeed
+    {
+        get
+        {
+            return moveSpeed;
+        }
+        set
+        {
+            moveSpeed = value;
+        }
+    }
     [SerializeField]private float maxY = 3.5f;
     [SerializeField] private float minY = -4.5f;
 
