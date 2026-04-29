@@ -96,20 +96,14 @@ public class EnergyBarManager : MonoBehaviour
             if (energyBar.value <= 0.4f && !hasTriggeredCritical)
             {
                 hasTriggeredCritical = true;
-                Debug.Log("Called critical health event");
                 LevelEvents.OnCriticalHealthDetected();
             }
 
             yield return null;
         }
 
-
-        if(energyBar.value <= 0 && GameManager.Instance.gameEnded)
-        {
-            energyBar.value = 0f;
-            LevelEvents.GameOver(); //Trigger the game over event
-            
-        }
+        energyBar.value = 0f;
+        LevelEvents.GameOver(); //Trigger the game over event
 
     }
 

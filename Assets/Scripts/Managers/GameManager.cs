@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
     };
     #endregion
 
+    private float fadingMultiplier = 0.5f;
     private Coroutine statusRoutine; //Storing the status coroutine
     void OnEnable()
     {
@@ -244,10 +245,9 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ShowUpdateRoutine(GameStatusTexts statusUpdateString)
     {
-        Debug.Log("Started the coroutine");
 
         float durationToDisplay = 1f;
-        float fadeDuration = 1f;
+        float fadeDuration = 2f;
         float elapsedTime = 0f;
         if (statusMessage.TryGetValue(statusUpdateString, out string message))
         {
