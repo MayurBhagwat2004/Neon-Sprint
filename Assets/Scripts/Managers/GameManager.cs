@@ -62,13 +62,13 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameStatusText;
     private readonly Dictionary<GameStatusTexts, string> statusMessage = new Dictionary<GameStatusTexts, string>
     {
+        {GameStatusTexts.CriticalHealth,"Critical Health!"},
         {GameStatusTexts.SpeedIncreased,"Speed Increased !!!"},
         {GameStatusTexts.SpeedDecreased,"Speed Decreased !!!"},
         {GameStatusTexts.AbilityAcquired,"Ability Acquired !!!"},
     };
     #endregion
 
-    private float fadingMultiplier = 0.5f;
     private Coroutine statusRoutine; //Storing the status coroutine
     void OnEnable()
     {
@@ -251,7 +251,6 @@ public class GameManager : MonoBehaviour
         float elapsedTime = 0f;
         if (statusMessage.TryGetValue(statusUpdateString, out string message))
         {
-
             newMessage = message;
             if (newMessage != lastMessage)
             {
@@ -261,6 +260,9 @@ public class GameManager : MonoBehaviour
 
             gameStatusPanel.alpha = 1;
         }
+
+        Debug.Log(message);
+
 
         yield return new WaitForSeconds(durationToDisplay);
 
