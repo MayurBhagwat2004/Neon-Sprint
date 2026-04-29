@@ -5,16 +5,23 @@ using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using System.Collections.Generic;
+public enum GameStatusTexts
+{
+    SpeedIncreased, SpeedDecreased, AbilityAcquired, CriticalHealth
+}
 public class GameManager : MonoBehaviour
 {
     private enum SceneNames
     {
         Home, Level, Store
     }
+
     public static GameManager Instance;
     #region Panels
     [SerializeField] private CanvasGroup pausePanel; //GameObject for the pause panel
     [SerializeField] private CanvasGroup gameUpperPanel; //GameObject for the upper ui in the level
+    [SerializeField] private CanvasGroup gameStatusPanel; //Gameobject for the update of the game like speed increased, health decreased,etc
     #endregion
     #region Game Started Variables
     [Header("Game Started Variables")]
@@ -48,16 +55,35 @@ public class GameManager : MonoBehaviour
         set { playerLiftedFinger = value; }
     }
     #endregion
+    #region  Status Updating Variables
+    [Header("Status Updating Variables")]
+    private string newMessage;
+    private string lastMessage;
+    public TextMeshProUGUI gameStatusText;
+    private readonly Dictionary<GameStatusTexts, string> statusMessage = new Dictionary<GameStatusTexts, string>
+    {
+        {GameStatusTexts.SpeedIncreased,"Speed Increased !!!"},
+        {GameStatusTexts.SpeedDecreased,"Speed Decreased !!!"},
+        {GameStatusTexts.AbilityAcquired,"Ability Acquired !!!"},
+    };
+    #endregion
+
+    private Coroutine statusRoutine; //Storing the status coroutine
     void OnEnable()
     {
         LevelEvents.OnGameStarted += HandleGameStarted;
         LevelEvents.OnGameOver += GameEnded;
+        LevelEvents.OnStatusUpdate += TriggerStatus;
+        LevelEvents.OnCriticalHealth += TriggerStatus;
+
     }
     void OnDisable()
     {
         LevelEvents.OnGameStarted -= HandleGameStarted;
         LevelEvents.OnGameOver -= GameEnded;
-    
+        LevelEvents.OnStatusUpdate -= TriggerStatus;
+        LevelEvents.OnCriticalHealth -= TriggerStatus;
+
     }
     void Awake()
     {
@@ -69,18 +95,20 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f; //UnFreeze the game
 
 
-        if (gameUpperPanel != null) gameUpperPanel.gameObject.SetActive(true); //Activate the upper panel
+        if (gameUpperPanel != null) gameUpperPanel.alpha = 1;//Activate the upper panel
 
-        if (pausePanel != null) pausePanel.gameObject.SetActive(false); //Disable the pause menu panel
-        
-        if (timerText != null) timerText.gameObject.SetActive(false);// Disable the timer text when game starts
+        if (pausePanel != null) DisableObjects(pausePanel.gameObject); //Disable the pause menu panel
 
-        if(energyBarSliderObj != null) energyBarSlider = energyBarSliderObj.GetComponent<Slider>(); //Get the slider
+        if (timerText != null) DisableObjects(timerText.gameObject);// Disable the timer text when game starts
+
+        if (energyBarSliderObj != null) energyBarSlider = energyBarSliderObj.GetComponent<Slider>(); //Get the slider
+
+        if (gameStatusPanel != null) gameStatusPanel.alpha = 0;
     }
 
     void Update()
     {
-        
+
         if (gameStarted) return;
 
         StartTheGame();
@@ -89,7 +117,7 @@ public class GameManager : MonoBehaviour
 
     public void GameEnded()
     {
-        if(gameEnded) return;
+        if (gameEnded) return;
         gameEnded = true;
 
         DisableObjects(gameUpperPanel.gameObject); //Disable the upper panel
@@ -204,7 +232,7 @@ public class GameManager : MonoBehaviour
             if (!isGamePaused && !playerLiftedFinger)
             {
                 currentDistance += distanceCoveringSpeed * Time.deltaTime;
-                
+
                 distanceCovered = currentDistance; //Storing the current score
 
                 distanceCoveredText.text = currentDistance.ToString("N0") + "m";
@@ -214,5 +242,45 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private IEnumerator ShowUpdateRoutine(GameStatusTexts statusUpdateString)
+    {
+        Debug.Log("Started the coroutine");
+
+        float durationToDisplay = 1f;
+        float fadeDuration = 1f;
+        float elapsedTime = 0f;
+        if (statusMessage.TryGetValue(statusUpdateString, out string message))
+        {
+
+            newMessage = message;
+            if (newMessage != lastMessage)
+            {
+                gameStatusText.text = newMessage;
+                lastMessage = newMessage; //Store the new message
+            }
+
+            gameStatusPanel.alpha = 1;
+        }
+
+        yield return new WaitForSeconds(durationToDisplay);
+
+        while (elapsedTime < durationToDisplay)
+        {
+            elapsedTime += Time.deltaTime;
+
+            gameStatusPanel.alpha = 1 - (elapsedTime / fadeDuration);
+            yield return null;
+        }
+
+
+        gameStatusPanel.alpha = 0;
+        statusRoutine = null;
+    }
+
+    public void TriggerStatus(GameStatusTexts gameStatusTexts)
+    {
+        if (statusRoutine != null) StopCoroutine(statusRoutine);
+        statusRoutine = StartCoroutine(ShowUpdateRoutine(gameStatusTexts));
+    }
 }
 

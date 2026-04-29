@@ -46,9 +46,11 @@ public class Obstacle : MonoBehaviour
         if(collision.CompareTag("Player") && !playerHitted)
         {
             playerHitted = true;
-            collision.GetComponent<Player>().PlayAffectedEffect();
             LevelEvents.OnObstacleHitted();
-            CallPlayObstacleParticleEffect();
+            
+            collision.GetComponent<Player>().PlayAffectedEffect();
+                CallPlayObstacleParticleEffect();
+
         }
         if (collision.CompareTag("Wall"))
         {

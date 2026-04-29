@@ -12,6 +12,7 @@ public class EnergyBarManager : MonoBehaviour
     public float energyBarDecreasingSpeed = 0.02f;
     public float incrementValue = 0.5f; //Value to fill the energy bar
     public float decrementValue = 0.5f; //Value to decrement the energy bar
+    private bool hasTriggeredCritical;
     void OnEnable()
     {
         LevelEvents.OnEnergyBarAcquired += IncreaseEnergyBar;
@@ -24,7 +25,7 @@ public class EnergyBarManager : MonoBehaviour
         LevelEvents.OnEnergyBarAcquired -= IncreaseEnergyBar;
         LevelEvents.OnObstacleHit -= DecreaseEnergyBar;
         LevelEvents.OnGameStarted -= SlowlyDecreaseEnergyBar;
-        
+
     }
 
     void Start()
@@ -37,13 +38,13 @@ public class EnergyBarManager : MonoBehaviour
         SetInitialBarValue();
     }
 
-    
+
 
     private void SetInitialBarValue()
     {
         energyBar.maxValue = maximumBarValue;
         energyBar.minValue = minimumBarValue;
-        
+
         energyBar.value = maximumBarValue;
     }
 
@@ -67,14 +68,14 @@ public class EnergyBarManager : MonoBehaviour
         float elapsedTime = 0f;
 
         float startValue = energyBar.value;
-        float targetValue = Mathf.Clamp(startValue + amountToChange,minimumBarValue,maximumBarValue);
-        
+        float targetValue = Mathf.Clamp(startValue + amountToChange, minimumBarValue, maximumBarValue);
+
         while (elapsedTime < duration)
         {
-            float t = elapsedTime/duration;
-            
-            energyBar.value = Mathf.Lerp(startValue,targetValue,t);
-            
+            float t = elapsedTime / duration;
+
+            energyBar.value = Mathf.Lerp(startValue, targetValue, t);
+
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -85,17 +86,30 @@ public class EnergyBarManager : MonoBehaviour
 
     private IEnumerator SlowlyDecreaseEnergyBarRoutine()
     {
+        hasTriggeredCritical = false;
         while (energyBar.value > 0)
         {
-            if(GameManager.Instance.gameEnded) break; //Stop decreasing the energy bar when the game is ended
+            if (GameManager.Instance.gameEnded) break; //Stop decreasing the energy bar when the game is ended
 
             energyBar.value -= energyBarDecreasingSpeed * Time.deltaTime;
-            yield return null;            
+            
+            if (energyBar.value <= 0.4f && !hasTriggeredCritical)
+            {
+                hasTriggeredCritical = true;
+                Debug.Log("Called critical health event");
+                LevelEvents.OnCriticalHealthDetected();
+            }
+
+            yield return null;
         }
 
-        energyBar.value = 0f;
 
-        LevelEvents.GameOver(); //Trigger the game over event
+        if(energyBar.value <= 0 && GameManager.Instance.gameEnded)
+        {
+            energyBar.value = 0f;
+            LevelEvents.GameOver(); //Trigger the game over event
+            
+        }
 
     }
 

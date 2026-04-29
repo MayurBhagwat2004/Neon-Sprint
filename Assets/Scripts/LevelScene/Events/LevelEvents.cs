@@ -8,7 +8,8 @@ public class LevelEvents : MonoBehaviour
     public static event Action OnObstacleHit;
     public static event Action OnPlayerLiftedFinger;
     public static event Action OnEnergyBarAcquired;
-    
+    public static Action<GameStatusTexts> OnCriticalHealth;
+    public static Action<GameStatusTexts> OnStatusUpdate;
     public static void StartTheGame()
     {
         OnGameStarted?.Invoke(); //Fires the event indicating to start the game
@@ -41,5 +42,15 @@ public class LevelEvents : MonoBehaviour
     public static void OnEnergyBarDetected()
     {
         OnEnergyBarAcquired?.Invoke();
+    }
+
+    public static void OnCriticalHealthDetected()
+    {
+        OnCriticalHealth?.Invoke(GameStatusTexts.CriticalHealth);
+    }
+
+    public static void TriggerStatusUpdate(GameStatusTexts status)
+    {
+        OnStatusUpdate?.Invoke(status);
     }
 }
