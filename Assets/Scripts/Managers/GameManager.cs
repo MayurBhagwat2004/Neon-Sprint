@@ -261,9 +261,6 @@ public class GameManager : MonoBehaviour
             gameStatusPanel.alpha = 1;
         }
 
-        Debug.Log(message);
-
-
         yield return new WaitForSeconds(durationToDisplay);
 
         while (elapsedTime < durationToDisplay)

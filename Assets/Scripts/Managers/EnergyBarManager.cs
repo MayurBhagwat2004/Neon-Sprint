@@ -13,6 +13,14 @@ public class EnergyBarManager : MonoBehaviour
     public float incrementValue = 0.5f; //Value to fill the energy bar
     public float decrementValue = 0.5f; //Value to decrement the energy bar
     private bool hasTriggeredCritical;
+
+    [Header("Colors Hex Code")]
+    private const string lowHealthColorHex = "#FF0600";
+    private const string normalHealthColorHex = "#007BF3";
+    private Color lowHealthColor;
+    private Color normalHealthColor;
+
+    [SerializeField] private Image fillImage;
     void OnEnable()
     {
         LevelEvents.OnEnergyBarAcquired += IncreaseEnergyBar;
@@ -35,6 +43,11 @@ public class EnergyBarManager : MonoBehaviour
             energyBar = transform.GetChild(0).GetComponent<Slider>();
         }
 
+        ColorUtility.TryParseHtmlString(lowHealthColorHex, out lowHealthColor);
+        ColorUtility.TryParseHtmlString(normalHealthColorHex, out normalHealthColor);
+        
+        fillImage.color = normalHealthColor; //Set the default color for energy bar
+        
         SetInitialBarValue();
     }
 
@@ -95,9 +108,17 @@ public class EnergyBarManager : MonoBehaviour
             
             if (energyBar.value <= 0.4f && !hasTriggeredCritical)
             {
+                fillImage.color = lowHealthColor;
                 hasTriggeredCritical = true;
                 LevelEvents.OnCriticalHealthDetected();
             }
+
+            else if(energyBar.value > 0.4f && hasTriggeredCritical)
+            {
+                fillImage.color = normalHealthColor;
+                hasTriggeredCritical = false;
+            }
+
 
             yield return null;
         }
