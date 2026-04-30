@@ -5,8 +5,8 @@ public class BallManager : MonoBehaviour
     [SerializeField] private ParticleSystem trailParticleSystem;
     [SerializeField] private float minSpeed = 5f;
     [SerializeField] private float maxSpeed = 10f;
+
     [SerializeField] private float speedModifier = 5f;
-    public bool shouldIncreaseSpeed = false;
 
     void OnEnable()
     {
@@ -20,11 +20,7 @@ public class BallManager : MonoBehaviour
 
     void Update()
     {
-        if (shouldIncreaseSpeed)
-        {
-            LevelEvents.InvokeTheSpeedModifier();
-            shouldIncreaseSpeed = false;
-        }
+        
     }
 
     private void ActivateTheTrail()
@@ -41,6 +37,8 @@ public class BallManager : MonoBehaviour
 
     public void UpdateTheSpeeds()
     {
+        if(minSpeed == 25 && maxSpeed ==30) return;
+        
         minSpeed += speedModifier;
         maxSpeed += speedModifier;
 

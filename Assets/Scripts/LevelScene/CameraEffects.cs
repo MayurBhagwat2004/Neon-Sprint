@@ -19,6 +19,7 @@ public class CameraEffects : MonoBehaviour
     public float slowMoDuration = 0.5f;
     private Coroutine currentZoomRoutine;
 
+
     void Awake()
     {
         cam = GetComponent<Camera>();

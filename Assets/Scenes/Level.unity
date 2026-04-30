@@ -819,6 +819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerScript: {fileID: 1663366241}
+  ballManagerScript: {fileID: 0}
   minSpawnInterval: 0.2
   spawnReductionAmount: 0.1
   distanceInterval: 30
@@ -1091,6 +1092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64901789b5c0514ba4d0561ed1aa60d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnInterval: 2
   spawnPoints:
   - {fileID: 1155292339}
   - {fileID: 1091304910}
@@ -1219,8 +1221,8 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 0
-  prewarm: 0
+  looping: 1
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -1340,8 +1342,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 1
+      scalar: 30
+      minScalar: 25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -6935,6 +6937,7 @@ GameObject:
   - component: {fileID: 793000760}
   - component: {fileID: 793000763}
   - component: {fileID: 793000764}
+  - component: {fileID: 793000765}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7078,6 +7081,18 @@ MonoBehaviour:
   zoomTransitionTime: 0.2
   slowMoSpeed: 0.2
   slowMoDuration: 0.5
+--- !u!114 &793000765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793000759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85a670af88b121448771ddc9fc4060d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &903934378
 GameObject:
   m_ObjectHideFlags: 0
@@ -7702,6 +7717,14 @@ PrefabInstance:
     - target: {fileID: 62301363666821420, guid: 720e3a574c49202488338eebc8620735, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343068655346096704, guid: 720e3a574c49202488338eebc8620735, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6569710050080876163, guid: 720e3a574c49202488338eebc8620735, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6918691668539758765, guid: 720e3a574c49202488338eebc8620735, type: 3}
       propertyPath: m_Name
@@ -14276,7 +14299,6 @@ MonoBehaviour:
   minSpeed: 5
   maxSpeed: 10
   speedModifier: 5
-  shouldIncreaseSpeed: 0
 --- !u!1 &1674599854
 GameObject:
   m_ObjectHideFlags: 0

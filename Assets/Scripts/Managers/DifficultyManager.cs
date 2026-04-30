@@ -5,11 +5,9 @@ public class DifficultyManager : MonoBehaviour
 {
     [Header("Speed logic variables")]
     [SerializeField] private Player playerScript;
-    private float playerSpeedIncrease = 1f;
-    private float maxPlayerSpeed = 25f;
     [SerializeField] private float minSpawnInterval = 0.2f;
     [SerializeField] private float spawnReductionAmount = 0.1f;
-    private float distanceCalculatingSpeedFactor = 1f;
+    private float distanceCalculatingSpeedFactor = .2f;
     private float speedIncreasingFactor;
 
     [Header("Progression Threshold")]
@@ -17,15 +15,8 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField]private float nextDistanceMilestone;
     private float timeElapsed;
     float currentDist;
-    void OnEnable()
-    {
-        
-    }
-
-    void OnDisable()
-    {
-        
-    }
+    private bool maxSpawnSpeedLimitReached;
+    private bool maxSpeedReachedMessageDisplayed;
     void Start()
     {
         nextDistanceMilestone = distanceInterval;
@@ -41,45 +32,54 @@ public class DifficultyManager : MonoBehaviour
         timeElapsed += Time.deltaTime;
         currentDist = GameManager.Instance.distanceCovered;
 
-        if(currentDist >= nextDistanceMilestone)
+        if(currentDist >= nextDistanceMilestone && !maxSpawnSpeedLimitReached)
         {
             IncreaseDifficulty();
             
             LevelEvents.OnShouldIncreaseSpeedDecision();
 
             nextDistanceMilestone += distanceInterval;
-        }    
+        }
+        else if(maxSpawnSpeedLimitReached && !maxSpeedReachedMessageDisplayed)
+        {
+            maxSpeedReachedMessageDisplayed = true;
+            LevelEvents.OnStatusUpdate(GameStatusTexts.MaxLimit);
+        }
     }
 
     private void IncreaseDifficulty()
     {
         float previousInterval = ObjectsSpawner.Instance.SpawnInterval;
 
-        ObjectsSpawner.Instance.SpawnInterval = Mathf.Max(minSpawnInterval,ObjectsSpawner.Instance.SpawnInterval - spawnReductionAmount);
-
-        if(ObjectsSpawner.Instance.SpawnInterval < previousInterval)
+        if(previousInterval <= 1f)
         {
-            ObjectsSpawner.Instance.obstacleSpeed += speedIncreasingFactor;
-            ObjectsSpawner.Instance.energyBarSpeed += speedIncreasingFactor;
-
-            if(playerScript != null)
-            {
-                playerScript.MoveSpeed = Mathf.Min(playerScript.MoveSpeed + playerSpeedIncrease,maxPlayerSpeed);
-            }
-
+            maxSpawnSpeedLimitReached = true;
+        }
+        else
+        {
             if(GameManager.Instance != null)
             {
                 GameManager.Instance.DistanceCoveringSpeed += distanceCalculatingSpeedFactor;
             }
 
-
+            ObjectsSpawner.Instance.SpawnInterval = Mathf.Max(minSpawnInterval,ObjectsSpawner.Instance.SpawnInterval - spawnReductionAmount);
             LevelEvents.TriggerStatusUpdate(GameStatusTexts.SpeedIncreased);
-
         }
+        
+        if(ObjectsSpawner.Instance.obstacleSpeed <= 20f)
+        {
+            ObjectsSpawner.Instance.obstacleSpeed += speedIncreasingFactor;
+            ObjectsSpawner.Instance.energyBarSpeed += speedIncreasingFactor;
+
+            // if(playerScript != null)
+            // {
+            //     playerScript.MoveSpeed = Mathf.Min(playerScript.MoveSpeed + playerSpeedIncrease,maxPlayerSpeed);
+            // }
+
+            
+        }
+
+        
     }
-
-    
-
-
     
 }

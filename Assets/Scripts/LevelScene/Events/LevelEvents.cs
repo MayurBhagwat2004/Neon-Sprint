@@ -6,7 +6,6 @@ public class LevelEvents : MonoBehaviour
     public static event Action OnSpeedIncreased;
     public static event Action OnGameOver;
     public static event Action OnObstacleHit;
-    public static event Action OnPlayerLiftedFinger;
     public static event Action OnEnergyBarAcquired;
     public static Action<GameStatusTexts> OnCriticalHealth;
     public static Action<GameStatusTexts> OnStatusUpdate;
@@ -34,11 +33,6 @@ public class LevelEvents : MonoBehaviour
     public static void OnObstacleHitted()
     {
         OnObstacleHit?.Invoke();
-    }
-
-    public static void OnPlayerRemovedFinger()
-    {
-        OnPlayerLiftedFinger?.Invoke();
     }
 
     public static void OnEnergyBarDetected()

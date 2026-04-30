@@ -6,7 +6,7 @@ public class ObjectsSpawner : MonoBehaviour
 {
     public static ObjectsSpawner Instance;
     [Header("Spawning Settings")]
-    private float spawnInterval = 2f;
+    [SerializeField]private float spawnInterval = 2f;
     public float SpawnInterval
     {
         get

@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 public enum GameStatusTexts
 {
-    SpeedIncreased, SpeedDecreased, AbilityAcquired, CriticalHealth
+    SpeedIncreased, SpeedDecreased, AbilityAcquired, CriticalHealth,MaxLimit
 }
 public class GameManager : MonoBehaviour
 {
@@ -52,13 +52,11 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField] private GameObject energyBarSliderObj;
-    private Slider energyBarSlider;
     #endregion
 
     #region  Warning Timer Variables
     [Header("Warning Timer Variables")]
     public TextMeshProUGUI timerText;
-    [SerializeField] private float waitTime = 5f;
     private bool playerLiftedFinger;
     public bool PlayerLiftedFinger
     {
@@ -76,6 +74,7 @@ public class GameManager : MonoBehaviour
         {GameStatusTexts.SpeedIncreased,"Speed Increased !!!"},
         {GameStatusTexts.SpeedDecreased,"Speed Decreased !!!"},
         {GameStatusTexts.AbilityAcquired,"Ability Acquired !!!"},
+        {GameStatusTexts.MaxLimit,"Max Speed Reached!"}
     };
     #endregion
 
@@ -105,14 +104,11 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f; //UnFreeze the game
 
-
         if (gameUpperPanel != null) gameUpperPanel.alpha = 1;//Activate the upper panel
 
         if (pausePanel != null) DisableObjects(pausePanel.gameObject); //Disable the pause menu panel
 
         if (timerText != null) DisableObjects(timerText.gameObject);// Disable the timer text when game starts
-
-        if (energyBarSliderObj != null) energyBarSlider = energyBarSliderObj.GetComponent<Slider>(); //Get the slider
 
         if (gameStatusPanel != null) gameStatusPanel.alpha = 0;
     }
@@ -140,46 +136,6 @@ public class GameManager : MonoBehaviour
     {
         objToDisable.SetActive(false);
     }
-    #region Un-used Code
-    // public void StartShowingTimer()
-    // {
-    //     if (!playerLiftedFinger) return; //If player again touches the screen then do not show timer
-
-    //     StartCoroutine(StartShowingTimerRoutine());
-    // }
-
-    // public void StopShowingTimer()
-    // {
-    //     timerText.gameObject.SetActive(false);
-    // }
-    // private IEnumerator StartShowingTimerRoutine()
-    // {
-    //     timerText.gameObject.SetActive(true);
-
-    //     float remainingTime = waitTime;
-    //     while (remainingTime >= 0)
-    //     {
-    //         if (!playerLiftedFinger) break;
-
-    //         timerText.text = "Touch The Screen Before: " + remainingTime.ToString() + " s";
-
-    //         yield return new WaitForSeconds(1f);
-
-    //         remainingTime--;
-
-    //         if (remainingTime == 0 && playerLiftedFinger)
-    //         {
-    //             timerText.gameObject.SetActive(false); //Disable the timer text
-    //             LevelEvents.GameOver();
-    //             GameEnded();
-    //         }
-
-
-    //     }
-    // }
-    #endregion
-
-
 
     public void ResumeGame()
     {
