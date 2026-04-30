@@ -39,7 +39,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI distanceCoveredText; //Text for distance covered
     [Range(1f, 10f)]
     [SerializeField] private float distanceCoveringSpeed = 5f; //Speed for calculating the distance
-    public float DistanceCoveringSpeed => distanceCoveringSpeed;
+    public float DistanceCoveringSpeed 
+    {
+        get
+        {
+            return distanceCoveringSpeed;
+        }
+        set
+        {
+            distanceCoveringSpeed = value;
+        }
+    }
 
     [SerializeField] private GameObject energyBarSliderObj;
     private Slider energyBarSlider;
@@ -130,44 +140,46 @@ public class GameManager : MonoBehaviour
     {
         objToDisable.SetActive(false);
     }
-    public void StartShowingTimer()
-    {
-        if (!playerLiftedFinger) return; //If player again touches the screen then do not show timer
+    #region Un-used Code
+    // public void StartShowingTimer()
+    // {
+    //     if (!playerLiftedFinger) return; //If player again touches the screen then do not show timer
 
-        StartCoroutine(StartShowingTimerRoutine());
-    }
+    //     StartCoroutine(StartShowingTimerRoutine());
+    // }
 
-    public void StopShowingTimer()
-    {
-        timerText.gameObject.SetActive(false);
-    }
-    private IEnumerator StartShowingTimerRoutine()
-    {
-        timerText.gameObject.SetActive(true);
+    // public void StopShowingTimer()
+    // {
+    //     timerText.gameObject.SetActive(false);
+    // }
+    // private IEnumerator StartShowingTimerRoutine()
+    // {
+    //     timerText.gameObject.SetActive(true);
 
-        float remainingTime = waitTime;
-        while (remainingTime >= 0)
-        {
-            if (!playerLiftedFinger) break;
+    //     float remainingTime = waitTime;
+    //     while (remainingTime >= 0)
+    //     {
+    //         if (!playerLiftedFinger) break;
 
-            timerText.text = "Touch The Screen Before: " + remainingTime.ToString() + " s";
+    //         timerText.text = "Touch The Screen Before: " + remainingTime.ToString() + " s";
 
-            yield return new WaitForSeconds(1f);
+    //         yield return new WaitForSeconds(1f);
 
-            remainingTime--;
+    //         remainingTime--;
 
-            if (remainingTime == 0 && playerLiftedFinger)
-            {
-                timerText.gameObject.SetActive(false); //Disable the timer text
-                LevelEvents.GameOver();
-                GameEnded();
-            }
-
-
-        }
+    //         if (remainingTime == 0 && playerLiftedFinger)
+    //         {
+    //             timerText.gameObject.SetActive(false); //Disable the timer text
+    //             LevelEvents.GameOver();
+    //             GameEnded();
+    //         }
 
 
-    }
+    //     }
+    // }
+    #endregion
+
+
 
     public void ResumeGame()
     {
@@ -190,22 +202,6 @@ public class GameManager : MonoBehaviour
         UiManager.Instance.OpenPausePanel(); //Start the fade-in animation for the pause panel
         isGamePaused = true;
 
-    }
-    public void GoToScene(string sceneName)
-    {
-        switch (sceneName)
-        {
-            case nameof(SceneNames.Home):
-                SceneManager.LoadScene(nameof(SceneNames.Home));
-                break;
-            case nameof(SceneNames.Store):
-                SceneManager.LoadScene(nameof(SceneNames.Store));
-                break;
-            case nameof(SceneNames.Level):
-                SceneManager.LoadScene(nameof(SceneNames.Level));
-                break;
-
-        }
     }
 
     private void StartTheGame()

@@ -9,6 +9,7 @@ public class DifficultyManager : MonoBehaviour
     private float maxPlayerSpeed = 25f;
     [SerializeField] private float minSpawnInterval = 0.2f;
     [SerializeField] private float spawnReductionAmount = 0.1f;
+    private float distanceCalculatingSpeedFactor = 1f;
     private float speedIncreasingFactor;
 
     [Header("Progression Threshold")]
@@ -64,6 +65,11 @@ public class DifficultyManager : MonoBehaviour
             if(playerScript != null)
             {
                 playerScript.MoveSpeed = Mathf.Min(playerScript.MoveSpeed + playerSpeedIncrease,maxPlayerSpeed);
+            }
+
+            if(GameManager.Instance != null)
+            {
+                GameManager.Instance.DistanceCoveringSpeed += distanceCalculatingSpeedFactor;
             }
 
 

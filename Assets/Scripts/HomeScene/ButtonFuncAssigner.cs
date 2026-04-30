@@ -5,7 +5,7 @@ public class ButtonFuncAssigner : MonoBehaviour
 {
     public enum ButtonType
     {
-        Play,Settings,Quit,Back,Home,Store
+        Play,Settings,Quit,Back,Home,Store,Restart
     }
 
     public ButtonType buttonType;
@@ -32,7 +32,9 @@ public class ButtonFuncAssigner : MonoBehaviour
                 case ButtonType.Store:
                     currentButton.onClick.AddListener(GoToStoreFunc);
                     break;
-
+                case ButtonType.Restart:
+                    currentButton.onClick.AddListener(RestartLevel);
+                    break;
                 case ButtonType.Quit:
                     currentButton.onClick.AddListener(QuitGameFunc);
                     break;
@@ -40,6 +42,10 @@ public class ButtonFuncAssigner : MonoBehaviour
                 default:
                 break;
             }
+        }
+        else
+        {
+            Debug.Log("Scene Controller is not present in the scene!!!");
         }
 
     }
@@ -57,6 +63,11 @@ public class ButtonFuncAssigner : MonoBehaviour
     private void GoToStoreFunc()
     {
         SceneController.Instance.StartLoadingScene(SceneController.GameScenes.Store);
+    }
+
+    private void RestartLevel()
+    {
+        SceneController.Instance.StartLoadingScene(SceneController.GameScenes.Level);
     }
 
     private void QuitGameFunc()
