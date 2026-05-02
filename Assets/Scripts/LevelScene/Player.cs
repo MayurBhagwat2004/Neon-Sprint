@@ -5,13 +5,13 @@ using System.Drawing;
 public class Player : MonoBehaviour
 {
     private Camera mainCamera;
-    
+
     #region  Player Swipe Settings
     [Header("Player Swipe Settings")]
     public bool canMove;
     public Vector2 touchPos;
-    [SerializeField] private bool isDragging;
-    private float moveSpeed = 5f;
+    private bool isDragging;
+    [SerializeField] private float moveSpeed = 5f;
     public float MoveSpeed
     {
         get
@@ -23,16 +23,17 @@ public class Player : MonoBehaviour
             moveSpeed = value;
         }
     }
-    
-    [SerializeField] private float maxY = 3.5f;
-    [SerializeField] private float minY = -4.5f;
-    [SerializeField] private float maxX = 5f;
-    [SerializeField] private float minX = 5f;
+
+    private float maxY = 3.5f;
+    private float minY = -4.5f;
+    private float maxX = 8f;
+    private float minX = -8f;
+    private Vector3 lastTouchWorldPos;
+    private Vector3 virtualTargetPos;
 
     public ParticleSystem damageParticleEffect;
     [SerializeField] private TrailRenderer swipeFeedbackRenderer;
 
-    public float offset = 2f;
 
     #endregion
     void Awake()
@@ -69,35 +70,37 @@ public class Player : MonoBehaviour
     }
     public void TakeplayerTouchVal()
     {
-
         if (Pointer.current != null)
         {
             if (Pointer.current.press.wasPressedThisFrame)
             {
-                if (EventSystem.current.IsPointerOverGameObject()) isDragging = false; //Checking if the player clicks on the ui so that the dragging of the neon ball stops
-                else isDragging = true;
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    isDragging = false; //Checking if the player clicks on the ui so that the dragging of the neon ball stops
+                }
+                else
+                {
+                    lastTouchWorldPos = GetWorldPosition(Pointer.current.position.ReadValue());
+                    isDragging = true;
+                }
             }
-
-            if (Pointer.current.press.wasReleasedThisFrame) isDragging = false; //Checking if the player discontinued touching the screen
+            if (Pointer.current.press.wasReleasedThisFrame)
+            {
+                GameManager.Instance.PlayerLiftedFinger = true;
+                isDragging = false; //Checking if the player discontinued touching the screen
+            }
 
             if (Pointer.current.press.isPressed && isDragging)
             {
                 MoveTheBall();
             }
-
-            if (Pointer.current.press.wasReleasedThisFrame)
-            {
-                GameManager.Instance.PlayerLiftedFinger = true;
-            }
-
-            if (!GameManager.Instance.gameEnded && Pointer.current.press.wasPressedThisFrame)
-            {
-                if (isDragging)
-                {
-                    GameManager.Instance.PlayerLiftedFinger = false;
-                }
-            }
         }
+    }
+
+    void FixedUpdate()
+    {
+        if (GameManager.Instance.gameEnded) return;
+
     }
     public void PlayAffectedEffect()
     {
@@ -106,21 +109,31 @@ public class Player : MonoBehaviour
 
     private void MoveTheBall()
     {
-        Vector2 screenTouchPos = Pointer.current.position.ReadValue(); //Player touch position
-        Vector3 worldTouchPos = mainCamera.ScreenToWorldPoint(screenTouchPos);//Player touch position converted to real world coordinates
+        var pointer = Pointer.current;
+ 
+        if (pointer == null) return;
 
-        float targetX = worldTouchPos.x + offset;
-        float targetY = worldTouchPos.y + offset;
+        Vector3 currentTouchedWorldPos = GetWorldPosition(pointer.position.ReadValue()); //Player touch position
 
-        //Restricting the values to not let the player drag the ball of the screen
-        targetY = Mathf.Clamp(targetY,minY,maxY);
-        targetX = Mathf.Clamp(targetX,minX,maxX);
+        Vector3 delta = currentTouchedWorldPos - lastTouchWorldPos;
 
-        Vector2 targetPos = new Vector2(targetX,targetY);
+        virtualTargetPos += delta;
 
-        transform.position = Vector2.Lerp(transform.position,targetPos,moveSpeed * Time.deltaTime);
+        virtualTargetPos.x = Mathf.Clamp(virtualTargetPos.x, minX, maxX);
+        virtualTargetPos.y = Mathf.Clamp(virtualTargetPos.y, minY, maxY);
+
+        transform.position = Vector3.Lerp(transform.position, virtualTargetPos, moveSpeed * Time.deltaTime);
+
+        lastTouchWorldPos = currentTouchedWorldPos;
 
 
+
+    }
+
+    private Vector3 GetWorldPosition(Vector2 screenPos)
+    {
+        Vector3 screenPosWithDepth = new Vector3(screenPos.x, screenPos.y, 10f);
+        return mainCamera.ScreenToWorldPoint(screenPosWithDepth);
     }
 
 }

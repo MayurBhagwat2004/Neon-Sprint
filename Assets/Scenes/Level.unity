@@ -14202,14 +14202,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canMove: 0
   touchPos: {x: 0, y: 0}
-  isDragging: 0
-  maxY: 3.5
-  minY: -4.5
-  maxX: 5
-  minX: 5
+  moveSpeed: 15
   damageParticleEffect: {fileID: 1546121563}
   swipeFeedbackRenderer: {fileID: 961865550}
-  offset: 2
 --- !u!50 &1663366243
 Rigidbody2D:
   serializedVersion: 4
