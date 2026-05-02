@@ -819,7 +819,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerScript: {fileID: 1663366241}
-  ballManagerScript: {fileID: 0}
   minSpawnInterval: 0.2
   spawnReductionAmount: 0.1
   distanceInterval: 30
@@ -6937,7 +6936,6 @@ GameObject:
   - component: {fileID: 793000760}
   - component: {fileID: 793000763}
   - component: {fileID: 793000764}
-  - component: {fileID: 793000765}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7081,18 +7079,6 @@ MonoBehaviour:
   zoomTransitionTime: 0.2
   slowMoSpeed: 0.2
   slowMoDuration: 0.5
---- !u!114 &793000765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 793000759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a85a670af88b121448771ddc9fc4060d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &903934378
 GameObject:
   m_ObjectHideFlags: 0
@@ -14219,8 +14205,11 @@ MonoBehaviour:
   isDragging: 0
   maxY: 3.5
   minY: -4.5
+  maxX: 5
+  minX: 5
   damageParticleEffect: {fileID: 1546121563}
   swipeFeedbackRenderer: {fileID: 961865550}
+  offset: 2
 --- !u!50 &1663366243
 Rigidbody2D:
   serializedVersion: 4
@@ -14296,8 +14285,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trailParticleSystem: {fileID: 492297658}
-  minSpeed: 5
-  maxSpeed: 10
+  particleMinSpeed: 5
+  particleMaxSpeed: 10
   speedModifier: 5
 --- !u!1 &1674599854
 GameObject:
@@ -14707,7 +14696,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.602
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

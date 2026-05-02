@@ -4,12 +4,14 @@ using UnityEngine.EventSystems;
 using System.Drawing;
 public class Player : MonoBehaviour
 {
-    public bool canMove;
     private Camera mainCamera;
-    //Touch inputs variables
+    
+    #region  Player Swipe Settings
+    [Header("Player Swipe Settings")]
+    public bool canMove;
     public Vector2 touchPos;
     [SerializeField] private bool isDragging;
-    private float moveSpeed = 15f;
+    private float moveSpeed = 5f;
     public float MoveSpeed
     {
         get
@@ -21,11 +23,18 @@ public class Player : MonoBehaviour
             moveSpeed = value;
         }
     }
+    
     [SerializeField] private float maxY = 3.5f;
     [SerializeField] private float minY = -4.5f;
+    [SerializeField] private float maxX = 5f;
+    [SerializeField] private float minX = 5f;
 
     public ParticleSystem damageParticleEffect;
     [SerializeField] private TrailRenderer swipeFeedbackRenderer;
+
+    public float offset = 2f;
+
+    #endregion
     void Awake()
     {
         mainCamera = Camera.main;
@@ -55,10 +64,10 @@ public class Player : MonoBehaviour
 
         if (!canMove) return;
 
-        TakePlayerInput(); //Take the input provided by the user via mobile,pc.
+        TakeplayerTouchVal(); //Take the input provided by the user via mobile,pc.
 
     }
-    public void TakePlayerInput()
+    public void TakeplayerTouchVal()
     {
 
         if (Pointer.current != null)
@@ -73,13 +82,7 @@ public class Player : MonoBehaviour
 
             if (Pointer.current.press.isPressed && isDragging)
             {
-                touchPos = Pointer.current.position.ReadValue();
-
-                Vector3 worldPosition = mainCamera.ScreenToWorldPoint(touchPos);
-                worldPosition.z = transform.position.z;
-                worldPosition.y = Mathf.Clamp(worldPosition.y, minY, maxY); //Limiting the movement of the ball in +y and -y axis
-
-                transform.position = Vector3.Lerp(transform.position, worldPosition, moveSpeed * Time.deltaTime); //Move the ball to the location player is dragging
+                MoveTheBall();
             }
 
             if (Pointer.current.press.wasReleasedThisFrame)
@@ -100,4 +103,24 @@ public class Player : MonoBehaviour
     {
         damageParticleEffect.Play();
     }
+
+    private void MoveTheBall()
+    {
+        Vector2 screenTouchPos = Pointer.current.position.ReadValue(); //Player touch position
+        Vector3 worldTouchPos = mainCamera.ScreenToWorldPoint(screenTouchPos);//Player touch position converted to real world coordinates
+
+        float targetX = worldTouchPos.x + offset;
+        float targetY = worldTouchPos.y + offset;
+
+        //Restricting the values to not let the player drag the ball of the screen
+        targetY = Mathf.Clamp(targetY,minY,maxY);
+        targetX = Mathf.Clamp(targetX,minX,maxX);
+
+        Vector2 targetPos = new Vector2(targetX,targetY);
+
+        transform.position = Vector2.Lerp(transform.position,targetPos,moveSpeed * Time.deltaTime);
+
+
+    }
+
 }

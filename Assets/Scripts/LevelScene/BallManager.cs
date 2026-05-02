@@ -3,8 +3,8 @@ using UnityEngine;
 public class BallManager : MonoBehaviour
 {
     [SerializeField] private ParticleSystem trailParticleSystem;
-    [SerializeField] private float minSpeed = 5f;
-    [SerializeField] private float maxSpeed = 10f;
+    [SerializeField] private float particleMinSpeed = 5f;
+    [SerializeField] private float particleMaxSpeed = 10f;
 
     [SerializeField] private float speedModifier = 5f;
 
@@ -15,7 +15,7 @@ public class BallManager : MonoBehaviour
     void Start()
     {
         ActivateTheTrail();
-        UpdateTrailSparkleSpeed(minSpeed,maxSpeed);
+        UpdateTrailSparkleSpeed(particleMinSpeed,particleMaxSpeed);
     }
 
     void Update()
@@ -37,17 +37,17 @@ public class BallManager : MonoBehaviour
 
     public void UpdateTheSpeeds()
     {
-        if(minSpeed == 25 && maxSpeed ==30) return;
+        if(particleMinSpeed == 25 && particleMaxSpeed ==30) return;
         
-        minSpeed += speedModifier;
-        maxSpeed += speedModifier;
+        particleMinSpeed += speedModifier;
+        particleMaxSpeed += speedModifier;
 
-        UpdateTrailSparkleSpeed(minSpeed,maxSpeed);
+        UpdateTrailSparkleSpeed(particleMinSpeed,particleMaxSpeed);
     }
-    private void UpdateTrailSparkleSpeed(float minSpeed,float maxSpeed)
+    private void UpdateTrailSparkleSpeed(float particleMinSpeed,float particleMaxSpeed)
     {
         var mainModule = trailParticleSystem.main;
         
-        mainModule.startSpeed = new ParticleSystem.MinMaxCurve(minSpeed,maxSpeed);
+        mainModule.startSpeed = new ParticleSystem.MinMaxCurve(particleMinSpeed,particleMaxSpeed);
     }
 }
