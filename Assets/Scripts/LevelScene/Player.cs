@@ -133,7 +133,7 @@ public class Player : MonoBehaviour
     private Vector3 GetWorldPosition(Vector2 screenPos)
     {
         Vector3 screenPosWithDepth = new Vector3(screenPos.x, screenPos.y, 10f);
-        return mainCamera.ScreenToWorldPoint(screenPosWithDepth);
+            return mainCamera.ScreenToWorldPoint(screenPosWithDepth);
     }
 
 }
