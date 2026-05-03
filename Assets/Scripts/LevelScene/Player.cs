@@ -82,6 +82,7 @@ public class Player : MonoBehaviour
                 {
                     lastTouchWorldPos = GetWorldPosition(Pointer.current.position.ReadValue());
                     isDragging = true;
+                    GameManager.Instance.PlayerLiftedFinger = false;
                 }
             }
             if (Pointer.current.press.wasReleasedThisFrame)

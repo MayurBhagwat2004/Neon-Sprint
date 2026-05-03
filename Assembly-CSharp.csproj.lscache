@@ -75,6 +75,9 @@ Assets/Scripts/
   UiManager.cs
  PlayerTouchInput.cs
  SaveGameObject.cs
+Assets/Sprites/Space_Exploration_GUI_Kit/Scripts/
+ Scene_Controller.cs
+ Toggle.cs
 Temp/obj/Debug/Assembly-CSharp/.NETStandard,Version=v2.1.AssemblyAttributes.cs
 
 [metadataReferences]
