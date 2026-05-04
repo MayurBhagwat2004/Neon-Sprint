@@ -70,6 +70,7 @@ Assets/Scripts/
   EnergyBarManager.cs
   GameManager.cs
   MenuManager.cs
+  ParallaxController.cs
   SceneController.cs
   SoundManager.cs
   UiManager.cs
