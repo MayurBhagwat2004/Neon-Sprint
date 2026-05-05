@@ -138,6 +138,8 @@ public class SoundManager : MonoBehaviour
 
     public void PlayEnergySfx()
     {
+        if(soundStatus == 0) return;
+
         AudioClip clip = sfxClips.Find(c => c.name == SfxClips.EnergyBarSfx.ToString());
         if(clip != null)
         {
@@ -147,6 +149,8 @@ public class SoundManager : MonoBehaviour
 
     public void PlayGameOverSfx()
     {
+        if(soundStatus == 0) return;
+
         AudioClip clip = sfxClips.Find(c => c.name == SfxClips.GameOverSfx.ToString());
 
         if(clip != null)
