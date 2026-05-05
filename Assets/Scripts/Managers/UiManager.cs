@@ -9,6 +9,7 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] private CanvasGroup pausePanel; //GameObject for the pause panel
     [SerializeField] private CanvasGroup gameUpperPanel; //GameObject for the upper ui in the level
+    [SerializeField] private CanvasGroup highScorePanel; //Gameobject for the highscore panel
 
     [Header("UI Groups")]
     [SerializeField] private CanvasGroup homeGroup;
@@ -100,8 +101,19 @@ public class UiManager : MonoBehaviour
         homeGroup.gameObject.SetActive(false);
 
         settingsGroup.blocksRaycasts = true;
-        StartCoroutine(OpenClosePanelRoutine(settingsGroup, 0f, 1f));
-        StartCoroutine(OpenClosePanelRoutine(homeGroup, 1f, 0f));
+        StartCoroutine(OpenClosePanelRoutine(settingsGroup, 0f, 1f)); //Opens the Settings panel
+        StartCoroutine(OpenClosePanelRoutine(homeGroup, 1f, 0f)); //Closes the home buttons panel
+        StartCoroutine(OpenClosePanelRoutine(highScorePanel,1f,0f)); //Closes the highscore panel
+    }
+    public void OpenMenuButtonsPanel()
+    {
+        homeGroup.gameObject.SetActive(true);
+        settingsGroup.gameObject.SetActive(false);
+
+        homeGroup.blocksRaycasts = true;
+        StartCoroutine(OpenClosePanelRoutine(homeGroup,0f,1f));
+        StartCoroutine(OpenClosePanelRoutine(highScorePanel,0f,1f)); //Opens the highscore panel
+        StartCoroutine(OpenClosePanelRoutine(settingsGroup,1f,0f));
     }
     public void OpenGameUpperPanel()
     {
@@ -110,17 +122,9 @@ public class UiManager : MonoBehaviour
 
         StartCoroutine(OpenClosePanelRoutine(gameUpperPanel, 0f, 1f)); //Open the game upper panel
         StartCoroutine(OpenClosePanelRoutine(pausePanel, 1f, 0f)); //Close the pause menu panel
+
     }
 
-    public void OpenMenuButtonsPanel()
-    {
-        homeGroup.gameObject.SetActive(true);
-        settingsGroup.gameObject.SetActive(false);
-
-        homeGroup.blocksRaycasts = true;
-        StartCoroutine(OpenClosePanelRoutine(homeGroup,0f,1f));
-        StartCoroutine(OpenClosePanelRoutine(settingsGroup,1f,0f));
-    }
     
     private IEnumerator OpenClosePanelRoutine(CanvasGroup group, float initialValue, float targetValue)
     {

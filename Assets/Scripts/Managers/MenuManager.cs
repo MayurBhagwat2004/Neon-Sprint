@@ -14,5 +14,12 @@ public class MenuManager : MonoBehaviour
         QualitySettings.SetQualityLevel(graphicIndex,true); 
     }
 
+    public void CallHandleMusic()
+    {
+        if(SoundManager.Instance != null)
+        {
+            SoundManager.Instance.HandleMusicVolume();
+        }
+    }
 
 }

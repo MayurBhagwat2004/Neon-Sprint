@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class SoundManager : MonoBehaviour
     private const string SOUND_KEY = "SoundStatus";
     private int soundStatus; //Variable to keep track of the music
 
-
+    public Slider volumeSlider;
     void Awake()
     {
         if(Instance == null)
@@ -31,9 +32,9 @@ public class SoundManager : MonoBehaviour
             return;
 
         }
-        if (PlayerPrefs.HasKey("SoundStatus"))
+        if (PlayerPrefs.HasKey(SOUND_KEY))
         {
-            PlayerPrefs.SetInt("SoundStatus",1);
+            PlayerPrefs.SetInt(SOUND_KEY,1);
         }
     }
 
@@ -71,6 +72,11 @@ public class SoundManager : MonoBehaviour
                 musicSource.clip = musicClips.Find(clip => clip.name == "HomeMusic");
                 musicSource.loop = true;
                 musicSource.Play();
+
+                if(volumeSlider == null)
+                {
+                    volumeSlider = GameObject.Find("VolumeSlider").GetComponent<Slider>();
+                }
             }
             else if(scene.name == "Level")
             {
@@ -81,29 +87,51 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void StartPlayingMusic()
+    public void HandleMusicVolume()
     {
-        if(PlayerPrefs.GetInt("SoundStatus") == 0)
+        if(volumeSlider != null)
+        {
+            musicSource.volume = volumeSlider.value;
+            if(musicSource.volume == 0)
+            {
+                PlayerPrefs.SetInt(SOUND_KEY,0);
+                soundStatus = 0;
+            }
+            else
+            {
+                PlayerPrefs.SetInt(SOUND_KEY,1);
+                soundStatus = 1;
+
+            }
+        }
+        else
+        {
+            Debug.Log("Provide the volume slider in inspector");
+        }
+    }
+    private void StartPlayingMusic()
+    {
+        if(PlayerPrefs.GetInt(SOUND_KEY) == 0)
         {
             musicSource.Play();
-            PlayerPrefs.SetInt("SoundStatus",1);
+            PlayerPrefs.SetInt(SOUND_KEY,1);
         }
         else return;
     }
 
-    public void StopPlayingMusic()
+    private void StopPlayingMusic()
     {
-        if(PlayerPrefs.GetInt("SoundStatus") == 1)
+        if(PlayerPrefs.GetInt(SOUND_KEY) == 1)
         {
             musicSource.Pause(); 
-            PlayerPrefs.SetInt("SoundStatus",0);
+            PlayerPrefs.SetInt(SOUND_KEY,0);
         }
         else return;
     }
 
     public void PlayClickSound()
     {
-        if(PlayerPrefs.GetInt("SoundStatus") == 1)
+        if(PlayerPrefs.GetInt(SOUND_KEY) == 1)
         {
             AudioClip clip = sfxClips.Find(c => c.name == SfxClips.ClickSfx.ToString());
             if(clip != null)
@@ -126,7 +154,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayObstacleHitSfx()
     {
-        if(PlayerPrefs.GetInt("SoundStatus") == 1)
+        if(PlayerPrefs.GetInt(SOUND_KEY) == 1)
         {
             AudioClip clip = sfxClips.Find(c => c.name == SfxClips.ObstacleSfx.ToString());
             if(clip != null)

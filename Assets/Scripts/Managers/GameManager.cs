@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     #region Distance Covered Variables
     [Header("Distance Covered Variables")]
+    private const string HIGHSCORE_KEY = "HighScore";
     public float distanceCovered;
     [SerializeField] private TextMeshProUGUI distanceCoveredText; //Text for distance covered
     [Range(1f, 10f)]
@@ -127,8 +128,20 @@ public class GameManager : MonoBehaviour
         if (gameEnded) return;
         gameEnded = true;
 
+        SetHighScore(); //Set the highscore
+
         DisableObjects(gameUpperPanel.gameObject); //Disable the upper panel
         DisableObjects(energyBarSliderObj); //Disable the slider
+
+    }
+
+    private void SetHighScore()
+    {
+        int highScore = PlayerPrefs.GetInt(HIGHSCORE_KEY); //Get the highscore via PlayerPrefs
+        if(distanceCovered > highScore)
+        {
+            PlayerPrefs.SetInt(HIGHSCORE_KEY,Mathf.RoundToInt(distanceCovered));
+        }
 
     }
 
