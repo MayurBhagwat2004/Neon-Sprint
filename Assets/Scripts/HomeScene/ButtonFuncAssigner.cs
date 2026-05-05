@@ -28,7 +28,9 @@ public class ButtonFuncAssigner : MonoBehaviour
                 case ButtonType.Home:
                     currentButton.onClick.AddListener(GoToHomeFunc);
                     break;
-
+                case ButtonType.Settings:
+                    currentButton.onClick.AddListener(OpenSettingsFunc);
+                    break;
                 case ButtonType.Store:
                     currentButton.onClick.AddListener(GoToStoreFunc);
                     break;
@@ -60,6 +62,13 @@ public class ButtonFuncAssigner : MonoBehaviour
         SceneController.Instance.StartLoadingScene(SceneController.GameScenes.Home);
     }
 
+    private void OpenSettingsFunc()
+    {
+        if(UiManager.Instance != null)
+        {
+            UiManager.Instance.OpenSettingsPanel();
+        }
+    }
     private void GoToStoreFunc()
     {
         SceneController.Instance.StartLoadingScene(SceneController.GameScenes.Store);
