@@ -12,6 +12,11 @@ public class BallManager : MonoBehaviour
     {
         LevelEvents.OnSpeedIncreased += UpdateTheSpeeds;
     }
+
+    void OnDisable()
+    {
+        LevelEvents.OnSpeedIncreased -= UpdateTheSpeeds;
+    }
     void Start()
     {
         ActivateTheTrail();

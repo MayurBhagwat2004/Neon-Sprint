@@ -4,10 +4,21 @@ using UnityEngine;
 public class ParallaxBackground : MonoBehaviour
 {
     [Range(0f,1f)]
-    public float parallaxAmount;    
+    public float parallaxAmount;
     public float globalMoveSpeed = 5f;
+    [SerializeField] private float speedIncreasingFactor = 0.05f;
     private float width;
     public bool playGame;
+
+    void OnEnable()
+    {
+        LevelEvents.OnShouldIncreaseSpeed += IncreaseTheSpeed;
+    }
+
+    void OnDisable()
+    {
+        LevelEvents.OnShouldIncreaseSpeed -= IncreaseTheSpeed;
+    }
     void Start()
     {
         width = GetComponent<SpriteRenderer>().sprite.bounds.size.x;
@@ -15,7 +26,7 @@ public class ParallaxBackground : MonoBehaviour
 
     void Update()
     {
-        if(playGame)
+        if(GameManager.Instance.GameStarted && !GameManager.Instance.gameEnded)
         {
             float movement = globalMoveSpeed * parallaxAmount * Time.deltaTime;
             transform.Translate(Vector2.left * movement);
@@ -26,5 +37,10 @@ public class ParallaxBackground : MonoBehaviour
             }
         
         }
+    }
+
+    private void IncreaseTheSpeed()
+    {
+        parallaxAmount = Mathf.Clamp(parallaxAmount,parallaxAmount+speedIncreasingFactor,.5f);
     }
 }

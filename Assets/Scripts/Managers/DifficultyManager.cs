@@ -11,17 +11,16 @@ public class DifficultyManager : MonoBehaviour
     private float speedIncreasingFactor;
 
     [Header("Progression Threshold")]
-    [SerializeField] private float distanceInterval = 100f;
-    [SerializeField]private float nextDistanceMilestone;
+    [SerializeField] private float distanceInterval = 100f; //Var for adding a factor to calculate next speed increasing distance
+    [SerializeField]private float nextDistanceMilestone; //Var for the updated speed increasing score
     private float timeElapsed;
     float currentDist;
     private bool maxSpawnSpeedLimitReached;
     private bool maxSpeedReachedMessageDisplayed;
     void Start()
     {
-        nextDistanceMilestone = distanceInterval;
+        nextDistanceMilestone = Random.Range(distanceInterval,nextDistanceMilestone);
         speedIncreasingFactor = 2f;
-
        
     }
 
@@ -38,7 +37,7 @@ public class DifficultyManager : MonoBehaviour
             
             LevelEvents.OnShouldIncreaseSpeedDecision();
 
-            nextDistanceMilestone += distanceInterval;
+            nextDistanceMilestone += Random.Range(distanceInterval,nextDistanceMilestone);
         }
         else if(maxSpawnSpeedLimitReached && !maxSpeedReachedMessageDisplayed)
         {
@@ -70,12 +69,6 @@ public class DifficultyManager : MonoBehaviour
         {
             ObjectsSpawner.Instance.obstacleSpeed += speedIncreasingFactor;
             ObjectsSpawner.Instance.energyBarSpeed += speedIncreasingFactor;
-
-            // if(playerScript != null)
-            // {
-            //     playerScript.MoveSpeed = Mathf.Min(playerScript.MoveSpeed + playerSpeedIncrease,maxPlayerSpeed);
-            // }
-
             
         }
 

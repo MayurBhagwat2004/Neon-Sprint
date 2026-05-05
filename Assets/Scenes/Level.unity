@@ -897,7 +897,7 @@ MonoBehaviour:
   playerScript: {fileID: 1663366241}
   minSpawnInterval: 0.2
   spawnReductionAmount: 0.1
-  distanceInterval: 30
+  distanceInterval: 100
   nextDistanceMilestone: 0
 --- !u!1 &314717836
 GameObject:
@@ -7828,6 +7828,10 @@ PrefabInstance:
     - target: {fileID: 6343068655346096704, guid: 720e3a574c49202488338eebc8620735, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6491773073925891153, guid: 720e3a574c49202488338eebc8620735, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6569710050080876163, guid: 720e3a574c49202488338eebc8620735, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
@@ -15098,7 +15102,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1954455835}
   m_FillRect: {fileID: 684607292}
   m_HandleRect: {fileID: 1954455834}
@@ -15616,6 +15620,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParallaxBackground
       objectReference: {fileID: 0}
+    - target: {fileID: 2336311068383176618, guid: 1116a02edf3f8eb45b1aeafeefdfa43d, type: 3}
+      propertyPath: speedIncreasingFactor
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 4625328495661801026, guid: 1116a02edf3f8eb45b1aeafeefdfa43d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -15694,6 +15702,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4625328495661801026, guid: 1116a02edf3f8eb45b1aeafeefdfa43d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839934557397713669, guid: 1116a02edf3f8eb45b1aeafeefdfa43d, type: 3}
+      propertyPath: parallaxAmount
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7337439061268057652, guid: 1116a02edf3f8eb45b1aeafeefdfa43d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204144972087697406, guid: 1116a02edf3f8eb45b1aeafeefdfa43d, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
