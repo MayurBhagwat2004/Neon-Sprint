@@ -723,6 +723,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonType: 6
   currentButton: {fileID: 0}
+  scaleFactor: 1.2
+  speed: 15
 --- !u!1 &314071757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1735,6 +1737,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonType: 4
   currentButton: {fileID: 0}
+  scaleFactor: 1.2
+  speed: 10
 --- !u!1 &712155459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1751,7 +1755,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &712155460
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1956,6 +1960,7 @@ GameObject:
   - component: {fileID: 724917852}
   - component: {fileID: 724917851}
   - component: {fileID: 724917850}
+  - component: {fileID: 724917853}
   m_Layer: 5
   m_Name: ResumeButton
   m_TagString: Untagged
@@ -2077,6 +2082,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 724917848}
   m_CullTransparentMesh: 1
+--- !u!114 &724917853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724917848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2332b446828a6d4e9e0893b6b0c2c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonType: 7
+  currentButton: {fileID: 0}
+  scaleFactor: 1.2
+  speed: 15
 --- !u!114 &729559911 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 891557461317354183, guid: 52d2bb15356ea5c40962c79a8e0787af, type: 3}
@@ -2575,6 +2596,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonType: 6
   currentButton: {fileID: 0}
+  scaleFactor: 1.2
+  speed: 10
 --- !u!114 &1019876763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2730,7 +2753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6491773073925891153, guid: 720e3a574c49202488338eebc8620735, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6569710050080876163, guid: 720e3a574c49202488338eebc8620735, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
@@ -3195,6 +3218,7 @@ GameObject:
   - component: {fileID: 1215685318}
   - component: {fileID: 1215685317}
   - component: {fileID: 1215685316}
+  - component: {fileID: 1215685319}
   m_Layer: 5
   m_Name: PauseButton
   m_TagString: Untagged
@@ -3315,6 +3339,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1215685314}
   m_CullTransparentMesh: 1
+--- !u!114 &1215685319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215685314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2332b446828a6d4e9e0893b6b0c2c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonType: 7
+  currentButton: {fileID: 0}
+  scaleFactor: 1.2
+  speed: 15
 --- !u!1 &1274058416
 GameObject:
   m_ObjectHideFlags: 0
@@ -5241,6 +5281,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonType: 4
   currentButton: {fileID: 0}
+  scaleFactor: 1.2
+  speed: 15
 --- !u!1 &2078901232
 GameObject:
   m_ObjectHideFlags: 0
@@ -5564,13 +5606,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1587809027750596688, guid: f30de9d6c9730d449bb89c9005323553, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587809027750596688, guid: f30de9d6c9730d449bb89c9005323553, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1587809027750596688, guid: f30de9d6c9730d449bb89c9005323553, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 890397575
+      objectReference: {fileID: 0}
     - target: {fileID: 5121422677618107856, guid: f30de9d6c9730d449bb89c9005323553, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.69
+      value: -0.63
       objectReference: {fileID: 0}
     - target: {fileID: 5121422677618107856, guid: f30de9d6c9730d449bb89c9005323553, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.36
+      value: -0.06
       objectReference: {fileID: 0}
     - target: {fileID: 5121422677618107856, guid: f30de9d6c9730d449bb89c9005323553, type: 3}
       propertyPath: m_LocalPosition.z

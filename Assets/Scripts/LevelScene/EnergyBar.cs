@@ -53,6 +53,8 @@ public class EnergyBar : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
+        if(GameManager.Instance.gameEnded) return;
+
         if(collision.CompareTag("Player") && !playerHitted)
         {
             LevelEvents.OnEnergyBarDetected();

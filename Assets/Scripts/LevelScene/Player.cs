@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
-using System.Drawing;
 public class Player : MonoBehaviour
 {
     private Camera mainCamera;

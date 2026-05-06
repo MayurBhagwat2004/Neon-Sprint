@@ -17,7 +17,7 @@ public class BallManager : MonoBehaviour
     void OnDisable()
     {
         LevelEvents.OnSpeedIncreased -= UpdateTheSpeeds;
-        LevelEvents.OnGameOver += DeactivateTheTrail;
+        LevelEvents.OnGameOver -= DeactivateTheTrail;
     }
     void Start()
     {
