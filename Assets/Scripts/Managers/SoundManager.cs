@@ -67,7 +67,7 @@ public class SoundManager : MonoBehaviour
     {
         if(PlayerPrefs.GetInt("SoundStatus") == 1) //Checking if the sound is enabled or not
         {
-            if(scene.name == "Home")
+            if(scene.name == SceneNames.Home.ToString())
             {
                 musicSource.clip = musicClips.Find(clip => clip.name == "HomeMusic");
                 musicSource.loop = true;
@@ -78,7 +78,7 @@ public class SoundManager : MonoBehaviour
                     volumeSlider = GameObject.Find("VolumeSlider").GetComponent<Slider>();
                 }
             }
-            else if(scene.name == "Level")
+            else if(scene.name == SceneNames.Level.ToString())
             {
                 musicSource.clip = musicClips.Find(clip => clip.name == "LevelMusic");
                 musicSource.loop = true;

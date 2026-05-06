@@ -5,7 +5,7 @@ public class ButtonFuncAssigner : MonoBehaviour
 {
     public enum ButtonType
     {
-        Play,Settings,Quit,Back,Home,Store,Restart
+        Play,Settings,Quit,Back,Home,Store,Restart,Volume
     }
 
     public ButtonType buttonType;

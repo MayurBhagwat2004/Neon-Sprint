@@ -10,12 +10,12 @@ public enum GameStatusTexts
 {
     SpeedIncreased, SpeedDecreased, AbilityAcquired, CriticalHealth,MaxLimit
 }
+public enum SceneNames
+{
+    Home, Level, Store
+}
 public class GameManager : MonoBehaviour
 {
-    private enum SceneNames
-    {
-        Home, Level, Store
-    }
 
     public static GameManager Instance;
     #region Panels
