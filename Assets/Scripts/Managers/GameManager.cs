@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
     #endregion
     #region Game Started Variables
     [Header("Game Started Variables")]
-    public TextMeshProUGUI touchScreenText;
     public float fadingSpeed = 1.5f;
     [SerializeField] private bool gameStarted;
     public bool GameStarted => gameStarted;
@@ -52,7 +51,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private GameObject energyBarSliderObj;
     #endregion
 
     #region  Warning Timer Variables
@@ -131,7 +129,6 @@ public class GameManager : MonoBehaviour
         SetHighScore(); //Set the highscore
 
         DisableObjects(gameUpperPanel.gameObject); //Disable the upper panel
-        DisableObjects(energyBarSliderObj); //Disable the slider
 
     }
 

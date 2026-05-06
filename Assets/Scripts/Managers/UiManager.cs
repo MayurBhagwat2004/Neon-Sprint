@@ -7,15 +7,18 @@ public class UiManager : MonoBehaviour
 {
     public static UiManager Instance;
 
+    #region Canvas Groups
     [SerializeField] private CanvasGroup pausePanel; //GameObject for the pause panel
     [SerializeField] private CanvasGroup gameUpperPanel; //GameObject for the upper ui in the level
     [SerializeField] private CanvasGroup highScorePanel; //Gameobject for the highscore panel
+    #endregion
 
+    #region UI Groups
     [Header("UI Groups")]
     [SerializeField] private CanvasGroup homeGroup;
     [SerializeField] private CanvasGroup settingsGroup;
     [SerializeField] private CanvasGroup gameOverGroup;
-
+    #endregion
     [SerializeField] private float transitionTime = 0.4f;
     [SerializeField] private TextMeshProUGUI touchScreenText;
     [SerializeField] private TextMeshProUGUI distanceCoveredText;
@@ -55,7 +58,12 @@ public class UiManager : MonoBehaviour
 
         if (isLevelScene && touchScreenText != null)
         {
-            ShowFadingEffectText(touchScreenText);
+            if(!touchScreenText.transform.parent.gameObject.activeSelf)
+            {
+                touchScreenText.transform.parent.gameObject.SetActive(true); // Enable the gameobject holding the text when the game runs first
+            }
+
+            ShowFadingEffectText(touchScreenText); //Start showing the fading effect for the "touch screen text"
         }
     }
 

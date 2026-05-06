@@ -11,11 +11,13 @@ public class BallManager : MonoBehaviour
     void OnEnable()
     {
         LevelEvents.OnSpeedIncreased += UpdateTheSpeeds;
+        LevelEvents.OnGameOver += DeactivateTheTrail;
     }
 
     void OnDisable()
     {
         LevelEvents.OnSpeedIncreased -= UpdateTheSpeeds;
+        LevelEvents.OnGameOver += DeactivateTheTrail;
     }
     void Start()
     {
@@ -38,6 +40,14 @@ public class BallManager : MonoBehaviour
         mainModule.prewarm = true; //Load the sparks before the game starts
         
         trailParticleSystem.Play(); //Start the trail
+    }
+
+    private void DeactivateTheTrail()
+    {
+        if (!trailParticleSystem.isStopped) //Check whether the trail is not stopped
+        {
+            trailParticleSystem.Stop();
+        }
     }
 
     public void UpdateTheSpeeds()
