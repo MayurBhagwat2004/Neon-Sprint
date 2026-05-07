@@ -7,7 +7,7 @@ public class EnergyBar : MonoBehaviour
     public ParticleSystem obstacleParticleSys;
     public float particleEffectDuration = 0.5f;
     public float particleDimSpeed = 5f;
-    public float moveSpeed;
+    public static float moveSpeed;
     private Vector3 moveDirection = Vector3.left;
     Color defaultColor = Color.white;
     private bool playerHitted; //Flag for checking if the player hitted

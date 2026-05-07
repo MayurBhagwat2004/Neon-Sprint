@@ -26,6 +26,7 @@ public class ObjectsSpawner : MonoBehaviour
     {
         LevelEvents.OnGameStarted += StartSpawning;
         LevelEvents.OnGameOver += StopSpawningRoutine;
+    
     }
 
     void OnDisable()

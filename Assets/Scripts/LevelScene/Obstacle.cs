@@ -6,7 +6,7 @@ public class Obstacle : MonoBehaviour
     private SpriteRenderer obstacleSprite;
     public ParticleSystem obstacleParticleSys;
     public float particleEffectDuration = 0.5f;
-    public float moveSpeed;
+    public static float moveSpeed;
     private Vector3 moveDirection = Vector3.left;
     Color defaultColor = Color.white;
 

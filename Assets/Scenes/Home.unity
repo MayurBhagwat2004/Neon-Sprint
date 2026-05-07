@@ -5267,6 +5267,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6343068655346096704, guid: 720e3a574c49202488338eebc8620735, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343068655346096704, guid: 720e3a574c49202488338eebc8620735, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -5274,10 +5278,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1322439593}
-    - target: {fileID: 6569710050080876163, guid: 720e3a574c49202488338eebc8620735, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 6918691668539758765, guid: 720e3a574c49202488338eebc8620735, type: 3}
       propertyPath: m_Name
       value: Loading_Canvas

@@ -6,9 +6,9 @@ public class DifficultyManager : MonoBehaviour
     [Header("Speed logic variables")]
     [SerializeField] private Player playerScript;
     [SerializeField] private float minSpawnInterval = 0.2f;
-    [SerializeField] private float spawnReductionAmount = 0.1f;
-    private float distanceCalculatingSpeedFactor = .2f;
-    private float speedIncreasingFactor;
+    [SerializeField] private float spawnIntervalReductionAmount = 0.1f;
+    [SerializeField] private float distanceCalculatingSpeedFactor = .2f;
+    [SerializeField] private float speedIncreasingFactor;
 
     [Header("Progression Threshold")]
     [SerializeField] private float distanceInterval = 100f; //Var for adding a factor to calculate next speed increasing distance
@@ -17,6 +17,7 @@ public class DifficultyManager : MonoBehaviour
     float currentDist;
     private bool maxSpawnSpeedLimitReached;
     private bool maxSpeedReachedMessageDisplayed;
+
     void Start()
     {
         nextDistanceMilestone = Random.Range(distanceInterval,nextDistanceMilestone);
@@ -50,7 +51,7 @@ public class DifficultyManager : MonoBehaviour
     {
         float previousInterval = ObjectsSpawner.Instance.SpawnInterval;
 
-        if(previousInterval <= 1f)
+        if(previousInterval <= 1.2f)
         {
             maxSpawnSpeedLimitReached = true;
         }
@@ -61,7 +62,7 @@ public class DifficultyManager : MonoBehaviour
                 GameManager.Instance.DistanceCoveringSpeed += distanceCalculatingSpeedFactor;
             }
 
-            ObjectsSpawner.Instance.SpawnInterval = Mathf.Max(minSpawnInterval,ObjectsSpawner.Instance.SpawnInterval - spawnReductionAmount);
+            ObjectsSpawner.Instance.SpawnInterval = Mathf.Max(minSpawnInterval,ObjectsSpawner.Instance.SpawnInterval - spawnIntervalReductionAmount);
             LevelEvents.TriggerStatusUpdate(GameStatusTexts.SpeedIncreased);
         }
         

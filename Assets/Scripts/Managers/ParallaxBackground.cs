@@ -8,7 +8,6 @@ public class ParallaxBackground : MonoBehaviour
     public float globalMoveSpeed = 5f;
     [SerializeField] private float speedIncreasingFactor = 0.05f;
     private float width;
-    public bool playGame;
 
     void OnEnable()
     {
@@ -41,6 +40,7 @@ public class ParallaxBackground : MonoBehaviour
 
     private void IncreaseTheSpeed()
     {
+        if(parallaxAmount == 1f) return; //Return if reached maximum speed
         parallaxAmount = Mathf.Clamp(parallaxAmount,parallaxAmount+speedIncreasingFactor,.5f);
     }
 }

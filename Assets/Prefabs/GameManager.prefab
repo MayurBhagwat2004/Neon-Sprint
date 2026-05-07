@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 0}
   gameUpperPanel: {fileID: 0}
-  touchScreenText: {fileID: 0}
+  gameStatusPanel: {fileID: 0}
   fadingSpeed: 1.5
   gameStarted: 0
   gameEnded: 0
@@ -54,6 +54,5 @@ MonoBehaviour:
   distanceCovered: 0
   distanceCoveredText: {fileID: 0}
   distanceCoveringSpeed: 3
-  energyBarSliderObj: {fileID: 0}
   timerText: {fileID: 0}
-  waitTime: 5
+  gameStatusText: {fileID: 0}

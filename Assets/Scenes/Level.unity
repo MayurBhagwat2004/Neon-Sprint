@@ -771,7 +771,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerScript: {fileID: 1663366241}
   minSpawnInterval: 0.2
-  spawnReductionAmount: 0.1
+  spawnIntervalReductionAmount: 0.2
+  distanceCalculatingSpeedFactor: 0.5
+  speedIncreasingFactor: 3
   distanceInterval: 100
   nextDistanceMilestone: 0
 --- !u!1 &314717836
@@ -2746,18 +2748,6 @@ PrefabInstance:
     - target: {fileID: 62301363666821420, guid: 720e3a574c49202488338eebc8620735, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6343068655346096704, guid: 720e3a574c49202488338eebc8620735, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6343068655346096704, guid: 720e3a574c49202488338eebc8620735, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6569710050080876163, guid: 720e3a574c49202488338eebc8620735, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6918691668539758765, guid: 720e3a574c49202488338eebc8620735, type: 3}
       propertyPath: m_Name
@@ -5493,10 +5483,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParallaxBackground
       objectReference: {fileID: 0}
-    - target: {fileID: 2336311068383176618, guid: 1116a02edf3f8eb45b1aeafeefdfa43d, type: 3}
-      propertyPath: speedIncreasingFactor
-      value: 0.05
-      objectReference: {fileID: 0}
     - target: {fileID: 4625328495661801026, guid: 1116a02edf3f8eb45b1aeafeefdfa43d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5577,18 +5563,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5839934557397713669, guid: 1116a02edf3f8eb45b1aeafeefdfa43d, type: 3}
-      propertyPath: parallaxAmount
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7337439061268057652, guid: 1116a02edf3f8eb45b1aeafeefdfa43d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8204144972087697406, guid: 1116a02edf3f8eb45b1aeafeefdfa43d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5605,18 +5579,6 @@ PrefabInstance:
     - target: {fileID: 1400093356539971371, guid: f30de9d6c9730d449bb89c9005323553, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1587809027750596688, guid: f30de9d6c9730d449bb89c9005323553, type: 3}
-      propertyPath: m_SortingLayer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1587809027750596688, guid: f30de9d6c9730d449bb89c9005323553, type: 3}
-      propertyPath: m_SortingOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1587809027750596688, guid: f30de9d6c9730d449bb89c9005323553, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 890397575
       objectReference: {fileID: 0}
     - target: {fileID: 5121422677618107856, guid: f30de9d6c9730d449bb89c9005323553, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5731,14 +5693,6 @@ PrefabInstance:
       propertyPath: gameStatusPanel
       value: 
       objectReference: {fileID: 1529989195}
-    - target: {fileID: 891557461317354183, guid: 52d2bb15356ea5c40962c79a8e0787af, type: 3}
-      propertyPath: touchScreenText
-      value: 
-      objectReference: {fileID: 116438735}
-    - target: {fileID: 891557461317354183, guid: 52d2bb15356ea5c40962c79a8e0787af, type: 3}
-      propertyPath: energyBarSliderObj
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 891557461317354183, guid: 52d2bb15356ea5c40962c79a8e0787af, type: 3}
       propertyPath: distanceCoveredText
       value: 
