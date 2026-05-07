@@ -30,16 +30,7 @@ public class SceneController : MonoBehaviour
 
         QualitySettings.vSyncCount = 0;
 
-        int monitorRefresh = (int)Screen.currentResolution.refreshRateRatio.value;
-    
-        if (monitorRefresh <= 60)
-        {
-            Application.targetFrameRate = 120; 
-        }
-        else
-        {
-            Application.targetFrameRate = monitorRefresh;
-        }
+        
     }
     void Start()
     {

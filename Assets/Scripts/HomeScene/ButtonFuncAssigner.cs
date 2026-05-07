@@ -7,7 +7,7 @@ public class ButtonFuncAssigner : MonoBehaviour,IPointerEnterHandler,IPointerExi
 {
     public enum ButtonType
     {
-        Play,Settings,Quit,Back,Home,Store,Restart,None
+        Play,Settings,Quit,Back,Home,Store,Restart,None,FPS
     }
 
     public ButtonType buttonType;
@@ -42,6 +42,10 @@ public class ButtonFuncAssigner : MonoBehaviour,IPointerEnterHandler,IPointerExi
                 case ButtonType.None:
                     //Do nothing
                     break;
+                case ButtonType.FPS:
+                    currentButton.onClick.AddListener(ToogleFPS); //Call the toggle method
+                    break;
+
                 case ButtonType.Home:
                     currentButton.onClick.AddListener(GoToHomeFunc); //Call the home scene loading function
                     break;
@@ -135,5 +139,9 @@ public class ButtonFuncAssigner : MonoBehaviour,IPointerEnterHandler,IPointerExi
     void OnDisable()
     {
         transform.localScale = originalSize;
+    }
+    private void ToogleFPS()
+    {
+        FpsManager.Instance.ToggleFPS();
     }
 }
