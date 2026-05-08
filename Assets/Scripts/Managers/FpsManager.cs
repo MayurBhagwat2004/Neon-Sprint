@@ -8,7 +8,7 @@ public class FpsManager : MonoBehaviour
     public static FpsManager Instance;
     public TextMeshProUGUI fpsCounterText;
     private int currentTargetIndex = 0;
-    private int[] fpsOptions = {30,60,120};
+    private int[] fpsOptions = {30,60,120,-1};
     private int monitorRefresh;
     void Awake()
     {
@@ -25,24 +25,13 @@ public class FpsManager : MonoBehaviour
 
         monitorRefresh = (int)Screen.currentResolution.refreshRateRatio.value;
         
-        if (monitorRefresh <= 60)
-        {
-            Application.targetFrameRate = 120;
-            SetFPS(0);
-
-        }
-        else
-        {
-            Application.targetFrameRate = monitorRefresh;
-            SetFPS(2);
-
-        }
+        if (monitorRefresh <= 60) SetFPS(0);
+        else if(monitorRefresh > 60) SetFPS(2);
+        else SetFPS(1);
     }
 
     public void ToggleFPS()
     {
-        if(monitorRefresh <= 60) return;
-
         currentTargetIndex++;
         if(currentTargetIndex >= fpsOptions.Length) currentTargetIndex = 0;
 
@@ -56,7 +45,15 @@ public class FpsManager : MonoBehaviour
         currentTargetIndex = index;
         int target = fpsOptions[currentTargetIndex];
 
-        fpsCounterText.text = target.ToString();
+        if(target == -1)
+        {
+            Debug.Log("Max");
+            fpsCounterText.text = "MAX";
+        }
+        else
+        {
+            fpsCounterText.text = target.ToString();
+        }
 
         Application.targetFrameRate = target;
         QualitySettings.vSyncCount = 0;

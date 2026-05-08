@@ -577,7 +577,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41855203}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -1339,7 +1339,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 546647827}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -3136,7 +3136,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261883928}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -4806,8 +4806,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 60
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4a370165a84cfa1458b06acf600278d5, type: 2}
-  m_sharedMaterial: {fileID: -8621583674047430800, guid: 4a370165a84cfa1458b06acf600278d5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fa55028f35ab30143a32a6d853356186, type: 2}
+  m_sharedMaterial: {fileID: 5276020942837748373, guid: fa55028f35ab30143a32a6d853356186, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5875,7 +5875,7 @@ PrefabInstance:
     - target: {fileID: 7079678749716231846, guid: 5710d138a4828d547bfcf3245e923008, type: 3}
       propertyPath: volumeSlider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 697834516}
     - target: {fileID: 8769059892071102742, guid: 5710d138a4828d547bfcf3245e923008, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.8586188
